@@ -1,0 +1,44 @@
+body{
+    background: #242424;
+    color:white !important;
+}
+
+
+.header{
+    margin: 2%;
+    border-radius: 1rem;
+    background-color: #ffffff30;
+}
+
+.header-pic
+{
+    border-right: 1px solid #ffffff50;
+    padding: 0.5rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    color: white !important;
+}
+
+.nav-link{
+    color: white !important;
+}
+
+tbody tr td{
+    width: 5rem;
+    height: 7rem;
+    background-color: #ffffff30;
+}
+
+table {
+    border-collapse:separate; 
+    border-spacing: 0 0.5em;
+}
+
+.event{
+    border-radius: 1rem;
+    font-size: 0.5rem;
+    background-color: orange;
+    padding-left: 0.5rem;
+    padding-right: 4rem;
+    color: black !important;
+}
