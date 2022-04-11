@@ -1,0 +1,3 @@
+{"_id":{"$oid":"61d400d73aea8d9b36f5f4cc"},"email":"user@user.com","name":"user","password":"$2b$10$Bh6uItj1EUFhzq381rEA4OY231kGiwxUEhcXOc.cqAfWqNRZGoQX6"}
+{"_id":{"$oid":"61d5938ad66bdfa50bb8d1cb"},"email":"admin3@admin.com","name":"admin3","password":"$2b$10$4/E1WiWaAGXnDOg5k3sn3uBy1N39G6tuYfH3hgtkkoI2NXHNMrV4O"}
+{"_id":{"$oid":"61dbf6cf76894e6b1013ebd4"},"email":"admin@admin.com","name":"admin","password":"$2b$10$LnSgqFzUdmB1r/meeueqp.lqU6dl2rtwc5Fm0oOjlbohyz65e4hbK"}

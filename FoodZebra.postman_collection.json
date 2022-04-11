@@ -1,0 +1,338 @@
+{
+	"info": {
+		"_postman_id": "0cbf3b30-69af-45e1-8a47-8821d06c53e3",
+		"name": "FoodZebra",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user@user.com\",\r\n    \"password\" : \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"admin3@admin.com\",\r\n    \"password\" : \"admin3\",\r\n    \"name\":\"admin3\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/auth/register",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUser",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserbyID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users/61d400c63aea8d9b36f5f4c9",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"61d400c63aea8d9b36f5f4c9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRecipeOfUserByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "modifyUser",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"_id\": \"61d400c63aea8d9b36f5f4c9\",\r\n    \"email\": \"admin4@admin.com\",\r\n    \"name\": \"admin\",\r\n    \"password\": \"$2b$10$oSrKeypyeHSj.zskgWSqZ.mjaO6bLsH.MkuygnsvC4XuzxNRF1j4O\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/users/61d400c63aea8d9b36f5f4c9",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"61d400c63aea8d9b36f5f4c9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteUser",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/users/61d400c63aea8d9b36f5f4c9",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"61d400c63aea8d9b36f5f4c9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllRecipe",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"user@user.com\",\r\n    \"password\" : \"user\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/recipe",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRecipeById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/recipe/61d2cb52f010788043a80c18",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe",
+						"61d2cb52f010788043a80c18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getPaginatedRecipe",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/recipe/2/2/2/1",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe",
+						"2",
+						"2",
+						"2",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createRecipe",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Brokkolikrém leves10\",\r\n    \"type\": \"leves\",\r\n    \"difficulty\": 2,\r\n    \"description\": \"valami valami lorem ipsum\",\r\n    \"energy\": 500,\r\n    \"time\": 10,\r\n    \"price\": 1,\r\n    \"ingredients\": {\r\n        \"répa\": \"0.5 darab\",\r\n        \"burgonya\": \"1 darab\",\r\n        \"brokkoli\": \"3 fej\",\r\n        \"tejszín\": \"50ml\",\r\n        \"só\": \"2 csipet\"\r\n    },\r\n    \"serving\": 3,\r\n    \"author\":\"61d5938ad66bdfa50bb8d1cb\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/recipe",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "modifyRecipe",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Brokkolikrém leves2\",\r\n    \"type\": \"leves\",\r\n    \"difficulty\": 2,\r\n    \"description\": \"valami valami lorem ipsum\",\r\n    \"energy\": 500,\r\n    \"time\": 10,\r\n    \"price\": 1,\r\n    \"ingredients\": {\r\n        \"répa\": \"0.5 darab\",\r\n        \"burgonya\": \"1 darab\",\r\n        \"brokkoli\": \"3 fej\",\r\n        \"tejszín\": \"50ml\",\r\n        \"só\": \"2 csipet\"\r\n    },\r\n    \"serving\": 3,\r\n    \"author\": \"Teszt2 ELEk2\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/recipe/61d2cb52f010788043a80c18",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe",
+						"61d2cb52f010788043a80c18"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRecipe",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/recipe/61d2cb52f010788043a80c18",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"recipe",
+						"61d2cb52f010788043a80c18"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "Authorization=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MWQ0MDBkNzNhZWE4ZDliMzZmNWY0Y2MiLCJpYXQiOjE2NDEzODgzOTcsImV4cCI6MTY0MTQ3NDc5N30.laYuZOGZcCyRgjJnsOg92lE2a3q0dq57IXfHUFWWkZM; SameSite=None; Secure; Path=/; Max-Age=86400",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "Cookie",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
