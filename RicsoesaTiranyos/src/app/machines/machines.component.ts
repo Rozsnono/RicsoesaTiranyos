@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-machines',
@@ -7,12 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MachinesComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+  backendURL = "https://ricsoesatiranyos.herokuapp.com";
 
-  machines = {type:"PC", specs: [["Videókártya", "RTX 3090"],["Processzor", "Intel i9 9900k"]]};
+  machines: Array<any>= [];
   displayedColumns = ["specs","type"]
 
   ngOnInit(): void {
+    this.getSpecs();
+  }
+
+  getSpecs(){
+    this.http.get<any[]>(this.backendURL+"/api/machines").subscribe(
+      {
+        next: (data: any) => {this.machines = data; console.log(data);},
+        error: error => console.log(error)
+      }
+    )
+
+    
   }
 
 }
