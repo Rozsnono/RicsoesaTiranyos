@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { startOfDay, startOfHour } from 'date-fns';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { startOfDay, startOfHour } from 'date-fns';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
@@ -22,14 +23,17 @@ export class HomeComponent implements OnInit {
     {
       start: startOfHour(new Date('2022-04-12T11:00')),
       title: 'Call of Duty: WarZone',
+      id: 1
     },
     {
       start: startOfDay(new Date("2022-04-13")),
       title: 'Fortnite',
+      id: 2
     },
     {
       start: startOfDay(new Date("2022-04-10")),
       title: 'Formula1',
+      id: 3
     }
   ]
 
@@ -43,5 +47,14 @@ export class HomeComponent implements OnInit {
     console.log(date);
     this.selectedEvent = events[0].title;
     //this.openAppointmentList(date)
+  }
+
+  getGame(id: number){
+    this.http.get<any[]>("http://localhost:5000/api/ingatlan").subscribe(
+      {
+        next: (data: any) => this.list = data,
+        error: error => console.log(error)
+      }
+    )
   }
 }

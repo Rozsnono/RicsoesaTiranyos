@@ -1,0 +1,16 @@
+.nav{
+    background-color: #ffffff40;
+    margin: 3%;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.navHeader{
+    color: white !important;
+    border-right: 1px solid #ffffff70;
+    padding-right: 1rem;
+}
+
+.nav-link{
+    color:white !important;
+}

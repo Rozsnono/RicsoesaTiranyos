@@ -5,6 +5,29 @@ body{
     background-color: #242424 !important;
 }
 .cal-month-view{
-    background-color: #ffffff00 !important;
+    background-color: #ffffff10 !important;
     color: white !important;
+}
+.cal-today{
+    background-color: #73ff7818 !important;
+}
+
+.cal-cell-row:hover{
+    background-color: #ffffff10 !important;
+}
+
+.cal-day-cell:hover{
+    background-color: #ffffff20 !important;
+}
+
+.cal-day-number{
+    color: #fffffff0 !important;
+}
+
+.cal-weekend .cal-day-number{
+    color: #ff0000f0 !important;
+}
+
+.cal-cell:hover{
+    background-color: #ffffff00 !important;
 }
