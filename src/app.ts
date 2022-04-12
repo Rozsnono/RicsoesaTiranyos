@@ -11,7 +11,6 @@ export default class App {
         this.app = express();
         this.connectToTheDatabase();
         this.app.use(express.json());
-        this.app.use(loggerMiddleware);
         controllers.forEach(controller => {
             this.app.use("/", controller.router);
         });
