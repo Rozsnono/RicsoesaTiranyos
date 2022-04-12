@@ -11,24 +11,13 @@ export default class App {
         this.app = express();
         this.connectToTheDatabase();
         this.app.use(express.json());
+        
+        var express = require('express');
+        var cors = require('cors');
+        this.app.use(cors());
+        
         this.app.use(loggerMiddleware);
         this.initializeControllers(controllers);
-
-        var allowCrossDomain = function(req, res, next) {
-            res.header("Access-Control-Allow-Origin", "*");
-            res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-            res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control");
-        
-            // intercept OPTIONS method
-            if ('OPTIONS' == req.method) {
-              res.send(200);
-            }
-            else {
-              next();
-            }
-        };
-        this.app.use(allowCrossDomain);
-
     }
 
     
