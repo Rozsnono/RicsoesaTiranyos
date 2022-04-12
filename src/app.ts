@@ -13,7 +13,12 @@ export default class App {
         this.app.use(express.json());
         this.app.use(loggerMiddleware);
         this.initializeControllers(controllers);
+
+        var cors = require('cors');
+        this.app.use(cors({origin: 'http://localhost:4200'}));
     }
+
+    
 
     public listen(): void {
         const port = process.env.PORT;
