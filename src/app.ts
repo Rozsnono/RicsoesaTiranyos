@@ -14,9 +14,23 @@ export default class App {
         this.app.use(loggerMiddleware);
         this.initializeControllers(controllers);
 
-        var cors = require('cors');
-        this.app.use(cors({origin: 'http://localhost:4200'}));
+        this.app.use(function (req, res, next) {
+
+            // Website you wish to allow to connect
+            res.setHeader('Access-Control-Allow-Origin', '*');
+        
+            // Request methods you wish to allow
+            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+        
+            // Request headers you wish to allow
+            res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+        
+            next();
+        });
+
     }
+
+    
 
     
 
