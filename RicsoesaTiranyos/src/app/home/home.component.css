@@ -16,3 +16,31 @@
 .hour{
     text-align: right !important;
 }
+
+.eventDetails{
+    margin: 10%;
+    margin-top: 1%;
+    padding: 0.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    border-radius: 3rem;
+    background-image:linear-gradient(to right, rgba(255, 255, 255, 0.300) 60%, rgba(255, 255, 255, 0.0) 100%);
+}
+
+.btn-Watch{
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    margin-top: 1rem;
+    background-color: #A970FF !important;
+    border-color: #A970FF !important;
+}
+
+.eD-img{
+    border-radius: 1rem;
+    box-shadow: 9px 11px 19px 2px #000000;
+    width: 15rem;
+    height: 10rem;
+}
+.row{
+    width: 100%;
+}

@@ -7,6 +7,7 @@ body{
 .cal-month-view{
     background-color: #ffffff10 !important;
     color: white !important;
+    margin: 2%;
 }
 .cal-today{
     background-color: #73ff7818 !important;
