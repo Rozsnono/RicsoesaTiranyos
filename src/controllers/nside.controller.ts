@@ -16,8 +16,10 @@ export default class nsideController implements Controller {
     constructor() {
         this.router.get("/api/dates", this.getAll);
         this.router.get("/api/links", this.getAllLink);
+		this.router.get("/api/links/:id", this.getLinkById);
         this.router.get("/api/machines", this.getAllMachine);
         this.router.get("/api/dates/:id", this.getById);
+		this.router.get("/api/games", this.getAllGames);
         this.router.get("/api/games/:id", this.getByIdGame);
 
         this.router.post("/api/date", this.create);
@@ -26,6 +28,7 @@ export default class nsideController implements Controller {
         this.router.post("/api/machine", this.createMachine);
 
         this.router.put("/api/date/:id", this.modifyPUTdate);
+		this.router.put("/api/game/:id", this.modifyPUTgame);
         this.router.put("/api/link/:id", this.modifyPUTlink);
         this.router.put("/api/machine/:id", this.modifyPUTmachine);
 
@@ -40,10 +43,31 @@ export default class nsideController implements Controller {
             res.status(400).send(error.message);
         }
     };
+	private getAllGames = async (req: Request, res: Response) => {
+        try {
+            const data = await this.onesideM.find();
+            res.send(data);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
     private getAllLink = async (req: Request, res: Response) => {
         try {
             const data = await this.linkM.find();
             res.send(data);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+	private getLinkById = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const document = await this.linkM.findById(id);
+            if (document) {
+                res.send(document);
+            } else {
+                res.status(404).send(`Document with id ${id} not found!`);
+            }
         } catch (error) {
             res.status(400).send(error.message);
         }
@@ -159,6 +183,22 @@ export default class nsideController implements Controller {
             const modificationResult = await this.nsideM.replaceOne({ _id: id }, body, { runValidators: true });
             if (modificationResult.modifiedCount) {
                 const updatedDoc = await this.nsideM.findById(id).populate("game", "-_id");
+                res.send(updatedDoc);
+            } else {
+                res.status(404).send(`Document with id ${id} not found!`);
+            }
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+	
+	private modifyPUTgame = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const body = req.body;
+            const modificationResult = await this.onesideM.replaceOne({ _id: id }, body, { runValidators: true });
+            if (modificationResult.modifiedCount) {
+                const updatedDoc = await this.onesideM.findById(id);
                 res.send(updatedDoc);
             } else {
                 res.status(404).send(`Document with id ${id} not found!`);

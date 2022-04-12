@@ -4,7 +4,7 @@ import { Schema, model } from "mongoose";
 
 const machineSchema = new Schema(
     {
-        _id: String,
+        _id: Number,
         type: {
             type: String,
             required: true,
