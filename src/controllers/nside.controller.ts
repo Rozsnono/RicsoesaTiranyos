@@ -14,6 +14,7 @@ export default class nsideController implements Controller {
     private machineM = machineModel;
 
     constructor() {
+        this.router.get("",this.getAll)
         this.router.get("/api/dates", this.getAll);
         this.router.get("/api/links", this.getAllLink);
 		this.router.get("/api/links/:id", this.getLinkById);
