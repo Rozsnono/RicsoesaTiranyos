@@ -24,7 +24,9 @@
     padding-top: 2rem;
     padding-bottom: 2rem;
     border-radius: 3rem;
-    background-image:linear-gradient(to right, rgba(255, 255, 255, 0.300) 60%, rgba(255, 255, 255, 0.0) 100%);
+    background-color: #ffffff60;
+    border: 1px solid white;
+    box-shadow: 1px 1px 20px 3px rgb(255, 255, 255);
 }
 
 .btn-Watch{
