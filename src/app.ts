@@ -16,7 +16,7 @@ export default class App {
     }
 
     public listen(): void {
-        const port = 5000;
+        const port = process.env.PORT;
         this.app.listen(port, () => {
             console.log(`App listening on the port `, port);
         });
