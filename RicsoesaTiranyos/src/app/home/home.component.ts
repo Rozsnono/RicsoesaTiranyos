@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.getGame();
   }
 
-  
+  backendURL = "http://localhost:5000";
   link: any = "";
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   tmpDate: any;
 
   async getDates(){
-    await this.http.get<any[]>("http://localhost:5000/api/dates").subscribe(
+    await this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
       {
         next: (data: any) => {
           for (let index = 0; index < data.length; index++) {
@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
   }
 
   getGame(){
-    this.http.get<any[]>("http://localhost:5000/api/games").subscribe(
+    this.http.get<any[]>(this.backendURL+"/api/games").subscribe(
       {
         next: (data: any) => this.games = data,
         error: error => console.log(error)
@@ -107,7 +107,7 @@ export class HomeComponent implements OnInit {
   }
 
   getLinkById(){
-    this.http.get<any[]>("http://localhost:5000/api/links/1").subscribe(
+    this.http.get<any[]>(this.backendURL+"/api/links/1").subscribe(
       {
         next: (data: any) => this.link = data.link,
         error: error => console.log(error)
@@ -116,7 +116,7 @@ export class HomeComponent implements OnInit {
   }
 
   getGameId(id: any){
-    this.http.get<any[]>("http://localhost:5000/api/games/"+id).subscribe(
+    this.http.get<any[]>(this.backendURL+"/api/games/"+id).subscribe(
       {
         next: (data: any) => {this.selectedEvent.name = data.name;
           this.selectedEvent.picture = data.picture;},
@@ -126,7 +126,7 @@ export class HomeComponent implements OnInit {
   }
 
   getDateId(id: any){
-    this.http.get<any[]>("http://localhost:5000/api/dates/"+id).subscribe(
+    this.http.get<any[]>(this.backendURL+"/api/dates/"+id).subscribe(
       {
         next: (data: any) => this.selectedEvent = data,
         error: error => console.log(error)
