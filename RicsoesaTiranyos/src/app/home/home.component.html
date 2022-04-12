@@ -33,6 +33,7 @@
             <ng-template #showEventsBlock>
                 <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: 'orange' }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
                     {{event.title}}
+                    {{getGame(event.id)}}
                     <!-- <span class="hour">
                         {{whichHour(event.start)}}
                     </span> -->

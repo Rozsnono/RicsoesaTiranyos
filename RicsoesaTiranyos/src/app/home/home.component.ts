@@ -50,9 +50,9 @@ export class HomeComponent implements OnInit {
   }
 
   getGame(id: number){
-    this.http.get<any[]>("http://localhost:5000/api/ingatlan").subscribe(
+    this.http.get<any[]>("https://ricsoesatiranyos.herokuapp.com/api/games/"+id).subscribe(
       {
-        next: (data: any) => this.list = data,
+        next: (data: any) => console.log(data),
         error: error => console.log(error)
       }
     )
