@@ -1,21 +1,31 @@
 <body>
-        <!-- <div class="row text-center">
-
-        <div class="col-md-4">
-            <div class="btn-group">
-                <button class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
-                    Previous
-                </button>
-                <button class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
-                    Today
-                </button>
-                <button class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
-                    Next
-                </button>
-            </div>
+    <div class="loader" *ngIf="this.events.length == 0">
+        <div class="d-flex align-items-center load">
+            <strong class="me-2">Töltés </strong>
+            <div class="spinner-border ms-auto " role="status" aria-hidden="true"></div>
         </div>
+    </div>
+        <div class="row text-center">
 
-    </div> -->
+            <div class="col-4">
+                <div class="btn-group">
+                    <button class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill  mb-1" viewBox="0 0 16 16">
+                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                          </svg> Előző
+                    </button>
+                    <button class="btn btn-outline-success mx-3 rounded" mwlCalendarToday [(viewDate)]="viewDate">
+                        Jelenlegi
+                    </button>
+                    <button class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+                        Következő <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill mb-1" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                          </svg>
+                    </button>
+                </div>
+            </div>
+
+        </div>
 
     <mwl-calendar-month-view (dayClicked)="dayClicked($event.day)" [viewDate]="viewDate" [events]="events" [weekStartsOn]="1" [cellTemplate]="customCellTemplate">
     </mwl-calendar-month-view>

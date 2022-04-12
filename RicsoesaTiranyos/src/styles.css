@@ -33,3 +33,23 @@ body{
 .cal-cell:hover{
     background-color: #ffffff00 !important;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-tab-label{
+    color: white !important;
+}
+
+.mat-table{
+    background-color: #ffffff20 !important;
+    color: white !important;
+}
+
+.mat-header-cell{
+    color: #ffffff90 !important;
+}
+
+.mat-cell{
+    color: white !important;
+}

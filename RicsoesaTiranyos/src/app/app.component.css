@@ -14,3 +14,14 @@
 .nav-link{
     color:white !important;
 }
+
+.tw-btn:hover{
+    color: white !important;
+    border-color: none !important;
+    background-color: #803af0 !important;
+}
+
+.tw-btn{
+    border-color: #803af0 !important;
+    color: #803af0 !important;
+}

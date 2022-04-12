@@ -42,8 +42,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  events: CalendarEvent[] = [
-  ]
+  events: CalendarEvent[] = [];
 
   selectedEvent: any;
 
@@ -84,6 +83,7 @@ export class HomeComponent implements OnInit {
     
     return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[2].split('.')[0];
   }
+
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.selectedEvent = null;
