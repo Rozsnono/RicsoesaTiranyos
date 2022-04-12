@@ -1,7 +1,7 @@
 {
-    "name": "FoodZebra",
+    "name": "RicsoesaTiranyos",
     "version": "1.0.0",
-    "description": "FoodZebra",
+    "description": "RicsoesaTiranyos",
     "engines": {
         "node": "14.x"
     },
@@ -9,7 +9,7 @@
     "repository": {
         "private": false,
         "type": "git",
-        "url": "https://github.com/Rozsnono/FoodZebra.git"
+        "url": "https://github.com/Rozsnono/RicsoesaTiranyos.git"
     },
     "scripts": {
         "start": "node ./dist/server.js",
