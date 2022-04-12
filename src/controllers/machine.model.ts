@@ -5,6 +5,10 @@ import { Schema, model } from "mongoose";
 const machineSchema = new Schema(
     {
         _id: Number,
+        name: {
+            type: String,
+            required: true,
+        },
         type: {
             type: String,
             required: true,
