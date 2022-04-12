@@ -10,7 +10,7 @@ const machineSchema = new Schema(
             required: true,
         },
         specs: {
-            type: Object,
+            type: Array,
             required: true,
         },
     },
