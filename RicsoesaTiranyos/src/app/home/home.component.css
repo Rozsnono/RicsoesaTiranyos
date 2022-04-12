@@ -1,0 +1,21 @@
+.cal-day-badge{
+    display: none !important;
+}
+
+.cal-events{
+    padding: 0.4rem;
+    border-radius: 1rem;
+}
+
+.cal-days{
+    background-color: #ffffff30 !important;
+}
+
+.cal-month-view{
+    background-color: #ffffff00 !important;
+    color: white !important;
+}
+
+.hour{
+    text-align: right !important;
+}

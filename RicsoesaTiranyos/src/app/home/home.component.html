@@ -1,0 +1,52 @@
+<div class="row text-center">
+
+    <div class="col-md-4">
+        <div class="btn-group">
+            <button class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+                Previous
+            </button>
+            <button class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+                Today
+            </button>
+            <button class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+                Next
+            </button>
+        </div>
+    </div>
+
+</div>
+
+<mwl-calendar-month-view (dayClicked)="dayClicked($event.day)" [viewDate]="viewDate" [events]="events" [weekStartsOn]="1" [cellTemplate]="customCellTemplate">
+</mwl-calendar-month-view>
+
+<ng-template #customCellTemplate let-day="day" let-locale="locale" let-tooltipPlacement="tooltipPlacement" let-highlightDay="highlightDay" let-unhighlightDay="unhighlightDay" let-eventClicked="eventClicked" let-tooltipTemplate="tooltipTemplate" let-tooltipAppendToBody="tooltipAppendToBody" let-tooltipDelay="tooltipDelay">
+    <div class="cal-cell-top">
+        <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
+            {{ day.badgeTotal }}</span>
+        <span class="cal-day-number">
+            {{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+    </div>
+    <div *ngIf="day.events.length > 0">
+        <div *ngFor="let event of day.events; index as i">
+            <ng-template *ngIf="i < 1; then showEventsBlock; else showMoreBlock">
+            </ng-template>
+            <ng-template #showEventsBlock>
+                <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: 'orange' }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                    {{event.title}}
+                    <span class="hour">
+                        {{whichHour(event.start)}}
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template #showMoreBlock>
+                <ng-container *ngIf="i === 1">
+                </ng-container>
+            </ng-template>
+        </div>
+    </div>
+
+</ng-template>
+
+<div>
+    <h1>{{selectedEvent}}</h1>
+</div>
