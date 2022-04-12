@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
+import * as cors from "cors";
 import loggerMiddleware from "./middleware/logger.middleware";
 import IController from "./interfaces/controller.interface";
 import onesideModel from "./controllers/oneside.model";
@@ -11,10 +12,12 @@ export default class App {
         this.app = express();
         this.connectToTheDatabase();
         this.app.use(express.json());
-        
-        var express = require('express');
-        var cors = require('cors');
-        this.app.use(cors());
+        this.app.use(
+            cors({
+                origin: ["http://localhost:4200", "https://62385fa42035230008f160f0--foodzebra.netlify.app"],
+                credentials: true,
+            }),
+        );
         
         this.app.use(loggerMiddleware);
         this.initializeControllers(controllers);
