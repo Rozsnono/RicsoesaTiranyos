@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     this.getGame();
   }
 
-  backendURL = "http://localhost:5000";
+  backendURL = "https://ricsoesatiranyos.herokuapp.com";
   link: any = "";
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
