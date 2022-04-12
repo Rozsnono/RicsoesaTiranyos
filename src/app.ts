@@ -1,5 +1,6 @@
 import * as express from "express";
 import * as mongoose from "mongoose";
+import loggerMiddleware from "./middleware/logger.middleware";
 import IController from "./interfaces/controller.interface";
 import onesideModel from "./controllers/oneside.model";
 
@@ -9,6 +10,8 @@ export default class App {
     constructor(controllers: IController[]) {
         this.app = express();
         this.connectToTheDatabase();
+        this.app.use(express.json());
+        this.app.use(loggerMiddleware);
         this.initializeControllers(controllers);
     }
 
