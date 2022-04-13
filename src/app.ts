@@ -12,13 +12,19 @@ export default class App {
         this.app = express();
         this.connectToTheDatabase();
         this.app.use(express.json());
-        this.app.use(
-            cors({
-                origin: ["https://6256e3e7c649312efddd8a75--ricsoesatiranyos2.netlify.app/"],
-                methods: ["GET", "POST", "DELETE"],
-                credentials: true,
-            }),
-        );
+        const allowedOrigins = ["https://6256e3e7c649312efddd8a75--ricsoesatiranyos2.netlify.app/",
+        'localhost:4200'];
+        this.app.use(cors({
+            origin: function(origin, callback){
+              if(!origin) return callback(null, true);
+              if(allowedOrigins.indexOf(origin) === -1){
+                const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+                return callback(new Error(msg), false);
+              }
+              return callback(null, true);
+            }
+          
+        }));
         
         this.app.use(loggerMiddleware);
         this.initializeControllers(controllers);
