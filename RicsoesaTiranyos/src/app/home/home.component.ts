@@ -98,7 +98,7 @@ export class HomeComponent implements OnInit {
     this.selectedEvent = null;
     if(events.length != 0){
       this.getDateId(events[0].id);
-      this.tmpDate = date.getFullYear() + ". " + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + ". " + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+      this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
       this.selectedEvent.date = this.tmpDate;
       
       this.selectedEvent.selected = true;
@@ -141,10 +141,28 @@ export class HomeComponent implements OnInit {
   getDateId(id: any){
     this.http.get<any[]>(this.backendURL+"/api/dates/"+id).subscribe(
       {
-        next: (data: any) => this.selectedEvent = data,
+        next: (data: any) => {this.selectedEvent = data; console.log(this.selectedEvent);},
         error: error => console.log(error)
       }
     )
+  }
+
+  toCalendarDate():any{
+    const date = new Date(this.selectedEvent.date);
+    return date.getFullYear() + "/" + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + "/" + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1));
+  }
+
+  toCalendarTime(type: any): any{
+    
+    let dates = this.selectedEvent.date.toString().split('.')[0].split(':')[0] + ":" + this.selectedEvent.date.toString().split('.')[0].split(':')[1];
+    dates = dates.split('T')[0] + 'T' + (parseInt(dates.split('T')[1].split(':')[0])-2) + ":" + dates.split('T')[1].split(':')[1];
+    const date = new Date(dates);
+
+    if(date.getHours() > 12){
+
+      return (type === "start" ? (date.getHours() - 12) : (date.getHours() - 11) ) + ":" + date.getMinutes() + " pm";
+    }
+    return (type === "start" ? (date.getHours()) : (date.getHours() + 1) ) + ":" + date.getMinutes() + " am";
   }
 
   PicToBase64(pic: string){

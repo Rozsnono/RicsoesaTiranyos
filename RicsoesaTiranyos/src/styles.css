@@ -58,3 +58,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .cal-month-view .cal-day-cell.cal-today .cal-day-number {
     font-size: 1.2em !important;
 }
+
+app-add-to-calendar button{
+    margin-left: 1rem !important;
+    height: 2rem;
+}

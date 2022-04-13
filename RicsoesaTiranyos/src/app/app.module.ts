@@ -17,6 +17,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import { AddToCalendarModule } from 'add-events-to-google-calendar';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import {MatIconModule} from '@angular/material/icon';
     MatProgressBarModule,
     MatButtonModule,
     MatIconModule,
+    AddToCalendarModule,
     
     CalendarModule.forRoot({
       provide: DateAdapter,

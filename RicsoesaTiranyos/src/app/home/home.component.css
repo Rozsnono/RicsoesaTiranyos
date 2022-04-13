@@ -32,9 +32,13 @@
 .btn-Watch{
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    margin-top: 1rem;
+
     background-color: #A970FF !important;
     border-color: #A970FF !important;
+}
+
+.buttons{
+    margin-top: 1rem;
 }
 
 .eD-img{
@@ -81,3 +85,4 @@
     color: green;
     background-color: #00000000;
 }
+
