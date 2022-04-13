@@ -53,3 +53,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mat-cell{
     color: white !important;
 }
+
+.mat-form-field-flex {
+    background-color: #fffffff0 !important;
+}
+
+mat-form-field{
+    width: 100% !important;
+}

@@ -33,8 +33,6 @@
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     margin-top: 1rem;
-    background-color: #A970FF !important;
-    border-color: #A970FF !important;
 }
 
 .eD-img{
@@ -65,4 +63,12 @@
     font-size: 2vw;
     padding: 2rem;
     border-radius: 1rem;
+}
+
+.ColorPicker{
+    width: 1rem !important;
+}
+
+.Time{
+    height: 3.7rem !important;
 }
