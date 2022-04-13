@@ -75,3 +75,9 @@
 .row{
     margin: 0 !important;
 }
+
+.mat-success {
+    border: 2px solid green;
+    color: green;
+    background-color: #00000000;
+}

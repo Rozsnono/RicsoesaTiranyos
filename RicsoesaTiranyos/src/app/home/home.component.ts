@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { startOfDay, startOfHour } from 'date-fns';
+import { isThisQuarter, startOfDay, startOfHour } from 'date-fns';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -50,7 +50,9 @@ export class HomeComponent implements OnInit {
   tmpEvents: any[] = [];
   tmpDate: any;
 
+  eventLoaded: any = false;
 
+  dialogClose2: any = 'none';
 
   async getDates(){
     await this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
@@ -75,7 +77,9 @@ export class HomeComponent implements OnInit {
             } 
             
           }
+          this.eventLoaded = true;
           this.events = this.tmpEvents;
+          if(this.events.length == 0) this.dialogClose2 = 'block';
 
         },
         error: error => console.log(error)

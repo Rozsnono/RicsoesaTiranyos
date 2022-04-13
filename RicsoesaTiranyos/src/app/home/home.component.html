@@ -1,27 +1,44 @@
 <body>
-    <div class="loader" *ngIf="this.events.length == 0">
+    <div class="loader" *ngIf="!eventLoaded">
         <div class="load">
             <strong class="mt-5">Töltés </strong>
             <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
     </div>
+
+    <div class="modal" style="margin-top: 20%;" [style]="{display: dialogClose2}">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">
+                <span>Információ</span></h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="dialogClose2 = 'none'"></button>
+            </div>
+            <div class="modal-body">
+              <p>Sajnáljuk, jelenleg nincsen előre tervezett Stream a közeljövőben!</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="dialogClose2 = 'none'">Értem</button>
+            </div>
+          </div>
+        </div>
+      </div>
         <div class="row text-center">
 
-            <div class="col-4">
+            <div class="col-3">
                 <div class="btn-group">
-                    <button class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill  mb-1" viewBox="0 0 16 16">
-                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                          </svg> Előző
-                    </button>
-                    <button class="btn btn-outline-success mx-3 rounded" mwlCalendarToday [(viewDate)]="viewDate">
-                        Jelenlegi
-                    </button>
-                    <button class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
-                        Következő <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill mb-1" viewBox="0 0 16 16">
-                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                          </svg>
-                    </button>
+
+                      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+                        <mat-icon>chevron_left</mat-icon>
+                      </button>
+                      <button mat-fab color="success" class="mx-3" aria-label="Example icon button with a delete icon" mwlCalendarToday [(viewDate)]="viewDate">
+                        <mat-icon>home</mat-icon>
+                      </button>
+                      <button mat-fab color="primary" aria-label="Example icon button with a delete icon" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+                        <mat-icon>navigate_next</mat-icon>
+                      </button>
+                      
+                      
                 </div>
             </div>
 
