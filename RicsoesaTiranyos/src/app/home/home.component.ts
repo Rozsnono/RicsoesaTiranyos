@@ -162,6 +162,7 @@ export class HomeComponent implements OnInit {
             },
             error: error => {
                 console.error('There was an error!', error);
+                window.location.reload();
             }
         });
   }
@@ -172,6 +173,8 @@ export class HomeComponent implements OnInit {
   tmpEvent: any;
   tmpEvents: any[] = [];
   tmpDate: any;
+
+  loaded: boolean = false;
 
   selectedGame: any;
   selectControl = new FormControl('', Validators.required);
@@ -198,7 +201,7 @@ export class HomeComponent implements OnInit {
             });
           }
           this.events = this.tmpEvents;
-
+          this.loaded = true;
         },
         error: error => console.log(error)
       }
