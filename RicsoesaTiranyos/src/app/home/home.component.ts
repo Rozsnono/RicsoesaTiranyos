@@ -187,7 +187,7 @@ export class HomeComponent implements OnInit {
   deleteGameId: any;
 
   deleteGame(){
-    this.http.delete(this.backendURL + "/api/game/" + this.deleteGameId )
+    this.http.delete(this.backendURL + "/api/games/" + this.deleteGameId )
         .subscribe({
             next: data => {
               window.location.reload();
