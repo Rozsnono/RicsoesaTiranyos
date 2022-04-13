@@ -246,7 +246,7 @@ export default class nsideController implements Controller {
             const id = req.params.id;
             const successResponse = await this.nsideM.findByIdAndDelete(id);
             if (successResponse) {
-                res.sendStatus(200);
+                res.status(200).send('OK');
             } else {
                 res.status(404).send(`Document with id ${id} not found!`);
             }
