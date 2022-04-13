@@ -47,6 +47,8 @@ export class HomeComponent implements OnInit {
     }
   }
   
+  dialogClose: String = 'none';
+
   games: any[] = [];
   events: CalendarEvent[] = [];
 
@@ -133,6 +135,8 @@ export class HomeComponent implements OnInit {
         next: (data: any) => {window.location.reload();},
         error: error => {this.errorMessage = true; console.log(error.message);}
       })
+    }else{
+      this.errorMessage = true;
     }
     
     
@@ -164,6 +168,26 @@ export class HomeComponent implements OnInit {
 
   deleteDate(){
     this.http.delete(this.backendURL + "/api/dates/" + this.deleteId)
+        .subscribe({
+            next: data => {
+              window.location.reload();
+            },
+            error: error => {
+                console.error('There was an error!', error);
+                if(error.status == 200) window.location.reload();
+            }
+        });
+  }
+
+  deletingGame(id: any){
+    this.dialogClose = 'block';
+    this.deleteGameId = id;
+  }
+
+  deleteGameId: any;
+
+  deleteGame(){
+    this.http.delete(this.backendURL + "/api/game/" + this.deleteGameId )
         .subscribe({
             next: data => {
               window.location.reload();
