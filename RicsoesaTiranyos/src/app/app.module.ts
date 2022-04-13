@@ -11,8 +11,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MachinesComponent } from './machines/machines.component';
 import { MatTabsModule } from '@angular/material/tabs';
-import {MatTableModule} from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 @NgModule({
@@ -36,7 +37,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'hu-HU'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
