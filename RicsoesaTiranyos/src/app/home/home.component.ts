@@ -75,8 +75,11 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  handleReaderLoaded(e: any) {
-    this.base64textString = btoa(e.target.result);
+  async handleReaderLoaded(e: any) {
+    console.log(this.PicToBase64(btoa(e.target.result)));
+    await this.compressImage(this.PicToBase64(btoa(e.target.result)), 150, 100).then(compressed => {
+      this.base64textString = compressed.toString().split(',')[1];
+    })
     console.log(this.base64textString);
   }
 
@@ -141,9 +144,33 @@ export class HomeComponent implements OnInit {
     
     
   }
+
+  compressImage(src:any, newX:any, newY:any) {
+    return new Promise((res, rej) => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        const elem = document.createElement('canvas');
+        elem.width = newX;
+        elem.height = newY;
+        const ctx = elem.getContext('2d');
+        ctx.drawImage(img, 0, 0, newX, newY);
+        const data = ctx.canvas.toDataURL();
+        console.log(data);
+        res(data);
+      }
+      img.onerror = error => rej(error);
+    })
+  }
+
   gameAdded: any;
   newGameAdd(){
-    const newID = this.games[this.games.length-1]._id+1;
+    let newID;
+    if(this.games.length == 0){
+      newID = 1;
+    }else{
+      newID = this.games[this.games.length-1]._id+1
+    }
 
     const model = {
       _id: Number,
@@ -156,7 +183,6 @@ export class HomeComponent implements OnInit {
     model.name = this.NewGameName;
     model.color = this.NewGameColor ? this.NewGameColor : "#000";
     model.picture = this.base64textString;
-
     
     this.http.post(this.backendURL + "/api/game",model).subscribe({
         next: (data: any) => {this.gameAdded = true;},
