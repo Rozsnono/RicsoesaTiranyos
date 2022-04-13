@@ -15,6 +15,7 @@ export default class App {
         this.app.use(
             cors({
                 origin: ["https://6256e3e7c649312efddd8a75--ricsoesatiranyos2.netlify.app/"],
+                methods: ["GET", "POST", "DELETE"],
                 credentials: true,
             }),
         );
