@@ -1,6 +1,12 @@
+.link{
+    margin-top: 2%;
+    margin-right: 4%;
+}
+
 .nav{
     background-color: #ffffff40;
     margin: 3%;
+    margin-top: 0.5%;
     padding: 1rem;
     border-radius: 1rem;
 }
