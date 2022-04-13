@@ -12,7 +12,8 @@ export class MachinesComponent implements OnInit {
   backendURL = "https://ricsoesatiranyos.herokuapp.com";
 
   machines: Array<any>= [];
-  displayedColumns = ["specs","type"]
+  displayedColumns = ["specs","type"];
+  machinesCount: any;
 
   ngOnInit(): void {
     this.getSpecs();
@@ -21,7 +22,7 @@ export class MachinesComponent implements OnInit {
   getSpecs(){
     this.http.get<any[]>(this.backendURL+"/api/machines").subscribe(
       {
-        next: (data: any) => {this.machines = data; console.log(data);},
+        next: (data: any) => {this.machines = data; this.machinesCount = data.length},
         error: error => console.log(error)
       }
     )
