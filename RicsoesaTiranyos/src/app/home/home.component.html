@@ -1,8 +1,8 @@
 <body>
     <div class="loader" *ngIf="this.events.length == 0">
-        <div class="d-flex align-items-center load">
-            <strong class="me-2">Töltés </strong>
-            <div class="spinner-border ms-auto " role="status" aria-hidden="true"></div>
+        <div class="load">
+            <strong class="mt-5">Töltés </strong>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
         </div>
     </div>
         <div class="row text-center">

@@ -14,6 +14,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
     FormsModule,
     MatTabsModule,
     MatTableModule,
+    MatProgressBarModule,
     
     CalendarModule.forRoot({
       provide: DateAdapter,
