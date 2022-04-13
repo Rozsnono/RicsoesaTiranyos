@@ -18,7 +18,7 @@ import { id } from 'date-fns/locale';
 
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router, @Inject(MAT_DATE_LOCALE) private _locale: string) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
 
   ngOnInit() {
@@ -95,38 +95,46 @@ export class HomeComponent implements OnInit {
   async newDateAdd(){
     let d = new Date(this.newDateDate);
     this.newDateDate = d.getFullYear() + "-" + ((d.getMonth()+1) < 10 ? '0' +(d.getMonth()+1) : (d.getMonth()+1)) + "-" + ((d.getDate()) < 10 ? '0' +(d.getDate()) : (d.getDate())) + "T" + this.time.toString();
-    console.log(this.newDateDate);
+    if(new Date(this.newDateDate) >= new Date()){
+      console.log(this.newDateDate);
 
-    console.log(this.newDateGameId);
+      console.log(this.newDateGameId);
 
-    
-    if(this.newDateGameId == 99){
-      await this.newGameAdd();
-    }else{
-      await this.getGameId(this.newDateGameId);
+      
+      if(this.newDateGameId == 99){
+        await this.newGameAdd();
+      }else{
+        await this.getGameId(this.newDateGameId);
+      }
+
+      console.log(this.events);
+      let tmp: any;
+      if(this.events.length == 0){
+        tmp = 1;
+      }else{
+        tmp = this.events[this.events.length-1].id;
+      }
+      let tmpNumber: any = parseInt(tmp)+1;
+      this.model._id = tmpNumber;
+      this.model.date = this.newDateDate.toString();
+
+      const newModel = {
+        _id: Number,
+        game: Number,
+        date: String
+      }
+
+      newModel._id = this.model._id;
+      newModel.game = this.model.game;
+      newModel.date = this.model.date;
+      
+
+      this.http.post(this.backendURL + "/api/date",newModel).subscribe({
+        next: (data: any) => {window.location.reload();},
+        error: error => {this.errorMessage = true; console.log(error.message);}
+      })
     }
-
-    console.log(this.events);
-    let tmp :any = this.events[this.events.length-1].id;
-    let tmpNumber: any = parseInt(tmp)+1;
-    this.model._id = tmpNumber;
-    this.model.date = this.newDateDate.toString();
-
-    const newModel = {
-      _id: Number,
-      game: Number,
-      date: String
-    }
-
-    newModel._id = this.model._id;
-    newModel.game = this.model.game;
-    newModel.date = this.model.date;
     
-
-    this.http.post(this.backendURL + "/api/date",newModel).subscribe({
-      next: (data: any) => {window.location.reload();},
-      error: error => {this.errorMessage = true; console.log(error.message);}
-    })
     
   }
   gameAdded: any;
@@ -162,7 +170,7 @@ export class HomeComponent implements OnInit {
             },
             error: error => {
                 console.error('There was an error!', error);
-                window.location.reload();
+                if(error.status == 200) window.location.reload();
             }
         });
   }
