@@ -36,6 +36,7 @@ export default class nsideController implements Controller {
         this.router.put("/api/machine/:id", this.modifyPUTmachine);
 
         this.router.delete("/api/dates/:id", this.delete);
+        this.router.delete("/api/games/:id", this.deleteGame);
     }
 
     private getAll = async (req: Request, res: Response) => {
@@ -245,6 +246,20 @@ export default class nsideController implements Controller {
         try {
             const id = req.params.id;
             const successResponse = await this.nsideM.findByIdAndDelete(id);
+            if (successResponse) {
+                res.status(200).send('OK');
+            } else {
+                res.status(404).send(`Document with id ${id} not found!`);
+            }
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private deleteGame = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const successResponse = await this.onesideM.findByIdAndDelete(id);
             if (successResponse) {
                 res.status(200).send('OK');
             } else {
