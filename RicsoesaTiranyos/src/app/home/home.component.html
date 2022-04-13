@@ -42,8 +42,8 @@
                 <ng-template *ngIf="i < 1; then showEventsBlock; else showMoreBlock">
                 </ng-template>
                 <ng-template #showEventsBlock>
-                    <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
-                        {{event.title}}
+                    <div class="cal-events " *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                        <span class="d-lg-block d-none">{{event.title}}</span>
                     </div>
                 </ng-template>
                 <ng-template #showMoreBlock>
