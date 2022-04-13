@@ -50,6 +50,8 @@ export class HomeComponent implements OnInit {
   tmpEvents: any[] = [];
   tmpDate: any;
 
+
+
   async getDates(){
     await this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
       {
@@ -63,12 +65,15 @@ export class HomeComponent implements OnInit {
               }
             };
             Object.assign(this.colors, tmpObj);
-            this.tmpEvents.push({
-              start: new Date((data[index].date).toString().split('.')[0]),
-              title: data[index].game.name,
-              id: data[index]._id,
-              color: this.colors[tmpName]
-            });
+            if(new Date(data[index].date) >= new Date()){
+              this.tmpEvents.push({
+                start: new Date((data[index].date).toString().split('.')[0]),
+                title: data[index].game.name,
+                id: data[index]._id,
+                color: this.colors[tmpName]
+              });
+            } 
+            
           }
           this.events = this.tmpEvents;
 

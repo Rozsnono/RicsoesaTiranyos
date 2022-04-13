@@ -2,7 +2,7 @@
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 body{
-    background-color: #242424 !important;
+    background-image: radial-gradient(#242222, #242222) !important;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }
 .cal-month-view{
@@ -43,6 +43,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .mat-table{
     background-color: #ffffff20 !important;
+
     color: white !important;
 }
 
