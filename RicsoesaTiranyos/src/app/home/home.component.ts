@@ -96,11 +96,14 @@ export class HomeComponent implements OnInit {
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.selectedEvent = null;
-    this.getDateId(events[0].id);
-    this.tmpDate = date.getFullYear() + ". " + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + ". " + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-    this.selectedEvent.date = this.tmpDate;
+    if(events.length != 0){
+      this.getDateId(events[0].id);
+      this.tmpDate = date.getFullYear() + ". " + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + ". " + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+      this.selectedEvent.date = this.tmpDate;
+      
+      this.selectedEvent.selected = true;
+    }
     
-    this.selectedEvent.selected = true;
     
 
     //this.openAppointmentList(date)
