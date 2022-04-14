@@ -76,10 +76,12 @@ export class HomeComponent implements OnInit {
   }
 
   async handleReaderLoaded(e: any) {
-    console.log(this.PicToBase64(btoa(e.target.result)));
-    await this.compressImage(this.PicToBase64(btoa(e.target.result)), 150, 100).then(compressed => {
-      this.base64textString = compressed.toString().split(',')[1];
-    })
+    this.base64textString = btoa(e.target.result);
+
+    // console.log(this.PicToBase64(btoa(e.target.result)));
+    // await this.compressImage(this.PicToBase64(btoa(e.target.result)), 150, 100).then(compressed => {
+    //   this.base64textString = compressed.toString().split(',')[1];
+    // })
     console.log(this.base64textString);
   }
 
@@ -144,6 +146,17 @@ export class HomeComponent implements OnInit {
     }
     
     
+  }
+
+  alreadyDelete(){
+    this.events.forEach(element => {
+      if(new Date(element.start) <= new Date()){
+        this.http.delete(this.backendURL + "/api/dates/"+element.id).subscribe({
+          next: (data: any) => {window.location.reload();},
+          error: error => {this.errorMessage = true; console.log(error.message); window.location.reload();}
+        })
+      }
+    });
   }
 
   compressImage(src:any, newX:any, newY:any) {
@@ -271,7 +284,7 @@ export class HomeComponent implements OnInit {
   whichHour(tmpdate: any): string {
     let date = tmpdate.split('T');
     
-    return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[2].split('.')[0];
+    return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[1].split('.')[0];
   }
 
   deleteId: any;

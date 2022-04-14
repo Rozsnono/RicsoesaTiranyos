@@ -47,6 +47,12 @@
               <h3 class="mt-2">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
             </div>
 
+            <div class="col-lg-4 col-12 text-light">
+              <button class="btn btn-warning" (click)="alreadyDelete()">
+                Volt események törlése 
+            </button>
+            </div>
+
         </div>
 
     <mwl-calendar-month-view (dayClicked)="dayClicked($event.day)" [viewDate]="viewDate" [events]="events" [weekStartsOn]="1" [cellTemplate]="customCellTemplate">
