@@ -1,0 +1,75 @@
+.parent {
+    /* border: 1px solid blue; */
+    overflow: hidden;
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    height: 15rem;
+}
+
+.child {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    -o-transition: all .5s;
+    transition: all .5s;
+}
+
+.youtube_link{
+    display: none;
+    font-size: 35px;
+    color: #ffffff !important;
+    font-family: sans-serif;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 50px;
+    cursor: pointer;
+    /*text-decoration: none;*/
+}
+
+.parent:hover .child, .parent:focus .child {
+    -ms-transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
+.parent:hover .child:before, .parent:focus .child:before {
+    display: block;
+}
+
+.parent:hover a, .parent:focus a {
+    display: block;
+}
+
+.child:before {
+    content: "";
+    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #00000070;
+}
+
+@media screen and (max-width: 960px) {
+    .parent {width: 100%; margin: 20px 0px}
+    .wrapper {padding: 20px 20px;}
+}
+
+.card{
+    background-color: #00000090 !important;
+    color: white;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}

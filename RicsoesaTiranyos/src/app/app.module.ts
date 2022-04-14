@@ -18,13 +18,16 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { AddToCalendarModule } from 'add-events-to-google-calendar';
+import {MatCardModule} from '@angular/material/card';
+import { VideosComponent } from './videos/videos.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    MachinesComponent
+    MachinesComponent,
+    VideosComponent
   ],
   imports: [
     HttpClientModule,
@@ -37,6 +40,7 @@ import { AddToCalendarModule } from 'add-events-to-google-calendar';
     MatButtonModule,
     MatIconModule,
     AddToCalendarModule,
+    MatCardModule,
     
     CalendarModule.forRoot({
       provide: DateAdapter,
