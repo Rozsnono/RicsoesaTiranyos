@@ -1,18 +1,20 @@
 <div class="container">
     <div class="row">
-        <div class="col-12 col-lg-3">
-            <div class="card" >
+        <div class="col-12 col-lg-3" *ngFor="let link of links">
+            <div class="card">
                 <div class="card-img-top parent">
-                    <div class="child" style="background-image: url(../../assets/wallpaper.jpg);">
-                        <a href="youtube.com" class="youtube_link"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                    <div class="child" [style.background-image]="'url(' + PicToBase64(link.picture) + ')'">
+                        <a [href]="link.link" class="youtube_link"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
                             <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
                           </svg></a>
                     </div>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title"> {{link.name}} </h5>
+                  <p class="card-text">{{toCorrectTime(link.date)}}</p>
+                  <mat-chip-list>
+                    <mat-chip *ngFor="let type of link.type"> {{ type }} </mat-chip>
+                  </mat-chip-list>                  
                 </div>
               </div>
         </div>

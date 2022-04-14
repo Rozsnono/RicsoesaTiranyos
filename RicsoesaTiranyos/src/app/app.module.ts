@@ -20,6 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 import { AddToCalendarModule } from 'add-events-to-google-calendar';
 import {MatCardModule} from '@angular/material/card';
 import { VideosComponent } from './videos/videos.component';
+import {MatChipsModule} from '@angular/material/chips';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { VideosComponent } from './videos/videos.component';
     MatIconModule,
     AddToCalendarModule,
     MatCardModule,
+    MatChipsModule,
     
     CalendarModule.forRoot({
       provide: DateAdapter,
