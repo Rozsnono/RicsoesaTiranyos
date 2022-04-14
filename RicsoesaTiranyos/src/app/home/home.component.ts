@@ -99,6 +99,7 @@ export class HomeComponent implements OnInit {
 
   async newDateAdd(){
     let d = new Date(this.newDateDate);
+    console.log(this.time);
     this.newDateDate = d.getFullYear() + "-" + ((d.getMonth()+1) < 10 ? '0' +(d.getMonth()+1) : (d.getMonth()+1)) + "-" + ((d.getDate()) < 10 ? '0' +(d.getDate()) : (d.getDate())) + "T" + this.time.toString();
     if(new Date(this.newDateDate) >= new Date()){
       console.log(this.newDateDate);
