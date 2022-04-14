@@ -16,6 +16,8 @@ export class MachinesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSpecs();
+
+    
   }
 
   getSpecs(){
