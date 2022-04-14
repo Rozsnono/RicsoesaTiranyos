@@ -185,11 +185,12 @@ export class HomeComponent implements OnInit {
     model.picture = this.base64textString;
     
     this.http.post(this.backendURL + "/api/game",model).subscribe({
-        next: (data: any) => {this.gameAdded = true;},
+        next: (data: any) => {this.gameAdded = true; this.getGame();},
         error: error => {this.errorMessage = true; console.log(error.message)}
     })
 
     this.gameId = newID;
+    
   }
 
   deleteDate(){
