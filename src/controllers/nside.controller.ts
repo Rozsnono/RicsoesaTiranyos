@@ -42,7 +42,7 @@ export default class nsideController implements Controller {
 
         this.router.delete("/api/dates/:id", this.delete);
         this.router.delete("/api/games/:id", this.deleteGame);
-        this.router.delete("/api/youtube", this.deleteYoutube);
+        this.router.delete("/api/youtube/:id", this.deleteYoutube);
     }
 
     private getAll = async (req: Request, res: Response) => {
