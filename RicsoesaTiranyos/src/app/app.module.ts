@@ -20,6 +20,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatCardModule} from '@angular/material/card';
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {MatDialogModule} from '@angular/material/dialog';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDialogModule,
+    MatCardModule,
 
     CalendarModule.forRoot({
       provide: DateAdapter,

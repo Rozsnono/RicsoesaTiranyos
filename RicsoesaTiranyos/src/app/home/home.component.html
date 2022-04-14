@@ -143,6 +143,10 @@
                     <button type="submit" class="btn btn-success" (click)="newGameAdd()">Mentés</button>
                   </div>
 
+                  <div class="col-12" *ngIf="newDateGameId == 99">
+                    <div class="alert alert-info text-center"><a href="https://www.reduceimages.com/">Új játék hozzáadásához szükséges a kép méretének csökkentése! (600px * 400px)</a></div>
+                  </div>
+
                   <div class="col-12" *ngIf="gameAdded">
                     <div class="alert alert-success text-center">Játék hozzáadva!</div>
                   </div>
