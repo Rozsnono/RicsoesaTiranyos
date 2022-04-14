@@ -47,11 +47,6 @@
               <h3 class="mt-2">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
             </div>
 
-            <div class="col-lg-4 col-12 text-light">
-              <button class="btn btn-warning" (click)="alreadyDelete()">
-                Volt események törlése 
-            </button>
-            </div>
 
         </div>
 
@@ -93,6 +88,7 @@
                 <div class="col-12 col-lg-9">
                     <h1>{{selectedEvent.game.name}}</h1>
                     <h5>{{whichHour(selectedEvent.date)}}</h5>
+                    <button class="btn btn-success btn-Watch me-3" *ngIf="convertAble" (click)="convertToYlink()"> Videóvá konvertálás</button>
                     <button class="btn btn-danger btn-Watch" (click)="deleteDate()"> Törlés</button>
                 </div>
             </div>
@@ -142,6 +138,7 @@
                     <input type="color" class="form-control form-control-color ColorPicker" id="exampleColorInput" value="#563d7c" title="Válassz színt!" [(ngModel)]="NewGameColor">
                     <button type="submit" class="btn btn-success" (click)="newGameAdd()">Mentés</button>
                   </div>
+                  
 
                   <div class="col-12" *ngIf="newDateGameId == 99">
                     <div class="alert alert-info text-center"><a href="https://www.reduceimages.com/">Új játék hozzáadásához szükséges a kép méretének csökkentése! (600px * 400px)</a></div>
@@ -160,5 +157,47 @@
                   </div>
             </div>
         </div>
+    </div>
+
+    <div class="eventDetails" *ngIf="converting">
+      <div class="container">
+        <div class="row">
+          <div class="col-12 col-lg-4">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Youtube link</mat-label>
+              <input matInput placeholder="Link" [(ngModel)]="ylink">
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-lg-6">
+            <mat-form-field class="example-chip-list" appearance="fill">
+              <mat-label>Típus</mat-label>
+              <mat-chip-list #chipList >
+                <mat-chip *ngFor="let yType of yTypes" (removed)="remove(yType)">
+                  {{yType}}
+                  <button matChipRemove>
+                    X
+                  </button>
+                </mat-chip>
+                <input placeholder="Új típus..."
+                       [matChipInputFor]="chipList"
+                       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                       [matChipInputAddOnBlur]="addOnBlur"
+                       (matChipInputTokenEnd)="add($event)">
+              </mat-chip-list>
+            </mat-form-field>
+          </div>
+          <div class="col-12 col-lg-2">
+            <button class="btn btn-success h-75 w-100" (click)="createLink()">Hozzáadás</button>
+          </div>
+
+          <div class="col-12" *ngIf="converted">
+            <div class="alert alert-success text-center">Konvertálva!</div>
+          </div>
+
+          <div class="col-12" *ngIf="errorMessage">
+            <div class="alert alert-danger text-center">Hiba van a rendszerben!</div>
+          </div>
+        </div>
+      </div>
     </div>
 </body>

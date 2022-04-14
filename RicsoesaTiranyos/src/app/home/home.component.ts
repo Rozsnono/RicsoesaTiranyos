@@ -3,11 +3,14 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { HttpClient } from '@angular/common/http';
 import {FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { id } from 'date-fns/locale';
+import { max } from 'date-fns';
+import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +28,7 @@ export class HomeComponent implements OnInit {
     this.getDates();
     this.getLinkById();
     this.getGame();
+    this.lastId = this.getLinkLastUsedId();
   }
 
   backendURL = "https://ricsoesatiranyos.herokuapp.com";
@@ -288,12 +292,16 @@ export class HomeComponent implements OnInit {
   }
 
   deleteId: any;
-
+  convertAble: any = false;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.selectedEvent = null;
     this.newDateDate = date;
+    console.log(date);
     if(events.length != 0){
+      if(date < new Date()){
+        this.convertAble = true;
+      }
       this.getDateId(events[0].id);
       this.deleteId = events[0].id;
       this.tmpDate = date.getFullYear() + ". " + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + ". " + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
@@ -343,12 +351,79 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  ylink: any;
+  yTypes: any[] = [];
+  lastId: any;
+
+  getLinkLastUsedId(){
+    let tmpLinks: any[] = [];
+    let max = 0;
+    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
+      {
+        next: (data: any) => {tmpLinks = data; tmpLinks.forEach(element => {
+          max = element._id > max ? element._id : max;
+        }); this.lastId = (parseInt(max.toString())+1) },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  converting: any;
+  tmpGame: any;
+
+  convertToYlink(){
+    this.tmpGame = this.selectedEvent.game;
+    console.log(this.tmpGame);
+    this.selectedEvent = null;
+    this.converting = true;
+  }
+
+  converted: any;
+
+  createLink(){
+    const date = new Date();
+    console.log(this.lastId);
+    let tmpDate = date.getFullYear() + "-" + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+    const newModel = {
+      _id: this.lastId,
+      date: tmpDate,
+      picture: this.tmpGame.picture,
+      link: this.ylink,
+      name: this.tmpGame.name,
+      type: this.yTypes
+    };
+    this.http.post(this.backendURL + "/api/youtube",newModel).subscribe({
+      next: (data: any) => {window.location.reload(); this.converted = true;},
+      error: error => {this.errorMessage = true; console.log(error.message);}
+    })
+  }
+
   PicToBase64(pic: string){
     return "data:image/jpeg;base64," + pic;
   }
 
   ToTwitch(){
     this.router.navigateByUrl("https://www.twitch.tv/ricsoesatiranyos");
+  }
+  addOnBlur = true;
+  add(event: any): void {
+    const value = (event.value || '').trim();
+
+    // Add our fruit
+    if (value && !this.yTypes.includes(value)) {
+      this.yTypes.push(value);
+    }
+
+    // Clear the input value
+    event.chipInput!.clear();
+  }
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  remove(fruit: any): void {
+    const index = this.yTypes.indexOf(fruit);
+
+    if (index >= 0) {
+      this.yTypes.splice(index, 1);
+    }
   }
 }
 
