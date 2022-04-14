@@ -12,12 +12,62 @@ export class MachinesComponent implements OnInit {
   backendURL = "https://ricsoesatiranyos.herokuapp.com";
 
   machines: Array<any>= [];
-  displayedColumns = ["specs","type"]
+  displayedColumns = ["specs","type", "buttons"];
+
+  newSpecType: any;
+  newSpecDetails: any;
 
   ngOnInit(): void {
     this.getSpecs();
 
     
+  }
+
+  modifySpecs(id: any, machinesId: any){
+    const model = this.machines[machinesId-1];
+    let tmpArray = model.specs;
+
+    let stmpArray = [];
+
+    for (let index = 0; index < tmpArray.length; index++) {
+      if(tmpArray[index][0] != id) stmpArray.push(tmpArray[index])
+    }
+    console.log(stmpArray);
+
+    model.specs = stmpArray;
+
+
+    this.http.put<any[]>(this.backendURL+"/api/machine/"+machinesId,model).subscribe(
+      {
+        next: (data: any) => {this.machines = data; console.log(data); window.location.reload();},
+        error: error => {console.log(error); window.location.reload();}
+      }
+    )
+  }
+
+  createSpecs(machinesId: any){
+    const model = this.machines[machinesId-1];
+    let tmpArray = model.specs;
+    let sTmpArray = [this.getSpecsNewID(machinesId),this.newSpecType, this.newSpecDetails];
+    tmpArray.push(sTmpArray);
+    model.specs = tmpArray;
+
+    console.log(model);
+    this.http.put<any[]>(this.backendURL+"/api/machine/"+machinesId,model).subscribe(
+      {
+        next: (data: any) => {this.machines = data; console.log(data); window.location.reload();},
+        error: error => {console.log(error); window.location.reload();}
+      }
+    )
+  }
+
+  getSpecsNewID(machinesId: any){
+    const tmpArray = this.machines[machinesId-1].specs;
+    let max = 0;
+    for (let index = 0; index < tmpArray.length; index++) {
+      max =  tmpArray[index][0] < max ? max :  tmpArray[index][0];
+    }
+    return parseInt(max.toString())+1;
   }
 
   getSpecs(){
