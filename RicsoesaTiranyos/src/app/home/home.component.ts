@@ -90,7 +90,7 @@ export class HomeComponent implements OnInit {
   whichHour(tmpdate: any): string {
     let date = tmpdate.split('T');
     
-    return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[2].split('.')[0];
+    return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[1].split('.')[0];
   }
 
 
