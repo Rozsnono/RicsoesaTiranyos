@@ -4,12 +4,12 @@
 
           <ng-container matColumnDef="specs">
             <th mat-header-cell *matHeaderCellDef> Specifikációk </th>
-            <td mat-cell *matCellDef="let element"> {{element[0]}} </td>
+            <td mat-cell *matCellDef="let element"> {{element[1]}} </td>
           </ng-container>
 
           <ng-container matColumnDef="type">
             <th mat-header-cell *matHeaderCellDef> <span class="float-end">{{machine.type}}</span> </th>
-            <td mat-cell *matCellDef="let element"> {{element[1]}} </td>
+            <td mat-cell *matCellDef="let element"> {{element[2]}} </td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
