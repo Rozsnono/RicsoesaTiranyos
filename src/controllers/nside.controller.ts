@@ -3,6 +3,7 @@ import Controller from "../interfaces/controller.interface";
 import nsideModel from "./nside.model";
 import onesideModel from "./oneside.model";
 import linkModel from "./link.model";
+import youtubeLink from "./youtubeLink.model";
 import machineModel from "./machine.model";
 
 export default class nsideController implements Controller {
@@ -12,6 +13,7 @@ export default class nsideController implements Controller {
     private onesideM = onesideModel;
     private linkM = linkModel;
     private machineM = machineModel;
+    private ylM = youtubeLink;
 
     constructor() {
         this.router.get("/", (req: Request, res: Response) => {
@@ -24,11 +26,14 @@ export default class nsideController implements Controller {
         this.router.get("/api/dates/:id", this.getById);
 		this.router.get("/api/games", this.getAllGames);
         this.router.get("/api/games/:id", this.getByIdGame);
+        this.router.get("/api/youtube", this.getAllYoutubeLink);
+
 
         this.router.post("/api/date", this.create);
         this.router.post("/api/game", this.createGame);
         this.router.post("/api/link", this.createLink);
         this.router.post("/api/machine", this.createMachine);
+        this.router.get("/api/youtube", this.createYoutube);
 
         this.router.put("/api/date/:id", this.modifyPUTdate);
 		this.router.put("/api/game/:id", this.modifyPUTgame);
@@ -37,6 +42,7 @@ export default class nsideController implements Controller {
 
         this.router.delete("/api/dates/:id", this.delete);
         this.router.delete("/api/games/:id", this.deleteGame);
+        this.router.get("/api/youtube", this.deleteYoutube);
     }
 
     private getAll = async (req: Request, res: Response) => {
@@ -63,6 +69,15 @@ export default class nsideController implements Controller {
             res.status(400).send(error.message);
         }
     };
+    private getAllYoutubeLink = async (req: Request, res: Response) => {
+        try {
+            const data = await this.ylM.find();
+            res.send(data);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
 	private getLinkById = async (req: Request, res: Response) => {
         try {
             const id = req.params.id;
@@ -117,6 +132,19 @@ export default class nsideController implements Controller {
         try {
             const body = req.body;
             const createdDocument = new this.nsideM({
+                ...body,
+            });
+            const savedDocument = await createdDocument.save();
+            res.send(savedDocument);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private createYoutube = async (req: Request, res: Response) => {
+        try {
+            const body = req.body;
+            const createdDocument = new this.ylM({
                 ...body,
             });
             const savedDocument = await createdDocument.save();
@@ -246,6 +274,20 @@ export default class nsideController implements Controller {
         try {
             const id = req.params.id;
             const successResponse = await this.nsideM.findByIdAndDelete(id);
+            if (successResponse) {
+                res.status(200).send('OK');
+            } else {
+                res.status(404).send(`Document with id ${id} not found!`);
+            }
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private deleteYoutube = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const successResponse = await this.ylM.findByIdAndDelete(id);
             if (successResponse) {
                 res.status(200).send('OK');
             } else {
