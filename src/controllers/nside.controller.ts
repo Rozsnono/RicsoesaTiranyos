@@ -33,7 +33,7 @@ export default class nsideController implements Controller {
         this.router.post("/api/game", this.createGame);
         this.router.post("/api/link", this.createLink);
         this.router.post("/api/machine", this.createMachine);
-        this.router.get("/api/youtube", this.createYoutube);
+        this.router.post("/api/youtube", this.createYoutube);
 
         this.router.put("/api/date/:id", this.modifyPUTdate);
 		this.router.put("/api/game/:id", this.modifyPUTgame);
@@ -42,7 +42,7 @@ export default class nsideController implements Controller {
 
         this.router.delete("/api/dates/:id", this.delete);
         this.router.delete("/api/games/:id", this.deleteGame);
-        this.router.get("/api/youtube", this.deleteYoutube);
+        this.router.delete("/api/youtube", this.deleteYoutube);
     }
 
     private getAll = async (req: Request, res: Response) => {
