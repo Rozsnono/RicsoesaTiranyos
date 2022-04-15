@@ -1,5 +1,15 @@
+<div class="loader">
+  <div class="load" *ngIf="!loaded">
+      <strong class="mt-5">Töltés </strong>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
 <div class="container">
     <div class="row">
+        <div class="col-12" *ngIf="isEmpty">
+          <div class="alert alert-info text-center">Jelenleg nincsen videó a csatornán!</div>
+        </div>
+
         <div class="col-12 col-lg-3" *ngFor="let link of links">
             <div class="card">
                 <div class="card-img-top parent">

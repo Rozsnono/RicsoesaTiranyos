@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
@@ -12,6 +11,8 @@ export class VideosComponent implements OnInit {
 
   links: any[] = [];
   backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  loaded: any = false;
+  isEmpty: any = false;
 
   ngOnInit(): void {
     this.getAllLink();
@@ -21,7 +22,7 @@ export class VideosComponent implements OnInit {
   getAllLink(){
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
-        next: (data: any) => {this.links = data;},
+        next: (data: any) => {this.links = data; this.loaded = true; this.isEmpty = (this.links.length == 0)},
         error: error => console.log(error)
       }
     )
