@@ -32,14 +32,12 @@ export class MachinesComponent implements OnInit {
     for (let index = 0; index < tmpArray.length; index++) {
       if(tmpArray[index][0] != id) stmpArray.push(tmpArray[index])
     }
-    console.log(stmpArray);
-
     model.specs = stmpArray;
 
 
     this.http.put<any[]>(this.backendURL+"/api/machine/"+machinesId,model).subscribe(
       {
-        next: (data: any) => {this.machines = data; console.log(data); window.location.reload();},
+        next: (data: any) => {this.machines = data;window.location.reload();},
         error: error => {console.log(error); window.location.reload();}
       }
     )
@@ -52,10 +50,9 @@ export class MachinesComponent implements OnInit {
     tmpArray.push(sTmpArray);
     model.specs = tmpArray;
 
-    console.log(model);
     this.http.put<any[]>(this.backendURL+"/api/machine/"+machinesId,model).subscribe(
       {
-        next: (data: any) => {this.machines = data; console.log(data); window.location.reload();},
+        next: (data: any) => {this.machines = data; window.location.reload();},
         error: error => {console.log(error); window.location.reload();}
       }
     )
@@ -73,7 +70,7 @@ export class MachinesComponent implements OnInit {
   getSpecs(){
     this.http.get<any[]>(this.backendURL+"/api/machines").subscribe(
       {
-        next: (data: any) => {this.machines = data; console.log(data);},
+        next: (data: any) => {this.machines = data;},
         error: error => console.log(error)
       }
     )

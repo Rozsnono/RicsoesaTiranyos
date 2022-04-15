@@ -50,6 +50,11 @@ export class HomeComponent implements OnInit {
       secondary: '#000'
     }
   }
+
+  dateChecker(date: any){
+    
+    return new Date() > new Date(date);
+  }
   
   dialogClose: String = 'none';
 
@@ -81,12 +86,6 @@ export class HomeComponent implements OnInit {
 
   async handleReaderLoaded(e: any) {
     this.base64textString = btoa(e.target.result);
-
-    // console.log(this.PicToBase64(btoa(e.target.result)));
-    // await this.compressImage(this.PicToBase64(btoa(e.target.result)), 150, 100).then(compressed => {
-    //   this.base64textString = compressed.toString().split(',')[1];
-    // })
-    console.log(this.base64textString);
   }
 
   gameModel: any = {};
@@ -105,21 +104,15 @@ export class HomeComponent implements OnInit {
 
   async newDateAdd(){
     let d = new Date(this.newDateDate);
-    console.log(this.time);
     this.newDateDate = d.getFullYear() + "-" + ((d.getMonth()+1) < 10 ? '0' +(d.getMonth()+1) : (d.getMonth()+1)) + "-" + ((d.getDate()) < 10 ? '0' +(d.getDate()) : (d.getDate())) + "T" + this.time.toString();
     if(new Date(this.newDateDate) >= new Date()){
-      console.log(this.newDateDate);
 
-      console.log(this.newDateGameId);
-
-      
       if(this.newDateGameId == 99){
         await this.newGameAdd();
       }else{
         await this.getGameId(this.newDateGameId);
       }
 
-      console.log(this.events);
       let tmp: any;
       if(this.events.length == 0){
         tmp = 1;
@@ -174,7 +167,6 @@ export class HomeComponent implements OnInit {
         const ctx = elem.getContext('2d');
         ctx.drawImage(img, 0, 0, newX, newY);
         const data = ctx.canvas.toDataURL();
-        console.log(data);
         res(data);
       }
       img.onerror = error => rej(error);
@@ -297,7 +289,8 @@ export class HomeComponent implements OnInit {
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.selectedEvent = null;
     this.newDateDate = date;
-    console.log(date);
+    this.newEvent = false;
+    this.convertAble = false;
     if(events.length != 0){
       if(date < new Date()){
         this.convertAble = true;
@@ -317,7 +310,7 @@ export class HomeComponent implements OnInit {
   getGame(){
     this.http.get<any[]>(this.backendURL+"/api/games").subscribe(
       {
-        next: (data: any) => {this.games = data;console.log(this.games);},
+        next: (data: any) => {this.games = data;},
         error: error => console.log(error)
       }
     )
@@ -335,7 +328,7 @@ export class HomeComponent implements OnInit {
   getGameId(id: any){
     this.http.get<any[]>(this.backendURL+"/api/games/"+id).subscribe(
       {
-        next: (data: any) => {console.log(data); this.gameModel = data; this.model.game = data._id},
+        next: (data: any) => { this.gameModel = data; this.model.game = data._id},
         error: error => console.log(error)
       }
     )
@@ -373,7 +366,6 @@ export class HomeComponent implements OnInit {
 
   convertToYlink(){
     this.tmpGame = this.selectedEvent.game;
-    console.log(this.tmpGame);
     this.selectedEvent = null;
     this.converting = true;
   }
@@ -382,7 +374,6 @@ export class HomeComponent implements OnInit {
 
   createLink(){
     const date = new Date();
-    console.log(this.lastId);
     let tmpDate = date.getFullYear() + "-" + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
     const newModel = {
       _id: this.lastId,
@@ -393,7 +384,7 @@ export class HomeComponent implements OnInit {
       type: this.yTypes
     };
     this.http.post(this.backendURL + "/api/youtube",newModel).subscribe({
-      next: (data: any) => {window.location.reload(); this.converted = true;},
+      next: (data: any) => {this.deleteDate(); this.converted = true;},
       error: error => {this.errorMessage = true; console.log(error.message);}
     })
   }

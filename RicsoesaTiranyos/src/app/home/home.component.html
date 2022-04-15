@@ -67,6 +67,8 @@
                 <ng-template #showEventsBlock>
                     <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
                         {{event.title}}
+
+                         <span *ngIf="dateChecker(event.start)">- Konvertálás</span>  
                     </div>
                 </ng-template>
                 <ng-template #showMoreBlock>
@@ -89,7 +91,7 @@
                     <h1>{{selectedEvent.game.name}}</h1>
                     <h5>{{whichHour(selectedEvent.date)}}</h5>
                     <button class="btn btn-success btn-Watch me-3" *ngIf="convertAble" (click)="convertToYlink()"> Videóvá konvertálás</button>
-                    <button class="btn btn-danger btn-Watch" (click)="deleteDate()"> Törlés</button>
+                    <button class="btn btn-danger btn-Watch" (click)="deleteDate()">Esemény törlés</button>
                 </div>
             </div>
         </div>
