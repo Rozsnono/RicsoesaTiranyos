@@ -27,6 +27,7 @@ export default class nsideController implements Controller {
 		this.router.get("/api/games", this.getAllGames);
         this.router.get("/api/games/:id", this.getByIdGame);
         this.router.get("/api/youtube", this.getAllYoutubeLink);
+        this.router.get("/api/youtube/:name", this.getYoutubeLinkByName);
 
 
         this.router.post("/api/date", this.create);
@@ -72,6 +73,16 @@ export default class nsideController implements Controller {
     private getAllYoutubeLink = async (req: Request, res: Response) => {
         try {
             const data = await this.ylM.find();
+            res.send(data);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private getYoutubeLinkByName = async (req: Request, res: Response) => {
+        try {
+            const name = req.params.name;
+            const data = await this.ylM.find({'name': name});
             res.send(data);
         } catch (error) {
             res.status(400).send(error.message);
