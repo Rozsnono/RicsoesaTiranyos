@@ -1,3 +1,18 @@
+<div class="loading" *ngIf="!isLoaded">
+
+  <div class="loader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+
 <mat-tab-group mat-align-tabs="center">
     <mat-tab [label]="machine.name" *ngFor="let machine of machines">
       <table mat-table [dataSource]="machine.specs" class="mat-elevation-z8 tab">

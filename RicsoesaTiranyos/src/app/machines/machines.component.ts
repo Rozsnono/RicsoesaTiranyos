@@ -15,6 +15,8 @@ export class MachinesComponent implements OnInit {
   displayedColumns = ["specs","type"];
   machinesCount: any;
 
+  isLoaded: any = false;
+
   ngOnInit(): void {
     this.getSpecs();
   }
@@ -22,7 +24,7 @@ export class MachinesComponent implements OnInit {
   getSpecs(){
     this.http.get<any[]>(this.backendURL+"/api/machines").subscribe(
       {
-        next: (data: any) => {this.machines = data; this.machinesCount = data.length},
+        next: (data: any) => {this.machines = data; this.machinesCount = data.length; this.isLoaded = true},
         error: error => console.log(error)
       }
     )
