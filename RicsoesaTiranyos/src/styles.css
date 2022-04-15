@@ -60,6 +60,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 
 app-add-to-calendar button{
-    margin-left: 1rem !important;
     height: 2rem;
 }
