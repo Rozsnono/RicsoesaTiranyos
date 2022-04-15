@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
 @Component({
   selector: 'app-videos',
   templateUrl: './videos.component.html',
@@ -15,7 +17,21 @@ export class VideosComponent implements OnInit {
   isEmpty: any = false;
 
   ngOnInit(): void {
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value)),
+    );
     this.getAllLink();
+  }
+
+  myControl = new FormControl();
+  options: string[] = ['One', 'Two', 'Three'];
+  filteredOptions: Observable<string[]>;
+
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.options.filter(option => option.toLowerCase().includes(filterValue));
   }
 
 

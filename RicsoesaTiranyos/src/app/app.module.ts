@@ -21,6 +21,8 @@ import { AddToCalendarModule } from 'add-events-to-google-calendar';
 import {MatCardModule} from '@angular/material/card';
 import { VideosComponent } from './videos/videos.component';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 @NgModule({
@@ -43,6 +45,8 @@ import {MatChipsModule} from '@angular/material/chips';
     AddToCalendarModule,
     MatCardModule,
     MatChipsModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
     
     CalendarModule.forRoot({
       provide: DateAdapter,
