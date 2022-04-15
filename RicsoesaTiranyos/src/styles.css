@@ -190,3 +190,7 @@ app-add-to-calendar button{
     /* border: 2px solid white !important; */
     transition: 0.3s;
 }
+
+.mat-form-field-flex{
+    background-color: #ffffffb0 !important;
+}

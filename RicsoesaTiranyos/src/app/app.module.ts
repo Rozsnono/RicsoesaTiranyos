@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { HomeComponent } from './home/home.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MachinesComponent } from './machines/machines.component';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -22,7 +22,10 @@ import {MatCardModule} from '@angular/material/card';
 import { VideosComponent } from './videos/videos.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+
 
 
 @NgModule({
@@ -47,6 +50,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatChipsModule,
     MatAutocompleteModule,
     MatFormFieldModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
     
     CalendarModule.forRoot({
       provide: DateAdapter,
