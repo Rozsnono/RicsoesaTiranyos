@@ -19,7 +19,16 @@
 
 .nav-link{
     color:white !important;
+    transition: 0.5s;
 }
+
+.nav-link:hover{
+    color: #c6e46c !important;
+    letter-spacing: 0.1rem;
+    transition: 0.5s;
+}
+
+
 
 .tw-btn:hover{
     color: white !important;
