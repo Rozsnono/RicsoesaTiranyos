@@ -162,3 +162,31 @@ app-add-to-calendar button{
 	80%  { transform: scale(1.0); }
 	100% { transform: scale(0.0); }
 }
+
+.home-btn:hover{
+    background-color: #008f00 !important;
+    color: white !important;
+    border: 2px solid white !important;
+    transition: 0.3s;
+}
+
+.home-btn{
+    color: #008f00 !important;
+    background: none !important;
+    border: 2px solid #008f00 !important;
+    transition: 0.3s;
+}
+
+.prev-btn:hover{
+    color: #3021bb !important;
+    background: none !important;
+    border: 2px solid #3021bb !important;
+    transition: 0.3s;
+}
+
+.prev-btn{
+    background-color: #3021bb !important;
+    color: white !important;
+    /* border: 2px solid white !important; */
+    transition: 0.3s;
+}
