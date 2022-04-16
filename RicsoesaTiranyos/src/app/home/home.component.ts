@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { isThisQuarter, startOfDay, startOfHour } from 'date-fns';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -27,20 +26,7 @@ export class HomeComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
   games: any[] = [];
-  colors: any = {
-    red: {
-      primary: '#ad2121',
-      secondary: '#fff'
-    },
-    blue: {
-      primary: '#4d6092',
-      secondary: '#fff'
-    },
-    yellow: {
-      primary: '#e3bc08',
-      secondary: '#000'
-    }
-  }
+  colors: any = { };
 
   events: CalendarEvent[] = [];
 
@@ -89,7 +75,6 @@ export class HomeComponent implements OnInit {
 
   whichHour(tmpdate: any): string {
     let date = tmpdate.split('T');
-    
     return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[1].split('.')[0];
   }
 
@@ -99,14 +84,9 @@ export class HomeComponent implements OnInit {
     if(events.length != 0){
       this.getDateId(events[0].id);
       this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-      this.selectedEvent.date = this.tmpDate;
-      
+      this.selectedEvent.date = this.tmpDate;     
       this.selectedEvent.selected = true;
     }
-    
-    
-
-    //this.openAppointmentList(date)
   }
 
   getGame(){
@@ -157,9 +137,7 @@ export class HomeComponent implements OnInit {
     let dates = this.selectedEvent.date.toString().split('.')[0].split(':')[0] + ":" + this.selectedEvent.date.toString().split('.')[0].split(':')[1];
     dates = dates.split('T')[0] + 'T' + (parseInt(dates.split('T')[1].split(':')[0])-2) + ":" + dates.split('T')[1].split(':')[1];
     const date = new Date(dates);
-
     if(date.getHours() > 12){
-
       return (type === "start" ? (date.getHours() - 12) : (date.getHours() - 11) ) + ":" + date.getMinutes() + " pm";
     }
     return (type === "start" ? (date.getHours()) : (date.getHours() + 1) ) + ":" + date.getMinutes() + " am";
@@ -169,16 +147,5 @@ export class HomeComponent implements OnInit {
     return "data:image/jpeg;base64," + pic;
   }
 
-  ToTwitch(){
-    this.router.navigateByUrl("https://www.twitch.tv/ricsoesatiranyos");
-  }
-}
-
-export interface Game{
-  
-  id: number,
-  name: string,
-  picture: string,
-  color: string
 }
 
