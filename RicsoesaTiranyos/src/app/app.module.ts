@@ -14,11 +14,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
 import { AddToCalendarModule } from 'add-events-to-google-calendar';
-import {MatCardModule} from '@angular/material/card';
 import { VideosComponent } from './videos/videos.component';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -42,17 +39,13 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     MatTabsModule,
     MatTableModule,
-    MatProgressBarModule,
     MatButtonModule,
-    MatIconModule,
     AddToCalendarModule,
-    MatCardModule,
     MatChipsModule,
     MatAutocompleteModule,
     MatFormFieldModule,
     MatSelectModule,
     ReactiveFormsModule,
-    MatFormFieldModule,
     MatInputModule,
     
     CalendarModule.forRoot({
