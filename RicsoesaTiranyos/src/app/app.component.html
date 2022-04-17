@@ -54,19 +54,19 @@
 
 
 <router-outlet>
-
-  <div class="loading" *ngIf="!isLoaded">
-
-    <div class="loader">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
 </router-outlet>
+
+<ng-container *ngIf="loadingRouteConfig"><div class="loading">
+
+  <div class="loader">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div></ng-container>
