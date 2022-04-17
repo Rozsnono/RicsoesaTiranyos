@@ -15,17 +15,16 @@ export class AppComponent {
   loading: boolean;
 
   constructor(private http: HttpClient, private router: Router){
-    
-  }
-
-  ngOnInit(){
-    this.router.events.subscribe(event => {
+    router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
         this.loading = true;
       }else if(event instanceof NavigationEnd) {
         this.loading = false;
       }
     });
+  }
+
+  ngOnInit(){
     this.getLinks();
   }
 

@@ -14,25 +14,24 @@ export class HomeComponent implements OnInit {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  async ngOnInit() {
-    await this.getDates();
+  ngOnInit() {
+    this.getDates();
     this.getLinkById();
     this.getGame();
   }
 
   backendURL = "https://ricsoesatiranyos.herokuapp.com";
   link: any = "";
+
   viewDate: Date = new Date();
   view: CalendarView = CalendarView.Month;
   CalendarView = CalendarView;
+  events: CalendarEvent[] = [];
+  selectedEvent: any;
+
   games: any[] = [];
   colors: any = { };
 
-  events: CalendarEvent[] = [];
-
-  selectedEvent: any;
-
-  tmpEvent: any;
   tmpEvents: any[] = [];
   tmpDate: any;
 
@@ -40,8 +39,8 @@ export class HomeComponent implements OnInit {
 
   dialogClose2: any = 'none';
 
-  async getDates(){
-    await this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
+  getDates(){
+    this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
       {
         next: (data: any) => {
           for (let index = 0; index < data.length; index++) {
