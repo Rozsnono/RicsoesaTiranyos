@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { RouteConfigLoadEnd, RouteConfigLoadStart, Router } from '@angular/router';
+import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,18 +12,19 @@ export class AppComponent {
 
   backendURL = "https://ricsoesatiranyos.herokuapp.com";
   links: Array<any> = [];
-  loadingRouteConfig: boolean;
+  loading: boolean;
 
-  constructor(private http: HttpClient, private router: Router){}
+  constructor(private http: HttpClient, private router: Router){
+    router.events.subscribe(event => {
+      if(event instanceof NavigationStart) {
+        this.loading = true;
+      }else if(event instanceof NavigationEnd) {
+        this.loading = false;
+      }
+    });
+  }
 
   ngOnInit(){
-    this.router.events.subscribe(event => {
-      if (event instanceof RouteConfigLoadStart) {
-          this.loadingRouteConfig = true;
-      } else if (event instanceof RouteConfigLoadEnd) {
-          this.loadingRouteConfig = false;
-      }
-  });
     this.getLinks();
   }
 
