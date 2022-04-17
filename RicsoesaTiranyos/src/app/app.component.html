@@ -52,8 +52,10 @@
   </nav>
 </div>
 
-<app-root>
-<div class="loading">
+
+<router-outlet>
+
+  <div class="loading" *ngIf="!isLoaded">
 
     <div class="loader">
       <div></div>
@@ -67,9 +69,4 @@
       <div></div>
     </div>
   </div>
-</app-root>
-
-<router-outlet>
-
-  
 </router-outlet>

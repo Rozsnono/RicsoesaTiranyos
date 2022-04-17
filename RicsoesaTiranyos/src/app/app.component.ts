@@ -11,6 +11,7 @@ export class AppComponent {
 
   backendURL = "https://ricsoesatiranyos.herokuapp.com";
   links: Array<any> = [];
+  isLoaded: any = false;
 
   constructor(private http: HttpClient){}
 
@@ -21,7 +22,7 @@ export class AppComponent {
   getLinks(){
     this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
       {
-        next: (data: any) => {this.links = data;},
+        next: (data: any) => {this.links = data; this.isLoaded = true; console.log("asd");},
         error: error => console.log(error)
       }
     )
