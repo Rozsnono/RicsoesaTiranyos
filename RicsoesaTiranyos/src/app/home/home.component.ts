@@ -5,12 +5,6 @@ import {FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 
-import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
-import { id } from 'date-fns/locale';
-import { max } from 'date-fns';
-import { MatChipInputEvent } from '@angular/material/chips';
 
 @Component({
   selector: 'app-home',
@@ -20,294 +14,118 @@ import { MatChipInputEvent } from '@angular/material/chips';
 
 
 export class HomeComponent implements OnInit {
-
   constructor(private http: HttpClient, private router: Router) { }
-
-
+  
+  backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  
+  
   ngOnInit() {
     this.getDates();
-    this.getLinkById();
-    this.getGame();
-    this.lastId = this.getLinkLastUsedId();
-  }
-
-  backendURL = "https://ricsoesatiranyos.herokuapp.com";
-  link: any = "";
-  viewDate: Date = new Date();
-  view: CalendarView = CalendarView.Month;
-  CalendarView = CalendarView;
-  colors: any = {
-    red: {
-      primary: '#ad2121',
-      secondary: '#fff'
-    },
-    blue: {
-      primary: '#4d6092',
-      secondary: '#fff'
-    },
-    yellow: {
-      primary: '#e3bc08',
-      secondary: '#000'
-    }
-  }
-
-  dateChecker(date: any){
-    
-    return new Date() > new Date(date);
+    this.getLinkLastId();
+    this.getGames();
+    // this.lastId = this.getLinkLastUsedId();
   }
   
-  dialogClose: String = 'none';
+  
+  displayedColumns: string[] = ['name', 'date', 'functions'];
+  dates: any[] = [];
 
-  games: any[] = [];
-  events: CalendarEvent[] = [];
+  
+  newEventTMPdate: any;
+  newEventTMPtime: any;
+  newEventTMPgame: any;
+  
+  converting: any;
+  convertLink: any;
+  convertTypes: any = [];
+  convertEvent: any;
+  convertEventName: any;
+  convertEventDate: any;
+  convertingDate: any = new Date();
 
-  time: any;
+  newGameName: any;
+  newGameColor: any
+  newGamePicture: any;
 
-  newDateDate: any;
-  newDateGameId: any;
-  newDateId: Number = 0;
-  NewGameName: any;
-  NewGameColor: any;
-
+  OKmessage: any;
   errorMessage: any;
-
-  base64textString: any;
-
-  onUploadChange(evt: any) {
-    const file = evt.target.files[0];
-
-    if (file) {
-      const reader = new FileReader();
-
-      reader.onload = this.handleReaderLoaded.bind(this);
-      reader.readAsBinaryString(file);
-    }
-  }
-
-  async handleReaderLoaded(e: any) {
-    this.base64textString = btoa(e.target.result);
-  }
-
-  gameModel: any = {};
-  gameId: any;
-
   
-  model = {
-    _id: Number,
-    date: String,
-    game: Number
-  }
+  tmpGameId: any;
+  games: any[] = [];
 
-  getGameIdforSelect(e: any){
-    this.model.game = e;
-  }
 
-  async newDateAdd(){
-    let d = new Date(this.newDateDate);
-    this.newDateDate = d.getFullYear() + "-" + ((d.getMonth()+1) < 10 ? '0' +(d.getMonth()+1) : (d.getMonth()+1)) + "-" + ((d.getDate()) < 10 ? '0' +(d.getDate()) : (d.getDate())) + "T" + this.time.toString();
-    if(new Date(this.newDateDate) >= new Date()){
-
-      if(this.newDateGameId == 99){
-        await this.newGameAdd();
-      }else{
-        await this.getGameId(this.newDateGameId);
-      }
-
-      let tmp: any;
-      if(this.events.length == 0){
-        tmp = 1;
-      }else{
-        tmp = this.events[this.events.length-1].id;
-      }
-      let tmpNumber: any = parseInt(tmp)+1;
-      this.model._id = tmpNumber;
-      this.model.date = this.newDateDate.toString();
-
-      const newModel = {
-        _id: Number,
-        game: Number,
-        date: String
-      }
-
-      newModel._id = this.model._id;
-      newModel.game = this.model.game;
-      newModel.date = this.model.date;
-      
-
-      this.http.post(this.backendURL + "/api/date",newModel).subscribe({
-        next: (data: any) => {window.location.reload();},
-        error: error => {this.errorMessage = true; console.log(error.message);}
-      })
-    }else{
-      this.errorMessage = true;
-    }
-    
-    
-  }
-
-  alreadyDelete(){
-    this.events.forEach(element => {
-      if(new Date(element.start) <= new Date()){
-        this.http.delete(this.backendURL + "/api/dates/"+element.id).subscribe({
-          next: (data: any) => {window.location.reload();},
-          error: error => {this.errorMessage = true; console.log(error.message); window.location.reload();}
-        })
-      }
-    });
-  }
-
-  compressImage(src:any, newX:any, newY:any) {
-    return new Promise((res, rej) => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => {
-        const elem = document.createElement('canvas');
-        elem.width = newX;
-        elem.height = newY;
-        const ctx = elem.getContext('2d');
-        ctx.drawImage(img, 0, 0, newX, newY);
-        const data = ctx.canvas.toDataURL();
-        res(data);
-      }
-      img.onerror = error => rej(error);
-    })
-  }
-
-  gameAdded: any;
-  newGameAdd(){
-    let newID;
-    if(this.games.length == 0){
-      newID = 1;
-    }else{
-      newID = this.games[this.games.length-1]._id+1
-    }
-
-    const model = {
-      _id: Number,
-      name: String,
-      color: String,
-      picture: String,
-    }
-
-    model._id = newID;
-    model.name = this.NewGameName;
-    model.color = this.NewGameColor ? this.NewGameColor : "#000";
-    model.picture = this.base64textString;
-    
-    this.http.post(this.backendURL + "/api/game",model).subscribe({
-        next: (data: any) => {this.gameAdded = true; this.getGame();},
-        error: error => {this.errorMessage = true; console.log(error.message)}
-    })
-
-    this.gameId = newID;
-    
-  }
-
-  deleteDate(){
-    this.http.delete(this.backendURL + "/api/dates/" + this.deleteId)
-        .subscribe({
-            next: data => {
-              window.location.reload();
-            },
-            error: error => {
-                console.error('There was an error!', error);
-                if(error.status == 200) window.location.reload();
-            }
-        });
-  }
-
-  deletingGame(id: any){
-    this.dialogClose = 'block';
-    this.deleteGameId = id;
-  }
-
-  deleteGameId: any;
-
-  deleteGame(){
-    this.http.delete(this.backendURL + "/api/games/" + this.deleteGameId )
-        .subscribe({
-            next: data => {
-              window.location.reload();
-            },
-            error: error => {
-                console.error('There was an error!', error);
-                if(error.status == 200) window.location.reload();
-            }
-        });
-  }
-
-  selectedEvent: any;
-  newEvent: any;
-
-  tmpEvent: any;
-  tmpEvents: any[] = [];
-  tmpDate: any;
-
-  loaded: boolean = false;
-
-  selectedGame: any;
-  selectControl = new FormControl('', Validators.required);
-  selectFormControl = new FormControl('', Validators.required);
-
-  async getDates(){
-    await this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
+  getDates(){
+    this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
       {
-        next: (data: any) => {
-          for (let index = 0; index < data.length; index++) {
-            let tmpName = data[index].game.name;
-            let tmpObj = {
-              [tmpName] : {
-                primary: data[index].game.color,
-                secondary: (data[index].game.color == "#ffffff" ? "#000" : "#fff")
-              }
-            };
-            Object.assign(this.colors, tmpObj);
-            this.tmpEvents.push({
-              start: new Date((data[index].date).toString().split('.')[0]),
-              title: data[index].game.name,
-              id: data[index]._id,
-              color: this.colors[tmpName]
-            });
-          }
-          this.events = this.tmpEvents;
-          this.loaded = true;
-        },
+        next: (data: any) => {this.dates = data;},
         error: error => console.log(error)
       }
     )
   }
 
-  whichHour(tmpdate: any): string {
-    let date = tmpdate.split('T');
-    
-    return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[1].split('.')[0];
-  }
+  saveDates(){
+    const TMPdate = new Date(this.newEventTMPdate);
+    TMPdate.setHours(this.newEventTMPtime.split(':')[0]);
+    TMPdate.setMinutes(this.newEventTMPtime.split(':')[1]);
+    this.newEventTMPdate = (this.convertDate(TMPdate,'-',true));
+    console.log(TMPdate);
 
-  deleteId: any;
-  convertAble: any = false;
+    console.log(this.newEventTMPdate);
 
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    this.selectedEvent = null;
-    this.newDateDate = date;
-    this.newEvent = false;
-    this.convertAble = false;
-    if(events.length != 0){
-      if(date < new Date()){
-        this.convertAble = true;
-      }
-      this.getDateId(events[0].id);
-      this.deleteId = events[0].id;
-      this.tmpDate = date.getFullYear() + ". " + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + ". " + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-      this.selectedEvent.date = this.tmpDate;
-      
-      this.selectedEvent.selected = true;
-    }else{
-      this.newEvent = true;
+    const tmpModel = {
+      date: String,
+      _id: Number,
+      game: Number,
     }
-    //this.openAppointmentList(date)
+
+    
+
+    tmpModel._id = this.getDateLastId();
+    tmpModel.date = this.newEventTMPdate;
+    tmpModel.game = this.tmpGameId;
+
+    this.http.post<any[]>(this.backendURL+"/api/date",tmpModel).subscribe(
+      {
+        next: (data: any) => {this.dates.push(data); this.OKmessage = true; window.location.reload()},
+        error: error => this.errorMessage = error.message
+      }
+    )
   }
 
-  getGame(){
+  convertDates(id: any){
+    this.convertEvent = this.dates.filter(x=>x._id === id)[0];
+    this.convertEventName = this.convertEvent.game.name;
+    this.convertEventDate = this.convertDate(this.convertEvent.date,". ");
+    console.log(this.convertEvent);
+  }
+
+  saveLink(){
+    const tmpModel = {
+      _id: Number,
+      link: String,
+      name: String,
+      picture: String,
+      type: Array,
+      date: String,
+    }
+
+    tmpModel._id = this.LinkLastId + 1;
+    tmpModel.link = this.convertLink;
+    tmpModel.type = this.convertTypes;
+    tmpModel.name = this.convertEvent.game.name;
+    tmpModel.picture = this.convertEvent.game.picture;
+    tmpModel.date = this.convertingDate;
+
+    this.http.post<any[]>(this.backendURL+"/api/youtube",tmpModel).subscribe(
+      {
+        next: (data: any) => {this.OKmessage = true; this.deleteDates(this.convertEvent._id)},
+        error: error => this.errorMessage = error.message
+      }
+    )
+  }
+
+
+  getGames(){
     this.http.get<any[]>(this.backendURL+"/api/games").subscribe(
       {
         next: (data: any) => {this.games = data;},
@@ -316,113 +134,131 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  getLinkById(){
-    this.http.get<any[]>(this.backendURL+"/api/links/1").subscribe(
+  saveGames(){
+    const tmpModel = {
+      name: String,
+      _id: Number,
+      color: String,
+      picture: String,
+    }
+
+    tmpModel._id = this.getGameLastId();
+    tmpModel.name = this.newGameName;
+    tmpModel.color = this.newGameColor;
+    tmpModel.picture = this.newGamePicture;
+
+    this.http.post<any[]>(this.backendURL+"/api/game",tmpModel).subscribe(
       {
-        next: (data: any) => this.link = data.link,
-        error: error => console.log(error)
+        next: (data: any) => {this.games.push(data); this.OKmessage = true},
+        error: error => this.errorMessage = error.message
       }
     )
   }
 
-  getGameId(id: any){
-    this.http.get<any[]>(this.backendURL+"/api/games/"+id).subscribe(
+  deleteDates(id: any){
+    this.http.delete<any[]>(this.backendURL+"/api/dates/"+id).subscribe(
       {
-        next: (data: any) => { this.gameModel = data; this.model.game = data._id},
-        error: error => console.log(error)
+        next: (data: any) => {window.location.reload()},
+        error: error => {this.errorMessage = error.message;  window.location.reload();}
       }
     )
   }
 
-
-  getDateId(id: any){
-    this.http.get<any[]>(this.backendURL+"/api/dates/"+id).subscribe(
+  deleteGames(id: any){
+    this.http.delete<any[]>(this.backendURL+"/api/games/"+id).subscribe(
       {
-        next: (data: any) => this.selectedEvent = data,
-        error: error => console.log(error)
+        next: (data: any) => { window.location.reload() },
+        error: error => this.errorMessage = error.message
       }
     )
   }
 
-  ylink: any;
-  yTypes: any[] = [];
-  lastId: any;
+  onUploadChange(evt: any) {
+    const file = evt.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = this.handleReaderLoaded.bind(this);
+      reader.readAsBinaryString(file);
+    }
+  }
 
-  getLinkLastUsedId(){
-    let tmpLinks: any[] = [];
-    let max = 0;
+  newEventDateChange(e: any){
+    this.newEventTMPdate = e.target.value;
+  }
+
+  handleReaderLoaded(e: any) {
+    this.newGamePicture = btoa(e.target.result);
+  }
+
+  getGameIdforSelect(e: any){
+    this.newEventTMPgame = e;
+  }
+
+  getDateLastId(): any{
+    let max:any = 0;
+    this.dates.forEach(element => {
+      max = element._id > max ? element._id : max;
+    });
+
+    return parseFloat(max)+1;
+  }
+
+  LinkLastId: any = 0;
+  getLinkLastId(): any{
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
-        next: (data: any) => {tmpLinks = data; tmpLinks.forEach(element => {
-          max = element._id > max ? element._id : max;
-        }); this.lastId = (parseInt(max.toString())+1) },
+        next: (data: any) => {
+          for (let index = 0; index < data.length; index++) {
+            this.LinkLastId = data[index]._id > this.LinkLastId ? data[index]._id : this.LinkLastId;
+          }
+        },
         error: error => console.log(error)
       }
     )
   }
 
-  converting: any;
-  tmpGame: any;
+  getGameLastId(): any{
+    let max:any = 0;
+    this.games.forEach(element => {
+      max = element._id > max ? element._id : max;
+    });
 
-  convertToYlink(){
-    this.tmpGame = this.selectedEvent.game;
-    this.selectedEvent = null;
-    this.converting = true;
+    return parseFloat(max)+1;
   }
 
-  converted: any;
-
-  createLink(){
-    const date = new Date();
-    let tmpDate = date.getFullYear() + "-" + (date.getMonth() < 10 ? '0' + date.getMonth() : date.getMonth()) + "-" + (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
-    const newModel = {
-      _id: this.lastId,
-      date: tmpDate,
-      picture: this.tmpGame.picture,
-      link: this.ylink,
-      name: this.tmpGame.name,
-      type: this.yTypes
-    };
-    this.http.post(this.backendURL + "/api/youtube",newModel).subscribe({
-      next: (data: any) => {this.deleteDate(); this.converted = true;},
-      error: error => {this.errorMessage = true; console.log(error.message);}
-    })
+  convertDate(date: any, sep: any, toSave: boolean = false){
+    if(toSave){
+      const d = new Date(date);
+      return d.getFullYear() + sep + (d.getMonth()+1 < 10 ? '0' : '') + (d.getMonth()+1) + sep + (d.getDate() < 10 ? '0' : '') + d.getDate() + (toSave? "T" : sep+"- ") + (d.getHours() < 10 ? '0' : '') + d.getHours() +":" + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+    }else{
+      const d = date.split('T');
+      return d[0].split('-')[0] + sep + d[0].split('-')[1] + sep + d[0].split('-')[2] + sep + "- " + d[1].split(":")[0] +":"+ d[1].split(":")[1];
+    }
+  
   }
 
-  PicToBase64(pic: string){
-    return "data:image/jpeg;base64," + pic;
+  convertableCheck(d: any){
+    return new Date(d) > new Date();
   }
 
-  ToTwitch(){
-    this.router.navigateByUrl("https://www.twitch.tv/ricsoesatiranyos");
-  }
+
   addOnBlur = true;
   add(event: any): void {
     const value = (event.value || '').trim();
-
-    // Add our fruit
-    if (value && !this.yTypes.includes(value)) {
-      this.yTypes.push(value);
+    if (value && !this.convertTypes.includes(value)) {
+      this.convertTypes.push(value);
     }
-
-    // Clear the input value
     event.chipInput!.clear();
   }
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   remove(fruit: any): void {
-    const index = this.yTypes.indexOf(fruit);
-
+    const index = this.convertTypes.indexOf(fruit);
     if (index >= 0) {
-      this.yTypes.splice(index, 1);
+      this.convertTypes.splice(index, 1);
     }
   }
-}
 
-export interface Game{
-  
-  id: number,
-  name: string,
-  picture: string,
-  color: string
+  //UJRA
+
 }
 

@@ -15,15 +15,6 @@ export class AppComponent {
   constructor(private http: HttpClient){}
 
   ngOnInit(){
-    this.getLinks();
   }
 
-  getLinks(){
-    this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
-      {
-        next: (data: any) => {this.links = data;},
-        error: error => console.log(error)
-      }
-    )
-  }
 }

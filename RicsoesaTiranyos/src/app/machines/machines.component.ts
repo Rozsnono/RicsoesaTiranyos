@@ -19,8 +19,6 @@ export class MachinesComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSpecs();
-
-    
   }
 
   modifySpecs(id: any, machinesId: any){
