@@ -168,7 +168,7 @@ export class HomeComponent implements OnInit {
     this.http.delete<any[]>(this.backendURL+"/api/games/"+id).subscribe(
       {
         next: (data: any) => { window.location.reload() },
-        error: error => this.errorMessage = error.message
+        error: error => {this.errorMessage = error.message;  window.location.reload(); }
       }
     )
   }
