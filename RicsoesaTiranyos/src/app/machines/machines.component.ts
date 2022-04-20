@@ -9,7 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class MachinesComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
-  backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
 
   machines: Array<any>= [];
   displayedColumns = ["specs","type"];

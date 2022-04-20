@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     this.getGame();
   }
 
-  backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
   link: any = "";
 
   viewDate: Date = new Date();
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
   dialogClose2: any = 'none';
 
   getDates(){
-    this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
+    this.http.get<any[]>(this.backendURL+"/api/futureDates").subscribe(
       {
         next: (data: any) => {
           for (let index = 0; index < data.length; index++) {
@@ -52,14 +52,13 @@ export class HomeComponent implements OnInit {
               }
             };
             Object.assign(this.colors, tmpObj);
-            if(new Date(data[index].date) >= new Date()){
-              this.tmpEvents.push({
-                start: new Date((data[index].date).toString().split('.')[0]),
-                title: data[index].game.name,
-                id: data[index]._id,
-                color: this.colors[tmpName]
-              });
-            } 
+            this.tmpEvents.push({
+              start: new Date(data[index].start),
+              end: new Date(data[index].end),
+              title: data[index].game.name,
+              id: data[index]._id,
+              color: this.colors[tmpName]
+            });
             
           }
           this.eventLoaded = true;
@@ -73,20 +72,25 @@ export class HomeComponent implements OnInit {
   }
 
   whichHour(tmpdate: any): string {
+    return tmpdate;
     let date = tmpdate.split('T');
     return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[1].split('.')[0];
   }
 
+  eventPerDay: any;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     this.selectedEvent = null;
     if(events.length != 0){
-      this.getDateId(events[0].id);
-      this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-      this.selectedEvent.date = this.tmpDate;     
-      this.selectedEvent.selected = true;
+      this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
+      console.log(this.eventPerDay);
+      // this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+      // this.selectedEvent.date = this.tmpDate;     
+      // this.selectedEvent.selected = true;
     }
   }
+
+
 
   getGame(){
     this.http.get<any[]>(this.backendURL+"/api/games").subscribe(
@@ -143,7 +147,12 @@ export class HomeComponent implements OnInit {
   }
 
   PicToBase64(pic: string){
-    return "data:image/jpeg;base64," + pic;
+    return  + pic;
+  }
+
+  gamePicture(game: string){
+    console.log(this.games.filter(x => x.name === game));
+    return "data:image/jpeg;base64," + this.games.filter(x => x.name == game)[0].picture
   }
 
 }

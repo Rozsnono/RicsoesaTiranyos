@@ -10,7 +10,7 @@ import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 export class AppComponent {
   title = 'RicsoesaTiranyos';
 
-  backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
   links: Array<any> = [];
   loading: boolean;
 

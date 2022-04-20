@@ -14,7 +14,7 @@ export class VideosComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   links: any[] = [];
-  backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
   loaded: any = false;
   isEmpty: any = false;
   isAllEmpty: any = false;

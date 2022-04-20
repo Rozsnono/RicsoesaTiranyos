@@ -84,7 +84,7 @@
                     </div>
                 </ng-template>
                 <ng-template #showMoreBlock>
-                    <ng-container *ngIf="i === 1">
+                    <ng-container *ngIf="i > 1">
                     </ng-container>
                 </ng-template>
             </div>
@@ -92,17 +92,17 @@
 
     </ng-template>
 
-    <div class="eventDetails" id="eDetails" *ngIf="selectedEvent" [(ngModel)]="selectedEvent">
+    <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" >
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-3 d-flex justify-content-center mb-5 mb-lg-0">
-                    <img [src]="PicToBase64(selectedEvent.game.picture)" alt="Picture" class="eD-img">
+                    <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
                 </div>
 
                 <div class="col-12 col-lg-9">
                     <div class="col-12">
-                      <h1>{{selectedEvent.game.name}}</h1>
-                      <h5>{{whichHour(selectedEvent.date)}}</h5>
+                      <h1>{{event.title}}</h1>
+                      <h5>{{whichHour(event.start)}}</h5>
                     </div>
 
                     <div class="buttons">
@@ -113,7 +113,7 @@
                         </svg> Nézd!</a>
                       </div>
                       <div class="col-12 mt-2">
-                        <app-add-to-calendar [startDate]='toCalendarDate()' [startTime]='toCalendarTime("start")' [endDate]='toCalendarDate()' [endTime]='toCalendarTime("end")' [title]='selectedEvent.game.name' [details]='"RicsoesaTiranyos Stream"' [location]="'Budapest, Hungary'"></app-add-to-calendar>
+                        <!-- <app-add-to-calendar [startDate]='toCalendarDate()' [startTime]='toCalendarTime("start")' [endDate]='toCalendarDate()' [endTime]='toCalendarTime("end")' [title]='event.game.name' [details]='"RicsoesaTiranyos Stream"' [location]="'Budapest, Hungary'"></app-add-to-calendar> -->
                       </div>
                     </div>
                     
