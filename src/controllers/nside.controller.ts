@@ -20,6 +20,7 @@ export default class nsideController implements Controller {
             res.send("MEGY!");
         });
         this.router.get("/api/dates", this.getAll);
+        this.router.get("/api/futureDates",this.getFutureDates)
         this.router.get("/api/links", this.getAllLink);
 		this.router.get("/api/links/:id", this.getLinkById);
         this.router.get("/api/machines", this.getAllMachine);
@@ -54,6 +55,21 @@ export default class nsideController implements Controller {
             res.status(400).send(error.message);
         }
     };
+
+    private getFutureDates = async (req: Request, res: Response) => {
+        try {
+            const data = await this.nsideM.find().populate("game", "-_id");
+            for (let index = 0; index < data.length; index++) {
+                if(new Date(data[index].end) < new Date()){
+                    data.splice(index,1);
+                }
+            }
+            res.send(data);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
 	private getAllGames = async (req: Request, res: Response) => {
         try {
             const data = await this.onesideM.find();
@@ -141,8 +157,23 @@ export default class nsideController implements Controller {
 
     private create = async (req: Request, res: Response) => {
         try {
+            const data = await this.nsideM.find().populate("game", "-_id");
             const body = req.body;
+            let newId = 0;
+            if(data.length > 0){
+                data.forEach(element => {
+                    if(new Date(element.start) <= new Date(body.start) && new Date(element.end) > new Date(body.start) || new Date(element.start) < new Date(body.end) && new Date(element.end) >= new Date(body.end) ){
+                        res.status(400).send("Error");
+                    }
+                    
+                    newId = element._id > newId ? element._id : newId;
+                });
+            }
+            
+
+
             const createdDocument = new this.nsideM({
+                _id: (newId+1),
                 ...body,
             });
             const savedDocument = await createdDocument.save();

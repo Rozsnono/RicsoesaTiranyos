@@ -12,8 +12,12 @@ const nsideSchema = new Schema(
             type: Number,
             required: true,
         },
-        date: {
-            type: Date,
+        start: {
+            type: String,
+            required: true,
+        },
+        end: {
+            type: String,
             required: true,
         },
         // description: {
