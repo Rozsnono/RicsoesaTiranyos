@@ -19,6 +19,7 @@ export default class nsideController implements Controller {
         this.router.get("/", (req: Request, res: Response) => {
             res.send("MEGY!");
         });
+        
         this.router.get("/api/dates", this.getAll);
         this.router.get("/api/futureDates",this.getFutureDates)
         this.router.get("/api/links", this.getAllLink);
