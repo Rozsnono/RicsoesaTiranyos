@@ -86,14 +86,10 @@ export class HomeComponent implements OnInit {
     return date.getDate() + ".";
   }
 
-  goToTwitch(){
-    window.location.href = this.link;
-  }
-
   eventPerDay: any;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-
+    this.eventPerDay = [];
     if(events.length != 0){
       this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
 
@@ -162,9 +158,39 @@ export class HomeComponent implements OnInit {
     return  + pic;
   }
 
-  gamePicture(game: string){
+  public timeZone = "2";
+  public loc = "Győr, Hungary";
 
+  ToGoogleCalendar(title: any, description: any, start: any, end: any){
+    const final_date = this.format_date(new Date(start)) + "/" + this.format_date(new Date(end));
+    window.location.href = "https://www.google.com/calendar/render?action=TEMPLATE&text="+ title +"&dates="+ final_date +"&details="+ description +"&location="+ this.loc +"&sf=true&output=xml";
+  }
+
+  gamePicture(game: string){
     return "data:image/jpeg;base64," + this.games.filter(x => x.name == game)[0].picture
+  }
+
+  format_date(date:any) {
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    
+    let formatted_date;
+    if(hour === 0 && minutes === 0) {
+      formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day);
+    } else {
+      formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day) + "T" + this.zero_pad2(hour-parseInt(this.timeZone)) + this.zero_pad2(minutes) + "00Z";
+    }
+    
+    return formatted_date;
+  }
+
+  zero_pad2(num: any) {
+    if(num < 10) return "0" + num;
+      return num;
   }
 
 }

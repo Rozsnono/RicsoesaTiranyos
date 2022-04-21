@@ -4,3 +4,17 @@
     margin-top: 2rem;
 }
 
+.cards{
+    background-color: #8e8e8e70;
+    color: #fff;
+    padding-top: 1rem;
+    margin: 0 auto;
+}
+
+.cards ul li{
+    margin: 0.5rem 0;
+}
+
+.row{
+    width: 90%;
+}

@@ -79,12 +79,17 @@
                 <ng-template *ngIf="i < 1; then showEventsBlock; else showMoreBlock">
                 </ng-template>
                 <ng-template #showEventsBlock>
-                    <div class="cal-events " *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                    <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
                         <span class="d-lg-block d-none">{{event.title}}</span>
+
                     </div>
                 </ng-template>
                 <ng-template #showMoreBlock>
                     <ng-container *ngIf="i > 1">
+                      <div class="cal-events d-lg-block d-none" *ngIf="i == 2" [ngStyle]="{ backgroundColor: '#A970FF', color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="több..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                        <span class="d-lg-block d-none text-end">több...</span>
+
+                    </div>
                     </ng-container>
                 </ng-template>
             </div>
@@ -92,47 +97,44 @@
 
     </ng-template>
 
-    <div class="eventDetails" id="eDetails" (click)="goToTwitch()" *ngFor="let event of eventPerDay" [style]="{backgroundColor: event.color.primary, color: event.color.secondary, borderColor: event.color.secondary}" >
+    <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{backgroundColor: event.color.primary, color: event.color.secondary, borderColor: event.color.secondary}" >
         <div class="container">
             <div class="row">
 
-              <div class="col-6 col-lg-1  eventDate text-center">
+              
+              <div class="col-12 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
+              </div>
+
+              <div class="col-12 col-lg-1  eventDate text-center">
                 <div class="eventDateBack">
                   <h3 class="eventMonth">{{convertToDateMonth(event.start)}}</h3>
                   <h5 class="eventDate">{{convertToDate(event.start)}}</h5>
                 </div>
               </div>
 
-              <div class="col-6 col-lg-2 d-flex justify-content-center">
-                <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
-              </div>
 
               <div class="col-12 col-lg-9">
+
                 <div class="row">
-                  <div class="col-10">
-                    <div class="row">
-                      <div class="col-12">
-                        <h1>{{event.title}}</h1>
-                      </div>
-                      <div class="col-12">
-                        <h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
-                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                        </svg> {{convertToTime(event.start)}} - {{convertToTime(event.end)}}</h5>
-                      </div>
+                  <div class="col-12">
+                    <h1>{{event.title}}</h1>
+                  </div>
+                  <div class="col-12">
+                    <h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
+                      <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                    </svg> {{convertToTime(event.start)}} - {{convertToTime(event.end)}}</h5>
+                  </div>
 
-                      <div class="col-3">
-                        <a class="btn btn-primary btn-Watch" [href]="link"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitch" viewBox="0 0 16 16">
-                          <path d="M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0H3.857zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142v6.286z"/>
-                          <path d="M11.857 3.143h-1.143V6.57h1.143V3.143zm-3.143 0H7.571V6.57h1.143V3.143z"/>
-                        </svg> Nézd!</a>
-                      </div>
-                      <div class="col-6">
-                        <app-add-to-calendar startDate='2022/01/01' [startTime]='toCalendarTime(event.start,"start")' endDate='2022/01/01' [endTime]='toCalendarTime(event.end,"end")' [title]='event.title' [details]='"RicsoesaTiranyos Stream"' [location]="'Budapest, Hungary'"></app-add-to-calendar>
 
-                      </div>
-                    </div>
+                  <div class="col-12 d-flex justify-content-center justify-content-lg-start">
+                    <button class="btn GoogleCalendar" (click)='ToGoogleCalendar(event.title,"RicsoesaTiranyos Stream",event.start,event.end)'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus mb-1" viewBox="0 0 16 16">
+                      <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                    </svg> Hozzáadás Google Naptárhoz</button>
                   </div>
                 </div>
+
               </div>
             </div>
         </div>
