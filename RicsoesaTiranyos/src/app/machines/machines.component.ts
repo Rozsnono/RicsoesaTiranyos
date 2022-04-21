@@ -34,4 +34,9 @@ export class MachinesComponent implements OnInit {
     return "data:image/jpeg;base64," + pic;
   }
 
+
+  Testdata(data:any){
+    console.log(data);
+    return data;
+  }
 }
