@@ -17,6 +17,10 @@ const machineSchema = new Schema(
             type: Array,
             required: true,
         },
+        specsPic: {
+            type: String,
+            required: true,
+        },
         software: {
             type: Array,
             required: false,
