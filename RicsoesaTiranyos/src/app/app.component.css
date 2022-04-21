@@ -3,12 +3,23 @@
     margin-right: 4%;
 }
 
+.header{
+    position: sticky;
+    z-index:100;
+    top: 10px;
+}
+
+
 .nav{
-    background-color: #ffffff40;
+
+    
+
+    background-color: #3b3b3b;
     margin: 3%;
     margin-top: 0.5%;
     padding: 1rem;
     border-radius: 1rem;
+    
 }
 
 .navHeader{
