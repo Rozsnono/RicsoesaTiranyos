@@ -28,8 +28,10 @@ export class MachinesComponent implements OnInit {
         error: error => console.log(error)
       }
     )
+  }
 
-    
+  gamePicture(pic: string){
+    return "data:image/jpeg;base64," + pic;
   }
 
 }

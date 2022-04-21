@@ -5,9 +5,14 @@
 }
 
 .cards{
-    background-color: #8e8e8e70;
+    background-color: #353535;
     color: #fff;
     padding-top: 1rem;
+    margin: 0 auto;
+}
+
+.cards .img{
+    width: 80%;
     margin: 0 auto;
 }
 

@@ -37,8 +37,10 @@
         </table> -->
         <div class="container mt-5" >
           <div class="row mx-auto ">
-            <div class="col-12 col-lg-4 cards">
+            <div class="col-12 col-lg-4 cards text-center">
               <h2 class="text-center">{{machine.type}}</h2>
+
+              <img [src]="gamePicture(machine.specsPic)" alt="Kép" class="img">
 
               <ul style="list-style: none; text-align: left;">
                 <li *ngFor="let spec of machine.specs">{{spec}}</li>
