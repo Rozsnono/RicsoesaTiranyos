@@ -59,7 +59,7 @@ export default class nsideController implements Controller {
 
     private getFutureDates = async (req: Request, res: Response) => {
         try {
-            const data = await this.nsideM.find().populate("game", "-_id").sort({start : 1});
+            const data = await this.nsideM.find().sort({start : 1}).populate("game", "-_id");
             for (let index = 0; index < data.length; index++) {
                 if(new Date(data[index].end) < new Date()){
                     data.splice(index,1);
