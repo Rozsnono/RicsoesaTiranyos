@@ -29,6 +29,10 @@ export class HomeComponent implements OnInit {
   events: CalendarEvent[] = [];
   selectedEvent: any;
 
+  months: any = [
+    "Jan","Feb","Márc","Ápr","Máj","Jún","Júl","Aug","Szept","Okt","Nov","Dec"
+  ]
+
   games: any[] = [];
   colors: any = { };
 
@@ -71,19 +75,28 @@ export class HomeComponent implements OnInit {
     )
   }
 
-  whichHour(tmpdate: any): string {
-    return tmpdate;
-    let date = tmpdate.split('T');
-    return date[0].replaceAll('-','. ') + " " + date[1].split(':')[0] + ":" + date[1].split(':')[1].split('.')[0];
+  convertToTime(date: any): string {
+    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+  }
+
+  convertToDateMonth(date: any): string{
+    return this.months[date.getMonth()];
+  }
+  convertToDate(date: any): string{
+    return date.getDate() + ".";
+  }
+
+  goToTwitch(){
+    window.location.href = this.link;
   }
 
   eventPerDay: any;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    this.selectedEvent = null;
+
     if(events.length != 0){
       this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
-      console.log(this.eventPerDay);
+
       // this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
       // this.selectedEvent.date = this.tmpDate;     
       // this.selectedEvent.selected = true;
@@ -124,26 +137,25 @@ export class HomeComponent implements OnInit {
   getDateId(id: any){
     this.http.get<any[]>(this.backendURL+"/api/dates/"+id).subscribe(
       {
-        next: (data: any) => {this.selectedEvent = data; console.log(this.selectedEvent);},
+        next: (data: any) => {this.selectedEvent = data; },
         error: error => console.log(error)
       }
     )
   }
 
-  toCalendarDate():any{
-    const date = new Date(this.selectedEvent.date);
-    return date.getFullYear() + "/" + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + "/" + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1));
+  toCalendarDate(date: any):any{
+    const d = new Date(date);
+    return d;
   }
 
-  toCalendarTime(type: any): any{
-    
-    let dates = this.selectedEvent.date.toString().split('.')[0].split(':')[0] + ":" + this.selectedEvent.date.toString().split('.')[0].split(':')[1];
-    dates = dates.split('T')[0] + 'T' + (parseInt(dates.split('T')[1].split(':')[0])-2) + ":" + dates.split('T')[1].split(':')[1];
-    const date = new Date(dates);
-    if(date.getHours() > 12){
-      return (type === "start" ? (date.getHours() - 12) : (date.getHours() - 11) ) + ":" + date.getMinutes() + " pm";
+  toCalendarTime(date: any,type: any): any{
+
+    const time = (date.getHours() < 10 ? "0"+date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes());
+
+    if(parseFloat(time.split(':')[0]) > 12){
+      return time + " pm";
     }
-    return (type === "start" ? (date.getHours()) : (date.getHours() + 1) ) + ":" + date.getMinutes() + " am";
+    return time + " am";
   }
 
   PicToBase64(pic: string){
@@ -151,7 +163,7 @@ export class HomeComponent implements OnInit {
   }
 
   gamePicture(game: string){
-    console.log(this.games.filter(x => x.name === game));
+
     return "data:image/jpeg;base64," + this.games.filter(x => x.name == game)[0].picture
   }
 

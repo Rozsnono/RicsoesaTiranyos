@@ -20,13 +20,19 @@
 .eventDetails{
     margin: 10%;
     margin-top: 1%;
+    margin-bottom: 1%;
     padding: 0.5rem;
     padding-top: 2rem;
     padding-bottom: 2rem;
-    border-radius: 3rem;
-    background-color: #ffffff60;
-    border: 1px solid white;
-    box-shadow: 1px 1px 20px 3px rgb(255, 255, 255);
+    border-radius: 1rem;
+    border: 1px solid black;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.eventDetails:hover{
+    padding-left: 1.5rem;
+    transition: 0.3s;
 }
 
 .btn-Watch{
@@ -44,11 +50,21 @@
 .eD-img{
     border-radius: 1rem;
     box-shadow: 9px 11px 19px 2px #000000;
-    width: 15rem;
-    height: 10rem;
+    width: 9rem;
+    height: 6rem;
 }
+
+.eventDate{
+    overflow: hidden;
+}
+
+
 .row{
     width: 100%;
+}
+
+.container{
+    margin: 0 !important;
 }
 
 .loading{
