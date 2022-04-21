@@ -17,6 +17,14 @@ const machineSchema = new Schema(
             type: Array,
             required: true,
         },
+        software: {
+            type: Array,
+            required: false,
+        },
+        perif: {
+            type: Array,
+            required: true,
+        },
     },
     { versionKey: false },
 );
