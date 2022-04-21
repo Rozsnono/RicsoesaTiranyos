@@ -9,6 +9,14 @@ const linkSchema = new Schema(
             type: String,
             required: true,
         },
+        name: {
+            type: String,
+            required: true,
+        },
+        subs: {
+            type: Number,
+            required: false,
+        }
     },
     { versionKey: false },
 );
