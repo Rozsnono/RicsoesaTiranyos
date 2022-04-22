@@ -10,21 +10,29 @@
     padding: 1rem;
     margin-top: 1rem;
 }
+.sub a{
+    text-decoration: none;
+    color: white;
+}
+
+.sub a:hover{
+    text-decoration: none;
+    color: white;
+}
 
 .main{
     background-image: url("../../assets/main.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 100%;
-    height: 40rem;
-    padding-top: 15rem;
+    height: 55vh;
+    padding-top: 18vh;
     
 }
 
 .main h1{
-    font-size: 4rem;
+    font-size: 7vh;
 }
-
 
 .twitchDiv{
     background-image: url("../../assets/twitch.jpg");
@@ -48,7 +56,7 @@
 }
 
 .header h1{
-    font-size: 5rem;
+    font-size: 10vh;
 }
 
 .header .calBtn{
