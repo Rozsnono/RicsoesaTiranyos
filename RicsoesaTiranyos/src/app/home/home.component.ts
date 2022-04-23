@@ -81,13 +81,9 @@ export class HomeComponent implements OnInit {
     this.newEventTMPdateStart = (this.convertDate(TMPdateStart,'-',true));
     this.newEventTMPdateEnd = (this.convertDate(TMPdateEnd,'-',true));
 
-    console.log(this.newEventTMPdateStart);
-    console.log(this.newEventTMPdateEnd);
-
-    console.log(this.newEventTMPstart);
-
     const tmpModel = {
-      date: String,
+      start: String,
+      end: String,
       _id: Number,
       game: Number,
     }
@@ -95,7 +91,8 @@ export class HomeComponent implements OnInit {
     
 
     tmpModel._id = this.getDateLastId();
-    tmpModel.date = this.newEventTMPdate;
+    tmpModel.start = this.newEventTMPdateStart;
+    tmpModel.end = this.newEventTMPdateEnd;
     tmpModel.game = this.tmpGameId;
 
     this.http.post<any[]>(this.backendURL+"/api/date",tmpModel).subscribe(
