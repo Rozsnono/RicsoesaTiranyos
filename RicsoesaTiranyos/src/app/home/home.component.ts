@@ -16,7 +16,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 export class HomeComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) { }
   
-  backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
   
   
   ngOnInit() {
@@ -106,7 +106,7 @@ export class HomeComponent implements OnInit {
   convertDates(id: any){
     this.convertEvent = this.dates.filter(x=>x._id === id)[0];
     this.convertEventName = this.convertEvent.game.name;
-    this.convertEventDate = this.convertDate(this.convertEvent.date,". ");
+    this.convertEventDate = this.convertDate(this.convertEvent.start,". ");
     console.log(this.convertEvent);
   }
 

@@ -5,7 +5,7 @@ import { MachinesComponent } from './machines/machines.component';
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
-  {path: "gepeink", component: MachinesComponent}
+  {path: "modifies", component: MachinesComponent}
 ];
 
 @NgModule({
