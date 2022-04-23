@@ -19,8 +19,24 @@ export class AboutComponent implements OnInit {
   twitch: String;
   instagram: String;
 
-  nextStream = {};
+  nextStream: any = {};
 
+  months: any = [
+    "Jan","Feb","Márc","Ápr","Máj","Jún","Júl","Aug","Szept","Okt","Nov","Dec"
+  ]
+
+  convertToDateMonth(d: any): string{
+    const date = new Date(d);
+    return this.months[date.getMonth()];
+  }
+  convertToDate(d: any): string{
+    const date = new Date(d);
+    return date.getDate() + ".";
+  }
+  convertToTime(d: any): string {
+    const date = new Date(d);
+    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+  }
 
   links: any[] = [];
 
@@ -60,8 +76,8 @@ export class AboutComponent implements OnInit {
       {
         next: (data: any) => 
           {
-            this.nextStream = data;
-            console.log(this.nextStream);
+            this.nextStream = data[0];
+            
           },
         error: error => console.log(error)
       }

@@ -68,12 +68,13 @@
                         <span class="date">2022. Április</span>
                         
                         <div class="event row">
-                            <div class="col-2">
-                                Ápr. 12
+                            <div class="col-2 bordered">
+                                <h5>{{convertToDateMonth(nextStream.start)}}</h5>
+                                <p>{{convertToDate(nextStream.start)}}</p>
                             </div>
                             <div class="col-10">
-                                <h5>Fortnite Battle Royal</h5>
-                                8:00 - 9:00
+                                <h5>{{nextStream.game.name}}</h5>
+                                {{convertToTime(nextStream.start)}} - {{convertToTime(nextStream.end)}}
                             </div>
                         </div>
                     </div>
