@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
@@ -64,8 +64,9 @@ export class AboutComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.getSubs();
     this.getStream();
+    this.getAuthFromTwitch();
+    this.getYoutubeSubs();
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=" + this.getUrl());
   }
 
@@ -76,15 +77,55 @@ export class AboutComponent implements OnInit {
     return window.location.href.split('//')[1].split('/')[0];
   }
 
-  getSubs(){
-    this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
+  authToken: any;
+
+  getAuthFromTwitch(){
+    const model = {
+      client_id: "hpb1bshobiw3k31pmu78v3c1wnyqos",
+      client_secret:"jt0mixedykuf57n384qz9yijzwlfzl",
+      grant_type:"client_credentials"
+    }
+
+    this.http.post<any[]>("https://id.twitch.tv/oauth2/token?client_id=hpb1bshobiw3k31pmu78v3c1wnyqos&client_secret=jt0mixedykuf57n384qz9yijzwlfzl&grant_type=client_credentials",model).subscribe(
       {
         next: (data: any) => 
           {
-            this.links = data; this.youtubeURL = this.getLinkByName("youtube"); this.twitchURL = this.getLinkByName("twitch"); this.instagramURL = this.getLinkByName("instagram");
-            this.youtube = this.subConverter("youtube",data);
-            this.twitch = this.subConverter("twitch",data);
-            this.instagram = this.subConverter("instagram",data);
+            this.authToken = data.access_token;
+
+            this.getSubsFromTwitch();
+          },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  getSubsFromTwitch(){
+    const headers = new HttpHeaders()
+    .set('Authorization', "Bearer " + this.authToken)
+    .set('client-id','hpb1bshobiw3k31pmu78v3c1wnyqos');
+
+    this.http.get<any[]>("https://api.twitch.tv/helix/users/follows?to_id=777755687",{"headers":headers}).subscribe(
+      {
+        next: (data: any) => 
+          {
+            this.twitch = this.subConverter("twitch",data.total);
+          },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+
+  getYoutubeSubs(){
+    const id = "UCVxPnFAKMyWtvxodKjg5L2w";
+    const key = "AIzaSyAe_ldqr7HrwXO90OhfRLuLkY9qo3Pqp8Y";
+
+    this.http.get<any[]>(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${id}&key=${key}`).subscribe(
+      {
+        next: (data: any) => 
+          {
+            this.youtube = data["items"][0].statistics.subscriberCount;
+            
           },
         error: error => console.log(error)
       }
@@ -104,9 +145,16 @@ export class AboutComponent implements OnInit {
     )
   }
 
-  subConverter(type: any, data: any[]): String{
-    const tmp:any = data.filter(x => x.name === type);
-    const subs = tmp[0].subs.toString();
+  checkNextStream(){
+    try {
+      return this.nextStream.length === 0;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  subConverter(type: any, follows: any[]): String{
+    const subs = follows.toString();
 
     if(parseInt(subs) > 100000){
       const sub = subs.slice();
