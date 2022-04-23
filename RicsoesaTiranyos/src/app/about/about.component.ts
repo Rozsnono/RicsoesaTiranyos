@@ -19,6 +19,8 @@ export class AboutComponent implements OnInit {
   twitch: String;
   instagram: String;
 
+  nextStream = {};
+
 
   links: any[] = [];
 
@@ -26,6 +28,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     this.getSubs();
+    this.getStream();
 
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=" + this.getUrl());
   }
@@ -46,6 +49,19 @@ export class AboutComponent implements OnInit {
             this.youtube = this.subConverter("youtube",data);
             this.twitch = this.subConverter("twitch",data);
             this.instagram = this.subConverter("instagram",data);
+          },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  getStream(){
+    this.http.get<any[]>(this.backendURL+"/api/futureDates").subscribe(
+      {
+        next: (data: any) => 
+          {
+            this.nextStream = data;
+            console.log(this.nextStream);
           },
         error: error => console.log(error)
       }
