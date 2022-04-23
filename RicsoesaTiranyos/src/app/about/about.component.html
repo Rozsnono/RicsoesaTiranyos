@@ -65,14 +65,18 @@
                         <h3>A következő stream</h3>
                         <hr>
 
-                        <span class="date">2022. Április</span>
+                        
+
+                        <span class="date" *ngIf="nextStream">{{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
                         
                         <div class="event row">
+                            
                             <div class="col-2 bordered">
                                 <h5>{{convertToDateMonth(nextStream.start)}}</h5>
                                 <p>{{convertToDate(nextStream.start)}}</p>
                             </div>
                             <div class="col-10">
+                                <h4 *ngIf="!nextStream">Nincs tervezett stream!</h4>
                                 <h5>{{nextStream.game.name}}</h5>
                                 {{convertToTime(nextStream.start)}} - {{convertToTime(nextStream.end)}}
                             </div>

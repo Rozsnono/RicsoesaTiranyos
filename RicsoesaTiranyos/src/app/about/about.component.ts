@@ -22,12 +22,19 @@ export class AboutComponent implements OnInit {
   nextStream: any = {};
 
   months: any = [
-    "Jan","Feb","Márc","Ápr","Máj","Jún","Júl","Aug","Szept","Okt","Nov","Dec"
+    "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
   ]
 
-  convertToDateMonth(d: any): string{
+  convertToDateMonth(d: any, type: any = "3"): string{
     const date = new Date(d);
-    return this.months[date.getMonth()];
+    if(type==="full"){
+      return this.months[date.getMonth()];
+    }
+    return this.months[date.getMonth()].slice(0,3);
+  }
+  convertToDateYear(d: any): string{
+    const date = new Date(d);
+    return date.getFullYear () + ".";
   }
   convertToDate(d: any): string{
     const date = new Date(d);
