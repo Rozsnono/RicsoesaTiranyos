@@ -15,6 +15,8 @@ export class AboutComponent implements OnInit {
   twitchURL: SafeResourceUrl;
   instagramURL: SafeResourceUrl;
 
+  readyCounter: any = 0;
+
   youtube: String;
   twitch: String;
   instagram: String;
@@ -24,6 +26,8 @@ export class AboutComponent implements OnInit {
   months: any = [
     "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
   ]
+
+  
 
   convertToDateMonth(d: any, type: any = "3"): string{
     try {
@@ -91,7 +95,7 @@ export class AboutComponent implements OnInit {
         next: (data: any) => 
           {
             this.authToken = data.access_token;
-
+            this.readyCounter += 1;
             this.getSubsFromTwitch();
           },
         error: error => console.log(error)
@@ -108,6 +112,7 @@ export class AboutComponent implements OnInit {
       {
         next: (data: any) => 
           {
+            this.readyCounter += 1;
             this.twitch = this.subConverter("twitch",data.total);
           },
         error: error => console.log(error)
@@ -125,7 +130,7 @@ export class AboutComponent implements OnInit {
         next: (data: any) => 
           {
             this.youtube = data["items"][0].statistics.subscriberCount;
-            
+            this.readyCounter += 1;
           },
         error: error => console.log(error)
       }
@@ -138,7 +143,7 @@ export class AboutComponent implements OnInit {
         next: (data: any) => 
           {
             this.nextStream = data[0];
-            
+            this.readyCounter += 1;
           },
         error: error => console.log(error)
       }
