@@ -13,7 +13,7 @@
         <div class="row">
           <div class="col-10">
             <mat-form-field appearance="fill">
-              <mat-label>Stream dátuma</mat-label>
+              <mat-label>Stream kezdete</mat-label>
               <input matInput [matDatepicker]="db" required [(ngModel)]="newEventTMPdate">
               <mat-datepicker-toggle matSuffix [for]="db"></mat-datepicker-toggle>
               <mat-datepicker #db></mat-datepicker>
@@ -22,11 +22,28 @@
           
           <div class="col-2">
             <div class="input-group mb-3">
-                <input type="time" class="form-control Time" [(ngModel)]="newEventTMPtime" required> 
+                <input type="time" class="form-control Time" [(ngModel)]="newEventTMPstart" required> 
             </div>
           </div>
         </div>
-        
+
+        <div class="row">
+          <div class="col-10">
+            <mat-form-field appearance="fill">
+              <mat-label>Stream vége</mat-label>
+              <input matInput [matDatepicker]="db" required [(ngModel)]="newEventTMPdate">
+              <mat-datepicker-toggle matSuffix [for]="db"></mat-datepicker-toggle>
+              <mat-datepicker #db></mat-datepicker>
+            </mat-form-field>
+          </div>
+          
+          <div class="col-2">
+            <div class="input-group mb-3">
+                <input type="time" class="form-control Time" [(ngModel)]="newEventTMPend" required> 
+            </div>
+          </div>
+        </div>
+        <hr>
 
         <div class="col-12">
           <mat-form-field appearance="fill">
@@ -42,7 +59,7 @@
             </mat-form-field>
         </div>
 
-        <div class="input-group mb-3" *ngIf="tmpGameId == 99">
+        <div class="input-group mb-3 newGame" *ngIf="tmpGameId == 99">
           <input type="text" class="form-control" placeholder="Játék neve" aria-label="Játék neve" [(ngModel)]="newGameName">
           <input type="file" (change)="onUploadChange($event)" class="form-control" placeholder="Kép">
           <input type="color" class="form-control form-control-color ColorPicker" id="exampleColorInput" value="#563d7c" title="Válassz színt!" [(ngModel)]="newGameColor">
@@ -109,7 +126,7 @@
 
         <ng-container matColumnDef="date">
           <th mat-header-cell *matHeaderCellDef> Dátum </th>
-          <td mat-cell *matCellDef="let element"> {{convertDate(element.date,". ")}} </td>
+          <td mat-cell *matCellDef="let element"> {{convertDate(element.start,". ")}} </td>
         </ng-container>
 
         <ng-container matColumnDef="functions">

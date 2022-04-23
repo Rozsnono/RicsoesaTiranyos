@@ -15,3 +15,10 @@
 .Time{
     height: 3.7rem;
 }
+
+.newGame{
+    border: 1px solid black;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: #ffffff50;
+}

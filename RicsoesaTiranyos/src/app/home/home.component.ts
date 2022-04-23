@@ -32,7 +32,9 @@ export class HomeComponent implements OnInit {
 
   
   newEventTMPdate: any;
-  newEventTMPtime: any;
+  newEventTMPstart: any;
+  newEventTMPend: any;
+
   newEventTMPgame: any;
   
   converting: any;
@@ -46,6 +48,9 @@ export class HomeComponent implements OnInit {
   newGameName: any;
   newGameColor: any
   newGamePicture: any;
+
+  newEventTMPdateStart: any;
+  newEventTMPdateEnd: any;
 
   OKmessage: any;
   errorMessage: any;
@@ -64,13 +69,22 @@ export class HomeComponent implements OnInit {
   }
 
   saveDates(){
-    const TMPdate = new Date(this.newEventTMPdate);
-    TMPdate.setHours(this.newEventTMPtime.split(':')[0]);
-    TMPdate.setMinutes(this.newEventTMPtime.split(':')[1]);
-    this.newEventTMPdate = (this.convertDate(TMPdate,'-',true));
-    console.log(TMPdate);
+    const TMPdateStart = new Date(this.newEventTMPdate);
+    TMPdateStart.setHours(this.newEventTMPstart.split(':')[0]);
+    TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
-    console.log(this.newEventTMPdate);
+    const TMPdateEnd = new Date(this.newEventTMPdate);
+    TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
+    TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
+
+
+    this.newEventTMPdateStart = (this.convertDate(TMPdateStart,'-',true));
+    this.newEventTMPdateEnd = (this.convertDate(TMPdateEnd,'-',true));
+
+    console.log(this.newEventTMPdateStart);
+    console.log(this.newEventTMPdateEnd);
+
+    console.log(this.newEventTMPstart);
 
     const tmpModel = {
       date: String,
