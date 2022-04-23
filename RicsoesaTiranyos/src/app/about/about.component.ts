@@ -26,11 +26,16 @@ export class AboutComponent implements OnInit {
   ]
 
   convertToDateMonth(d: any, type: any = "3"): string{
-    const date = new Date(d);
-    if(type==="full"){
-      return this.months[date.getMonth()];
+    try {
+      const date = new Date(d);
+      if(type==="full"){
+        return this.months[date.getMonth()];
+      }
+      return this.months[date.getMonth()].slice(0,3);
+    } catch (error) {
+      return "";
     }
-    return this.months[date.getMonth()].slice(0,3);
+    
   }
   convertToDateYear(d: any): string{
     const date = new Date(d);
@@ -45,14 +50,22 @@ export class AboutComponent implements OnInit {
     return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
   }
 
+  getNextStreamName(){
+    try {
+      return this.nextStream.game.name;
+    } catch (error) {
+      return "";
+    }
+  }
+
   links: any[] = [];
+  twitchSubsLink: any;
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.getSubs();
     this.getStream();
-
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=" + this.getUrl());
   }
 
