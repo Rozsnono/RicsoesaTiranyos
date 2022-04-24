@@ -50,20 +50,7 @@
     color: #803af0 !important;
 }
 
-.footer{
-    color: white !important;
-    text-align: center;
-    background-color: #ffffff20;
-}
 
-.footer img{
-    width: 20vh;
-}
-.footerCopy{
-    color:white;
-    text-align: center;
-    padding: 0.5rem;
-}
 
 .scroll-to-top {
     position: fixed;

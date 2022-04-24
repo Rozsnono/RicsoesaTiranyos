@@ -27,6 +27,21 @@
     border-radius: 1rem;
     border: 1px solid black;
     transition: 0.3s;
+    position: relative;
+
+   
+}
+
+.filtered{
+    filter: invert(100%);
+}
+
+.eventTitle{
+    line-height: 1rem;
+}
+
+.tooltiptext{
+    visibility: hidden;
 }
 
 .GoogleCalendar{ 
@@ -117,3 +132,8 @@
     background-color: #00000000;
 }
 
+
+
+.spacer{
+    margin-bottom: 2%;
+}

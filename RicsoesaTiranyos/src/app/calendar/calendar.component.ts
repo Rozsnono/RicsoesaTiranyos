@@ -168,6 +168,23 @@ export class CalendarComponent implements OnInit {
     return "data:image/jpeg;base64," + this.games.filter(x => x.name == game)[0].picture
   }
 
+  checkLength(title: any, max: any){
+    const titles : String = title;
+    if(titles.length > max){
+      return titles.slice(0,max) + "...";
+    }
+    return titles;
+
+  }
+
+  checkWyNotWorking(i: any, event: any, day: any, type: any){
+    console.log(new Date(day.date).getDate());
+    console.log(i);
+    console.log(type);
+    console.log(event);
+    return i;
+  }
+
   format_date(date:any) {
     var day = date.getDate();
     var monthIndex = date.getMonth();

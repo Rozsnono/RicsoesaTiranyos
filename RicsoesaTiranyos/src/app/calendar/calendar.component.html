@@ -79,14 +79,13 @@
                   <ng-template *ngIf="i < 1; then showEventsBlock; else showMoreBlock">
                   </ng-template>
                   <ng-template #showEventsBlock>
-                      <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
-                          <span class="d-lg-block d-none">{{event.title}}</span>
-  
+                      <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.primary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                          <span class="d-lg-block d-none filtered eventTitle">{{checkLength(event.title,20)}}</span>
                       </div>
                   </ng-template>
                   <ng-template #showMoreBlock>
-                      <ng-container *ngIf="i > 1">
-                        <div class="cal-events d-lg-block d-none" *ngIf="i == 2" [ngStyle]="{ backgroundColor: '#A970FF', color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="több..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                      <ng-container *ngIf="i <= 1">
+                        <div class="cal-events d-lg-block d-none" *ngIf="i == 1" [ngStyle]="{ backgroundColor: '#A970FF', color: '#000' }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="több..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
                           <span class="d-lg-block d-none text-end">több...</span>
   
                       </div>
@@ -97,7 +96,7 @@
   
       </ng-template>
   
-      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{backgroundColor: event.color.primary, color: event.color.secondary, borderColor: event.color.secondary}" >
+      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{backgroundColor: event.color.primary, color: event.color.primary, borderColor: event.color.secondary}" >
           <div class="container">
               <div class="row">
   
@@ -108,19 +107,19 @@
   
                 <div class="col-12 col-lg-1  eventDate text-center">
                   <div class="eventDateBack">
-                    <h3 class="eventMonth">{{convertToDateMonth(event.start)}}</h3>
-                    <h5 class="eventDate">{{convertToDate(event.start)}}</h5>
+                    <h3 class="eventMonth filtered">{{convertToDateMonth(event.start)}}</h3>
+                    <h5 class="eventDate filtered">{{convertToDate(event.start)}}</h5>
                   </div>
                 </div>
   
   
                 <div class="col-12 col-lg-9">
   
-                  <div class="row">
-                    <div class="col-12">
-                      <h1>{{event.title}}</h1>
+                  <div class="row ">
+                    <div class="col-12 filtered">
+                      <h1>{{checkLength(event.title,40)}}</h1>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 filtered">
                       <h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                       </svg> {{convertToTime(event.start)}} - {{convertToTime(event.end)}}</h5>
@@ -138,5 +137,9 @@
                 </div>
               </div>
           </div>
+      </div>
+
+      <div class="spacer">
+        
       </div>
   </body>
