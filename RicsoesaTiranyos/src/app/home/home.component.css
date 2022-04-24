@@ -1,119 +1,139 @@
-.cal-day-badge{
-    display: none !important;
-}
-
-.cal-events{
-    padding: 0.4rem;
-    border-radius: 1rem;
-}
-
-.cal-days{
-    background-color: #ffffff30 !important;
-}
-
-
-
-.hour{
-    text-align: right !important;
-}
-
-.eventDetails{
-    margin: 10%;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    padding: 0.5rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    border-radius: 1rem;
-    border: 1px solid black;
-    transition: 0.3s;
-}
-
-.GoogleCalendar{ 
-    border-top: 3px solid #ea4335;
-    border-left: 3px solid #fbbc05;
-    border-bottom: 3px solid #34a853;
-    border-right: 3px solid #4285f4;
-    background-color: #00000030;
+.about{
     color: white;
-    transition: 0.3s;
 }
 
-.GoogleCalendar:hover{ 
-    background-color: #00000060;
+.subs{
+    height: 10rem;
+}
+
+.sub{
+    padding: 1rem;
+    margin-top: 1rem;
+}
+.sub a{
+    text-decoration: none;
     color: white;
-    transition: 0.3s;
+}
+
+.sub a:hover{
+    text-decoration: none;
+    color: white;
+}
+
+.main{
+    background-image: url("../../assets/main.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100%;
+    height: 55vh;
+    padding-top: 18vh;
+    
 }
 
 @media screen and (max-width: 712px) {
-    .eventDetails:hover{
-        padding: 0.3rem;
-        padding-top: 1.8rem;
-        padding-bottom: 1.8rem;
-        transition: 0.3s;
+    .main{
+        padding-top: 5vh;
+        height: 25vh;
     }
 }
 
-@media screen and (min-width: 712px) {
-    .eventDetails:hover{
-        padding-left: 1.5rem;
-        transition: 0.3s;
-    }
+.main h1{
+    font-size: 6vh;
 }
 
-.btn-Watch{
-    padding-left: 1rem !important;
-    padding-right: 1rem !important;
-
-    background-color: #A970FF !important;
-    border-color: #A970FF !important;
+.twitchDiv{
+    background-image: url("../../assets/twitch.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+    padding: 3rem;
 }
 
-.buttons{
+.header{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.headerH5{
     margin-top: 1rem;
+    font-size: 1.5rem;
 }
 
-.eD-img{
-    border-radius: 1rem;
-    box-shadow: 9px 11px 19px 2px #000000;
-    width: 100%;
-}
-
-.eventDate{
-    overflow: hidden;
-}
-
-
-.row{
-    width: 100%;
-}
-
-.container{
-    margin: 0 !important;
-}
-
-.loading{
-    position: absolute;
-    z-index: 1000;
+.header iframe{
     width: 100%;
     height: 100%;
-    display: flex;
-    justify-content: center;
-    color:white;
-    padding: 10%;
 }
 
-.container{
-    padding: 0 !important;
+.header h1{
+    font-size: 8vh;
 }
 
-.row{
-    margin: 0 !important;
+.header .calBtn{
+    margin-top: 3rem;
+
+    background-color: #00000050;
+    color: white;
+    padding: 1.8rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+
+    background-size: 300% 100%;
+    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
+    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
+    transition: all .4s ease-in-out;
 }
 
-.mat-success {
-    border: 2px solid green;
-    color: green;
-    background-color: #00000000;
+.header .calBtn:hover{
+    /* background-color: #00000050;
+    color: #A970FF;
+    border: 1px solid #A970FF;
+    padding: 1.8rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-radius: 2rem; */
+
+    background-position: 100% 0;
+    transition: all .4s ease-in-out;
 }
 
+.closestStream{
+    background-color: #2d2d2d;
+    margin: 2rem;
+    padding: 2rem;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0.4rem;
+    transition: 0.3s;
+}
+
+.event{
+    border-radius: 1rem;
+    border: 1px solid black;
+    padding: 1rem;
+    margin-top: 1rem;
+    background-color: #ffffff50;
+}
+.event .bordered{
+    border-right: 1px solid #ffffff60;
+}
+.twitchStream{
+    margin: 2rem;
+    padding-right: 2rem;
+    width: 100%;
+    height: 100%;
+
+    border-radius: 0.4rem;
+    transition: 0.3s;
+}
+
+.closestStream:hover{
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+
+.closestStream .date{
+    color: #ffffff90;
+    font-size: 1.5rem;
+}

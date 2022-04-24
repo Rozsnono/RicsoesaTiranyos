@@ -4,12 +4,15 @@ import { HomeComponent } from './home/home.component';
 import { MachinesComponent } from './machines/machines.component';
 import { VideosComponent } from './videos/videos.component';
 import { AboutComponent } from './about/about.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
-  {path: "menetrend", component: HomeComponent},
+  {path: "menetrend", component: CalendarComponent},
   {path: "gepeink", component: MachinesComponent},
   {path: "videok", component: VideosComponent},
-  {path: "", component: AboutComponent}
+  {path: "rolunk", component: AboutComponent},
+  {path: "", component: HomeComponent}
+
 ];
 
 @NgModule({

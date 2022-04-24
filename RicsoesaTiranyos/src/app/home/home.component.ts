@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CalendarEvent, CalendarView } from 'angular-calendar';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-home',
@@ -12,186 +12,189 @@ import { Router } from '@angular/router';
 
 export class HomeComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) { }
-
-  ngOnInit() {
-    this.getDates();
-    this.getLinkById();
-    this.getGame();
-  }
-
+  safeSrc: SafeResourceUrl;
   backendURL = "https://ricsoesatiranyos2.herokuapp.com";
-  link: any = "";
 
-  viewDate: Date = new Date();
-  view: CalendarView = CalendarView.Month;
-  CalendarView = CalendarView;
-  events: CalendarEvent[] = [];
-  selectedEvent: any;
+  youtubeURL: SafeResourceUrl;
+  twitchURL: SafeResourceUrl;
+  instagramURL: SafeResourceUrl;
+
+  readyCounter: any = 0;
+
+  youtube: String;
+  twitch: String;
+  instagram: String;
+
+  nextStream: any = {};
 
   months: any = [
-    "Jan","Feb","Márc","Ápr","Máj","Jún","Júl","Aug","Szept","Okt","Nov","Dec"
+    "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
   ]
 
-  games: any[] = [];
-  colors: any = { };
+  
 
-  tmpEvents: any[] = [];
-  tmpDate: any;
-
-  eventLoaded: any = false;
-
-  dialogClose2: any = 'none';
-
-  getDates(){
-    this.http.get<any[]>(this.backendURL+"/api/futureDates").subscribe(
-      {
-        next: (data: any) => {
-          for (let index = 0; index < data.length; index++) {
-            let tmpName = data[index].game.name;
-            let tmpObj = {
-              [tmpName] : {
-                primary: data[index].game.color,
-                secondary: (data[index].game.color == "#ffffff" ? "#000" : "#fff")
-              }
-            };
-            Object.assign(this.colors, tmpObj);
-            this.tmpEvents.push({
-              start: new Date(data[index].start),
-              end: new Date(data[index].end),
-              title: data[index].game.name,
-              id: data[index]._id,
-              color: this.colors[tmpName]
-            });
-            
-          }
-          this.eventLoaded = true;
-          this.events = this.tmpEvents;
-          if(this.events.length == 0) this.dialogClose2 = 'block';
-
-        },
-        error: error => console.log(error)
+  convertToDateMonth(d: any, type: any = "3"): string{
+    try {
+      const date = new Date(d);
+      if(type==="full"){
+        return this.months[date.getMonth()];
       }
-    )
+      return this.months[date.getMonth()].slice(0,3);
+    } catch (error) {
+      return "";
+    }
+    
   }
-
-  convertToTime(date: any): string {
+  convertToDateYear(d: any): string{
+    const date = new Date(d);
+    return date.getFullYear () + ".";
+  }
+  convertToDate(d: any): string{
+    const date = new Date(d);
+    return date.getDate() + ".";
+  }
+  convertToTime(d: any): string {
+    const date = new Date(d);
     return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
   }
 
-  convertToDateMonth(date: any): string{
-    return this.months[date.getMonth()];
-  }
-  convertToDate(date: any): string{
-    return date.getDate() + ".";
-  }
-
-  eventPerDay: any;
-
-  dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    this.eventPerDay = [];
-    if(events.length != 0){
-      this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
-
-      // this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-      // this.selectedEvent.date = this.tmpDate;     
-      // this.selectedEvent.selected = true;
+  getNextStreamName(){
+    try {
+      return this.nextStream.game.name;
+    } catch (error) {
+      return "";
     }
   }
 
+  links: any[] = [];
+  twitchSubsLink: any;
 
+  constructor(private sanitizer: DomSanitizer, private http: HttpClient) { }
 
-  getGame(){
-    this.http.get<any[]>(this.backendURL+"/api/games").subscribe(
-      {
-        next: (data: any) => this.games = data,
-        error: error => console.log(error)
-      }
-    )
+  ngOnInit(): void {
+    this.getStream();
+    this.getAuthFromTwitch();
+    this.getYoutubeSubs();
+    this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=" + this.getUrl());
   }
 
-  getLinkById(){
-    this.http.get<any[]>(this.backendURL+"/api/links/1").subscribe(
-      {
-        next: (data: any) => this.link = data.link,
-        error: error => console.log(error)
-      }
-    )
-  }
-
-  getGameId(id: any){
-    this.http.get<any[]>(this.backendURL+"/api/games/"+id).subscribe(
-      {
-        next: (data: any) => {this.selectedEvent.name = data.name;
-          this.selectedEvent.picture = data.picture;},
-        error: error => console.log(error)
-      }
-    )
-  }
-
-
-  getDateId(id: any){
-    this.http.get<any[]>(this.backendURL+"/api/dates/"+id).subscribe(
-      {
-        next: (data: any) => {this.selectedEvent = data; },
-        error: error => console.log(error)
-      }
-    )
-  }
-
-  toCalendarDate(date: any):any{
-    const d = new Date(date);
-    return d;
-  }
-
-  toCalendarTime(date: any,type: any): any{
-
-    const time = (date.getHours() < 10 ? "0"+date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0"+date.getMinutes() : date.getMinutes());
-
-    if(parseFloat(time.split(':')[0]) > 12){
-      return time + " pm";
+  getUrl(){
+    if(window.location.href.includes("localhost")){
+      return "localhost";
     }
-    return time + " am";
+    return window.location.href.split('//')[1].split('/')[0];
   }
 
-  PicToBase64(pic: string){
-    return  + pic;
-  }
+  authToken: any;
 
-  public timeZone = "2";
-  public loc = "Győr, Hungary";
-
-  ToGoogleCalendar(title: any, description: any, start: any, end: any){
-    const final_date = this.format_date(new Date(start)) + "/" + this.format_date(new Date(end));
-    window.location.href = "https://www.google.com/calendar/render?action=TEMPLATE&text="+ title +"&dates="+ final_date +"&details="+ description +"&location="+ this.loc +"&sf=true&output=xml";
-  }
-
-  gamePicture(game: string){
-    return "data:image/jpeg;base64," + this.games.filter(x => x.name == game)[0].picture
-  }
-
-  format_date(date:any) {
-    var day = date.getDate();
-    var monthIndex = date.getMonth();
-    var year = date.getFullYear();
-    
-    var hour = date.getHours();
-    var minutes = date.getMinutes();
-    
-    let formatted_date;
-    if(hour === 0 && minutes === 0) {
-      formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day);
-    } else {
-      formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day) + "T" + this.zero_pad2(hour-parseInt(this.timeZone)) + this.zero_pad2(minutes) + "00Z";
+  getAuthFromTwitch(){
+    const model = {
+      client_id: "hpb1bshobiw3k31pmu78v3c1wnyqos",
+      client_secret:"jt0mixedykuf57n384qz9yijzwlfzl",
+      grant_type:"client_credentials"
     }
-    
-    return formatted_date;
+
+    this.http.post<any[]>("https://id.twitch.tv/oauth2/token?client_id=hpb1bshobiw3k31pmu78v3c1wnyqos&client_secret=jt0mixedykuf57n384qz9yijzwlfzl&grant_type=client_credentials",model).subscribe(
+      {
+        next: (data: any) => 
+          {
+            this.authToken = data.access_token;
+            this.readyCounter += 1;
+            this.getSubsFromTwitch();
+          },
+        error: error => console.log(error)
+      }
+    )
   }
 
-  zero_pad2(num: any) {
-    if(num < 10) return "0" + num;
-      return num;
+  getSubsFromTwitch(){
+    const headers = new HttpHeaders()
+    .set('Authorization', "Bearer " + this.authToken)
+    .set('client-id','hpb1bshobiw3k31pmu78v3c1wnyqos');
+
+    this.http.get<any[]>("https://api.twitch.tv/helix/users/follows?to_id=777755687",{"headers":headers}).subscribe(
+      {
+        next: (data: any) => 
+          {
+            this.readyCounter += 1;
+            this.twitch = this.subConverter("twitch",data.total);
+          },
+        error: error => console.log(error)
+      }
+    )
   }
+
+
+  getYoutubeSubs(){
+    const id = "UCVxPnFAKMyWtvxodKjg5L2w";
+    const key = "AIzaSyAe_ldqr7HrwXO90OhfRLuLkY9qo3Pqp8Y";
+
+    this.http.get<any[]>(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${id}&key=${key}`).subscribe(
+      {
+        next: (data: any) => 
+          {
+            this.youtube = data["items"][0].statistics.subscriberCount;
+            this.readyCounter += 1;
+          },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  getStream(){
+    this.http.get<any[]>(this.backendURL+"/api/futureDates").subscribe(
+      {
+        next: (data: any) => 
+          {
+            this.nextStream = data[0];
+            this.readyCounter += 1;
+          },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  checkNextStream(){
+    try {
+      return this.nextStream.length === 0;
+    } catch (error) {
+      return false;
+    }
+  }
+
+  subConverter(type: any, follows: any[]): String{
+    const subs = follows.toString();
+
+    if(parseInt(subs) > 100000){
+      const sub = subs.slice();
+      return sub[0]+sub[1]+sub[2] + "k+";
+    }
+
+    if(parseInt(subs) > 1000){
+      const sub = subs;
+      let subIn = "";
+      let finalSubs = "";
+      for (let index = sub.length-1; index >= 0; index--) {
+        subIn += ((sub.length-1 - index) % 3 == 0 ? " ": "") + sub[index];
+      }
+
+      for (let index = subIn.length-1; index >= 0; index--) {
+        finalSubs += subIn[index];
+      }
+      
+      return finalSubs;
+    }
+
+
+    return subs;
+  }
+
+  getLinkByName(type: any):any{
+    const tmp: any = this.links.filter(x => x.name === type)[0];
+    return tmp.link;
+  }
+
+  
 
 }
 

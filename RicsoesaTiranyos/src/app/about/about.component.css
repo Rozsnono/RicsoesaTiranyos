@@ -1,139 +1,114 @@
-.about{
-    color: white;
+
+
+.container { 
+    position:relative; max-width: 100% !important; margin: 0 !important; padding: 0 !important; overflow: hidden; height: 20rem;
+}
+.container video {
+    position:relative;
+    z-index:0;
+    width: 100%;
+    margin-top: -20%;
+}
+.overlay {
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000000e0;
+    top:0;
+    left:0;
+    z-index:1;
+    padding-top: 2%;
+    text-align: center;
+    color: #ffffff80
 }
 
-.subs{
-    height: 10rem;
+.overlay h5{
+    line-height: 3vh;
+    font-size: 2vh;
 }
 
-.sub{
-    padding: 1rem;
-    margin-top: 1rem;
-}
-.sub a{
-    text-decoration: none;
-    color: white;
-}
+@media screen and (max-width: 728px){
 
-.sub a:hover{
-    text-decoration: none;
-    color: white;
-}
+    .container{
+        height: 20%;
+    }
 
-.main{
-    background-image: url("../../assets/main.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 100%;
-    height: 55vh;
-    padding-top: 18vh;
-    
-}
+    .container video {
+        position:relative;
+        z-index:0;
+        width: 100%;
+        margin-top: 0;
+    }
 
-@media screen and (max-width: 712px) {
-    .main{
-        padding-top: 5vh;
-        height: 25vh;
+    .overlay {
+        padding-top: 12%;
+    }
+
+    .overlay h5{
+        line-height: 2vh;
+        font-size: 1vh;
+    }
+
+    .overlay img{
+        width: 20vw !important;
     }
 }
 
-.main h1{
-    font-size: 6vh;
+.overlay img{
+    width: 10vw;
 }
 
-.twitchDiv{
-    background-image: url("../../assets/twitch.jpg");
-    background-repeat: no-repeat;
-    background-size: auto;
-    padding: 3rem;
-}
-
-.header{
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
-
-.headerH5{
-    margin-top: 1rem;
-    font-size: 1.5rem;
-}
-
-.header iframe{
-    width: 100%;
-    height: 100%;
-}
-
-.header h1{
-    font-size: 8vh;
-}
-
-.header .calBtn{
-    margin-top: 3rem;
-
-    background-color: #00000050;
-    color: white;
-    padding: 1.8rem;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-    border-radius: 2rem;
-    border: none;
-    cursor: pointer;
-
-    background-size: 300% 100%;
-    background-image: linear-gradient(to right, #667eea, #764ba2, #6B8DD6, #8E37D7);
-    box-shadow: 0 4px 15px 0 rgba(116, 79, 168, 0.75);
-    transition: all .4s ease-in-out;
-}
-
-.header .calBtn:hover{
-    /* background-color: #00000050;
-    color: #A970FF;
-    border: 1px solid #A970FF;
-    padding: 1.8rem;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem;
-    border-radius: 2rem; */
-
-    background-position: 100% 0;
-    transition: all .4s ease-in-out;
-}
-
-.closestStream{
+.space{
     background-color: #2d2d2d;
-    margin: 2rem;
+    height: 3rem;
+}
+
+
+.about{
+    color: white;
+    text-align: center;
     padding: 2rem;
-    width: 100%;
-    height: 100%;
-
-    border-radius: 0.4rem;
-    transition: 0.3s;
 }
 
-.event{
+.cards{
+    background-color: #000000e0;
     border-radius: 1rem;
-    border: 1px solid black;
     padding: 1rem;
-    margin-top: 1rem;
-    background-color: #ffffff50;
-}
-.event .bordered{
-    border-right: 1px solid #ffffff60;
-}
-.twitchStream{
-    margin: 2rem;
-    padding-right: 2rem;
-    width: 100%;
-    height: 100%;
-
-    border-radius: 0.4rem;
-    transition: 0.3s;
+    transition: 0.4s;
+    margin: 0 0.4rem;
 }
 
-.closestStream:hover{
-    transform: scale(1.05);
-    transition: 0.3s;
+.cards:hover{
+    background-color: #3e329184;
+    transition: 0.2s;
 }
 
-.closestStream .date{
-    color: #ffffff90;
-    font-size: 1.5rem;
+.cards a{
+    color: white;
+}
+
+.li-g{
+    border-radius: 1rem !important;
+    background-color: #ffffff20;
+    color: white;
+    margin: 0 0.3rem;
+}
+
+
+
+
+.twitch{
+    background-image: url("../../assets/twitch.jpg");
+    color: white;
+    text-align: center;
+    
+}
+
+.text{
+    margin: auto;
+}
+
+.purple{
+    padding: 2rem;
+    background-color: #9d00b987;
 }

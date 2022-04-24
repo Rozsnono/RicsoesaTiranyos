@@ -1,0 +1,142 @@
+<body>
+    <div class="loading" *ngIf="!eventLoaded">
+  
+      <div class="loader">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  
+      <div class="modal" style="margin-top: 20%;" [style]="{display: dialogClose2}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">
+                  <span>Információ</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="dialogClose2 = 'none'"></button>
+              </div>
+              <div class="modal-body">
+                <p>Sajnáljuk, jelenleg nincsen előre tervezett Stream a közeljövőben!</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="dialogClose2 = 'none'">Értem</button>
+              </div>
+            </div>
+          </div>
+        </div>
+          <div class="row text-center">
+  
+              <div class="col-lg-3 col-12">
+                  <div class="btn-group">
+  
+                        <button mat-fab color="primary" class="prev-btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
+                          <!-- prev -->
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+                          </svg>
+                        </button>
+                        <button mat-fab color="success" class="mx-3 home-btn" mwlCalendarToday [(viewDate)]="viewDate">
+                          <!-- home -->
+                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-fill mb-1" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+                            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
+                          </svg>
+                        </button>
+                        <button mat-fab color="primary" class="prev-btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+                          <!-- next -->
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+                          </svg>
+                        </button>
+                        
+                  </div>
+              </div>
+              <div class="col-lg-6 col-12 text-light">
+                <h3 class="mt-2">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+              </div>
+  
+          </div>
+  
+      <mwl-calendar-month-view (dayClicked)="dayClicked($event.day)" [viewDate]="viewDate" [events]="events" [weekStartsOn]="1" [cellTemplate]="customCellTemplate">
+      </mwl-calendar-month-view>
+  
+      <ng-template #customCellTemplate let-day="day" let-locale="locale" let-tooltipPlacement="tooltipPlacement" let-highlightDay="highlightDay" let-unhighlightDay="unhighlightDay" let-eventClicked="eventClicked" let-tooltipTemplate="tooltipTemplate" let-tooltipAppendToBody="tooltipAppendToBody" let-tooltipDelay="tooltipDelay">
+          <div class="cal-cell-top">
+              <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
+                  {{ day.badgeTotal }}</span>
+              <span class="cal-day-number">
+                  {{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+          </div>
+          <div *ngIf="day.events.length > 0">
+              <div *ngFor="let event of day.events; index as i">
+                  <ng-template *ngIf="i < 1; then showEventsBlock; else showMoreBlock">
+                  </ng-template>
+                  <ng-template #showEventsBlock>
+                      <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                          <span class="d-lg-block d-none">{{event.title}}</span>
+  
+                      </div>
+                  </ng-template>
+                  <ng-template #showMoreBlock>
+                      <ng-container *ngIf="i > 1">
+                        <div class="cal-events d-lg-block d-none" *ngIf="i == 2" [ngStyle]="{ backgroundColor: '#A970FF', color: event.color.secondary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="több..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                          <span class="d-lg-block d-none text-end">több...</span>
+  
+                      </div>
+                      </ng-container>
+                  </ng-template>
+              </div>
+          </div>
+  
+      </ng-template>
+  
+      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{backgroundColor: event.color.primary, color: event.color.secondary, borderColor: event.color.secondary}" >
+          <div class="container">
+              <div class="row">
+  
+                
+                <div class="col-12 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                  <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
+                </div>
+  
+                <div class="col-12 col-lg-1  eventDate text-center">
+                  <div class="eventDateBack">
+                    <h3 class="eventMonth">{{convertToDateMonth(event.start)}}</h3>
+                    <h5 class="eventDate">{{convertToDate(event.start)}}</h5>
+                  </div>
+                </div>
+  
+  
+                <div class="col-12 col-lg-9">
+  
+                  <div class="row">
+                    <div class="col-12">
+                      <h1>{{event.title}}</h1>
+                    </div>
+                    <div class="col-12">
+                      <h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                      </svg> {{convertToTime(event.start)}} - {{convertToTime(event.end)}}</h5>
+                    </div>
+  
+  
+                    <div class="col-12 d-flex justify-content-center justify-content-lg-start">
+                      <button class="btn GoogleCalendar" (click)='ToGoogleCalendar(event.title,"RicsoesaTiranyos Stream",event.start,event.end)'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus mb-1" viewBox="0 0 16 16">
+                        <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
+                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                      </svg> Hozzáadás Google Naptárhoz</button>
+                    </div>
+                  </div>
+  
+                </div>
+              </div>
+          </div>
+      </div>
+  </body>

@@ -23,6 +23,7 @@ import { MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { AboutComponent } from './about/about.component';
+import { CalendarComponent } from './calendar/calendar.component';
 
 
 
@@ -32,7 +33,8 @@ import { AboutComponent } from './about/about.component';
     HomeComponent,
     MachinesComponent,
     VideosComponent,
-    AboutComponent
+    AboutComponent,
+    CalendarComponent
   ],
   imports: [
     HttpClientModule,
