@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, HostListener, Inject } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,16 @@ export class AppComponent {
   links: Array<any> = [];
   loading: boolean;
 
+  windowScrolled: boolean;
+
+  @HostListener("window:scroll", []) onWindowScroll() {
+    if (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
+        this.windowScrolled = true;
+    } 
+    else if (this.windowScrolled && window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop < 10) {
+        this.windowScrolled = false;
+    }
+}
 
 
   face: any;
@@ -21,7 +32,7 @@ export class AppComponent {
   youtube: any;
   insta: any;
 
-  constructor(private http: HttpClient, private router: Router){
+  constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){
     router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
         this.loading = true;
@@ -47,5 +58,10 @@ export class AppComponent {
         error: error => console.log(error)
       }
     )
+  }
+
+  scroll(){
+    this.dom.body.scrollTop =0;
+    this.dom.documentElement.scrollTop=0;
   }
 }

@@ -72,11 +72,13 @@ export class HomeComponent implements OnInit {
   constructor(private sanitizer: DomSanitizer, private http: HttpClient) { }
 
   ngOnInit(): void {
+    document.body.style.overflow = "hidden";
     this.getStream();
     this.getAuthFromTwitch();
     this.getYoutubeSubs();
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=" + this.getUrl());
   }
+
 
   getUrl(){
     if(window.location.href.includes("localhost")){
@@ -118,6 +120,7 @@ export class HomeComponent implements OnInit {
           {
             this.readyCounter += 1;
             this.twitch = this.subConverter("twitch",data.total);
+            document.body.style.overflow = "visible";
           },
         error: error => console.log(error)
       }

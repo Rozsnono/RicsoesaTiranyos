@@ -78,8 +78,23 @@
     margin: 0 0.4rem;
 }
 
-.cards:hover{
+.cards.blue:hover{
     background-color: #3e329184;
+    transition: 0.2s;
+}
+
+.cards.red:hover{
+    background-color: #91323284;
+    transition: 0.2s;
+}
+
+.cards.green:hover{
+    background-color: #2e963684;
+    transition: 0.2s;
+}
+
+.cards.yellow:hover{
+    background-color: #91913284;
     transition: 0.2s;
 }
 
