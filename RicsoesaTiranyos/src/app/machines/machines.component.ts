@@ -31,7 +31,20 @@ export class MachinesComponent implements OnInit {
   }
 
   gamePicture(pic: string){
-    return "data:image/jpeg;base64," + pic;
+    switch (pic) {
+      case "Patrik":
+        return "../../assets/PatrikMachine.png";
+        break;
+      case "Bence":
+        return "../../assets/BenceMachine.png";
+        break;
+      case "Norbi":
+        return "../../assets/NonoMachine.png";     
+        break;  
+      default:
+        return "";
+        break;
+    } 
   }
 
 
