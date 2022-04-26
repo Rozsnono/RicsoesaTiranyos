@@ -62,7 +62,17 @@ export class HomeComponent implements OnInit {
   getDates(){
     this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
       {
-        next: (data: any) => {this.dates = data;},
+        next: (data: any) => {this.dates = data.sort((n1,n2) => {
+          if (n1.start > n2.start) {
+              return 1;
+          }
+      
+          if (n1.start < n2.start) {
+              return -1;
+          }
+      
+          return 0;
+          });},
         error: error => console.log(error)
       }
     )
@@ -74,8 +84,8 @@ export class HomeComponent implements OnInit {
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
     const TMPdateEnd = new Date(this.newEventTMPdate);
-    TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
-    TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
+    TMPdateEnd.setHours(parseInt(this.newEventTMPstart.split(':')[0]) + this.newEventTMPend);
+    TMPdateEnd.setMinutes(this.newEventTMPstart.split(':')[1]);
 
 
     this.newEventTMPdateStart = (this.convertDate(TMPdateStart,'-',true));

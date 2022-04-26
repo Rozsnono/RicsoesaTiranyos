@@ -22,7 +22,7 @@
           
           <div class="col-2">
             <div class="input-group mb-3">
-                <input type="time" class="form-control Time" [(ngModel)]="newEventTMPstart" required> 
+                <input type="time" class="form-control Time" step="00:15" [(ngModel)]="newEventTMPstart" required> 
             </div>
           </div>
         </div>
@@ -39,7 +39,7 @@
           
           <div class="col-2">
             <div class="input-group mb-3">
-                <input type="time" class="form-control Time" [(ngModel)]="newEventTMPend" required> 
+                <input type="number" class="form-control Time" [(ngModel)]="newEventTMPend" placeholder="óra" required> 
             </div>
           </div>
         </div>
