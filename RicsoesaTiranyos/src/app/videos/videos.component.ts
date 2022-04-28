@@ -47,7 +47,7 @@ export class VideosComponent implements OnInit {
   getAllLink(){
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
-        next: (data: any) => {this.links = data; this.loaded = true; this.isAllEmpty = (this.links.length == 0); },
+        next: (data: any) => {this.links = data; console.log(this.links); this.loaded = true; this.isAllEmpty = (this.links.length == 0); },
         error: error => console.log(error)
       }
     )
@@ -83,6 +83,6 @@ export class VideosComponent implements OnInit {
 
   toCorrectTime(time: any){
     const date = new Date(time);
-    return date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ".";
+    return date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()) < 10 ? '0' + (date.getDate()) : (date.getDate())) + ".";
   }
 }
