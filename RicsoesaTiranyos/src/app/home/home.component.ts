@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   dates: any[] = [];
 
   
+  
   newEventTMPdate: any;
   newEventTMPstart: any;
   newEventTMPend: any;
@@ -149,7 +150,7 @@ export class HomeComponent implements OnInit {
     tmpModel.end = this.newEventTMPdateEnd;
     tmpModel.game = this.tmpGameId;
 
-    this.http.patch<any[]>(this.backendURL+"/api/date/"+this.selectedEventId ,tmpModel).subscribe(
+    this.http.put<any[]>(this.backendURL+"/api/date/"+this.selectedEventId ,tmpModel).subscribe(
       {
         next: (data: any) => {window.location.reload()},
         error: error => this.errorMessage = error.message
