@@ -93,8 +93,8 @@ export class HomeComponent implements OnInit {
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
     const TMPdateEnd = new Date(this.newEventTMPdate);
-    TMPdateEnd.setHours(parseInt(this.newEventTMPstart.split(':')[0]) + this.newEventTMPend);
-    TMPdateEnd.setMinutes(this.newEventTMPstart.split(':')[1]);
+    TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
+    TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
 
 
     this.newEventTMPdateStart = (this.convertDate(TMPdateStart,'-',true));
@@ -128,8 +128,8 @@ export class HomeComponent implements OnInit {
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
     const TMPdateEnd = new Date(this.newEventTMPdate);
-    TMPdateEnd.setHours(parseInt(this.newEventTMPstart.split(':')[0]) + this.newEventTMPend);
-    TMPdateEnd.setMinutes(this.newEventTMPstart.split(':')[1]);
+    TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
+    TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
 
 
     this.newEventTMPdateStart = (this.convertDate(TMPdateStart,'-',true));
@@ -144,14 +144,14 @@ export class HomeComponent implements OnInit {
 
     
 
-    tmpModel._id = this.getDateLastId();
+    tmpModel._id = this.selectedEventId;
     tmpModel.start = this.newEventTMPdateStart;
     tmpModel.end = this.newEventTMPdateEnd;
     tmpModel.game = this.tmpGameId;
 
-    this.http.patch<any[]>(this.backendURL+"/api/date/1",tmpModel).subscribe(
+    this.http.patch<any[]>(this.backendURL+"/api/date/"+this.selectedEventId ,tmpModel).subscribe(
       {
-        next: (data: any) => {this.dates.push(data); this.OKmessage = true; window.location.reload()},
+        next: (data: any) => {window.location.reload()},
         error: error => this.errorMessage = error.message
       }
     )
@@ -228,9 +228,10 @@ export class HomeComponent implements OnInit {
       }
     )
   }
-
+  selectedEventId: any;
   dateById(id: any){
     const selectedEvent = this.dates.filter(x => x._id === id)[0];
+    this.selectedEventId = selectedEvent._id;
     this.newEventTMPdate = selectedEvent.start.split('T')[0];
     this.newEventTMPstart = selectedEvent.start.split('T')[1];
     this.newEventTMPend = selectedEvent.end.split('T')[1];
