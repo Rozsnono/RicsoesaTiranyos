@@ -122,6 +122,41 @@ export class HomeComponent implements OnInit {
     )
   }
 
+  modifyDate(){
+    const TMPdateStart = new Date(this.newEventTMPdate);
+    TMPdateStart.setHours(this.newEventTMPstart.split(':')[0]);
+    TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
+
+    const TMPdateEnd = new Date(this.newEventTMPdate);
+    TMPdateEnd.setHours(parseInt(this.newEventTMPstart.split(':')[0]) + this.newEventTMPend);
+    TMPdateEnd.setMinutes(this.newEventTMPstart.split(':')[1]);
+
+
+    this.newEventTMPdateStart = (this.convertDate(TMPdateStart,'-',true));
+    this.newEventTMPdateEnd = (this.convertDate(TMPdateEnd,'-',true));
+
+    const tmpModel = {
+      start: String,
+      end: String,
+      _id: Number,
+      game: Number,
+    }
+
+    
+
+    tmpModel._id = this.getDateLastId();
+    tmpModel.start = this.newEventTMPdateStart;
+    tmpModel.end = this.newEventTMPdateEnd;
+    tmpModel.game = this.tmpGameId;
+
+    this.http.patch<any[]>(this.backendURL+"/api/date/1",tmpModel).subscribe(
+      {
+        next: (data: any) => {this.dates.push(data); this.OKmessage = true; window.location.reload()},
+        error: error => this.errorMessage = error.message
+      }
+    )
+  }
+
   convertDates(id: any){
     this.convertEvent = this.dates.filter(x=>x._id === id)[0];
     this.convertEventName = this.convertEvent.game.name;
@@ -192,6 +227,15 @@ export class HomeComponent implements OnInit {
         error: error => {this.errorMessage = error.message;  window.location.reload();}
       }
     )
+  }
+
+  dateById(id: any){
+    const selectedEvent = this.dates.filter(x => x._id === id)[0];
+    this.newEventTMPdate = selectedEvent.start.split('T')[0];
+    this.newEventTMPstart = selectedEvent.start.split('T')[1];
+    this.newEventTMPend = selectedEvent.end.split('T')[1];
+    const selectedGame = this.games.filter(x => x.name === selectedEvent.game.name)[0];
+    this.tmpGameId = selectedGame._id;
   }
 
   deleteGames(id: any){
