@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
   dates: any[] = [];
 
   
-  
+
   newEventTMPdate: any;
   newEventTMPstart: any;
   newEventTMPend: any;
@@ -162,7 +162,6 @@ export class HomeComponent implements OnInit {
     this.convertEvent = this.dates.filter(x=>x._id === id)[0];
     this.convertEventName = this.convertEvent.game.name;
     this.convertEventDate = this.convertDate(this.convertEvent.start,". ");
-    console.log(this.convertEvent);
   }
 
   saveLink(){
@@ -175,12 +174,14 @@ export class HomeComponent implements OnInit {
       date: String,
     }
 
+    const date: any = new Date(this.convertEvent.start);
+
     tmpModel._id = this.LinkLastId + 1;
     tmpModel.link = this.convertLink;
     tmpModel.type = this.convertTypes;
     tmpModel.name = this.convertEvent.game.name;
     tmpModel.picture = this.convertEvent.game.picture;
-    tmpModel.date = this.convertingDate;
+    tmpModel.date = date;
 
     this.http.post<any[]>(this.backendURL+"/api/youtube",tmpModel).subscribe(
       {
