@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   displayedColumns: string[] = ['name', 'date', 'functions'];
   dates: any[] = [];
 
-  
+  isModify: boolean = false;
 
   newEventTMPdate: any;
   newEventTMPstart: any;
@@ -164,6 +164,10 @@ export class HomeComponent implements OnInit {
     this.convertEventDate = this.convertDate(this.convertEvent.start,". ");
   }
 
+  resetPage(){
+    window.location.reload();
+  }
+
   saveLink(){
     const tmpModel = {
       _id: Number,
@@ -173,6 +177,7 @@ export class HomeComponent implements OnInit {
       type: Array,
       date: String,
     }
+    
 
     const date: any = new Date(this.convertEvent.start);
 
@@ -232,6 +237,7 @@ export class HomeComponent implements OnInit {
   }
   selectedEventId: any;
   dateById(id: any){
+    this.isModify = true;
     const selectedEvent = this.dates.filter(x => x._id === id)[0];
     this.selectedEventId = selectedEvent._id;
     this.newEventTMPdate = selectedEvent.start.split('T')[0];

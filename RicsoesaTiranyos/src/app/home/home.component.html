@@ -8,7 +8,10 @@
 
     <div class="col-12">
       <div class="new-model">
-        <h3>Új esemény hozzáadása</h3>
+        <div class="row">
+          <h3 class="col-3">Új esemény hozzáadása</h3>
+          <button class="btn btn-primary col-1" (click)="resetPage()">Újratöltés</button>
+        </div>
         <hr />
         <div class="row">
           <div class="col-12 col-lg-6">
@@ -77,8 +80,8 @@
         </div>
         
         <div class="col-12 d-flex justify-content-center">
-          <button class="btn btn-success" (click)="saveDates()">Hozzáadás</button>
-          <button class="btn btn-primary" (click)="modifyDate()">Módosítás</button>
+          <button class="btn btn-success" *ngIf="!isModify" (click)="saveDates()">Hozzáadás</button>
+          <button class="btn btn-primary" *ngIf="isModify" (click)="modifyDate()">Módosítás</button>
         </div>
       </div>
 
