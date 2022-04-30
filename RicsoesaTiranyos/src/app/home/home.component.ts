@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   twitch: String;
   instagram: String;
 
-  nextStream: any = {};
+  nextStream: any = [];
 
   months: any = [
     "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
@@ -103,6 +103,8 @@ export class HomeComponent implements OnInit {
             this.authToken = data.access_token;
             this.readyCounter += 1;
             this.getSubsFromTwitch();
+            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
+
           },
         error: error => console.log(error)
       }
@@ -120,7 +122,7 @@ export class HomeComponent implements OnInit {
           {
             this.readyCounter += 1;
             this.twitch = this.subConverter("twitch",data.total);
-            document.body.style.overflow = "visible";
+            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
           },
         error: error => console.log(error)
       }
@@ -138,6 +140,8 @@ export class HomeComponent implements OnInit {
           {
             this.youtube = data["items"][0].statistics.subscriberCount;
             this.readyCounter += 1;
+            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
+
           },
         error: error => console.log(error)
       }
@@ -150,7 +154,13 @@ export class HomeComponent implements OnInit {
         next: (data: any) => 
           {
             this.nextStream = data[0];
+
+            if (data.length === 0) {
+              this.nextStream = [];
+            }
             this.readyCounter += 1;
+            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
+
           },
         error: error => console.log(error)
       }

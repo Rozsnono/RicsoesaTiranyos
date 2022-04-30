@@ -81,7 +81,7 @@
 
                       
 
-                      <span class="date" *ngIf="nextStream">{{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
+                      <span class="date" *ngIf="!checkNextStream()">{{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
                       
                       <div class="event row">
                           
