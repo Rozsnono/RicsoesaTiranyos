@@ -13,6 +13,10 @@ const linkSchema = new Schema(
             type: String,
             required: true,
         },
+        route: {
+            type: String,
+            required: false,
+        },
         disabled: {
             type: Boolean,
             required: false,
