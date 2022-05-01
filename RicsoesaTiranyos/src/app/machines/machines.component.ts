@@ -33,7 +33,8 @@ export class MachinesComponent implements OnInit {
       const tmpModel = {
         disabled: this.pages[index].disabled,
         title: this.pages[index].title,
-        name: this.pages[index].name
+        route: this.pages[index].route,
+        name: this.pages[index].name,
       }
 
 
