@@ -5,7 +5,7 @@
       <h1>Oldalak</h1>
         <div class="row" *ngFor="let page of pages">
           <div class="form-check form-switch" *ngIf="page.name !== 'home'">
-            <input class="form-check-input" type="checkbox" [id]="page.name" [(ngModel)]="!page.disabled">
+            <input class="form-check-input" type="checkbox" [id]="page.name" [(ngModel)]="page.disabled">
             <label class="form-check-label" for="flexSwitchCheckDefault">{{page.title}}</label>
           </div>
         </div>

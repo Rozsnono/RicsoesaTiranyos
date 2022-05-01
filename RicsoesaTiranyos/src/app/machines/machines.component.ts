@@ -30,10 +30,17 @@ export class MachinesComponent implements OnInit {
 
   savePages(){
     for (let index = 0; index < this.pages.length; index++) {
-      this.http.put<any[]>(this.backendURL+"/api/pages/" + this.pages[index]._id, this.pages[index]).subscribe(
+      const tmpModel = {
+        disabled: this.pages[index].disabled,
+        title: this.pages[index].title,
+        name: this.pages[index].name
+      }
+
+
+      this.http.put<any[]>("https://ricsoesatiranyos2.herokuapp.com/api/page/" + this.pages[index]._id, tmpModel).subscribe(
         {
-          next: (data: any) => {console.log("OK");},
-          error: error => {console.log(error); console.log(this.pages[index])}
+          next: (data: any) => { window.location.reload() },
+          error: error => {console.log(error);}
         }
       );
     }
