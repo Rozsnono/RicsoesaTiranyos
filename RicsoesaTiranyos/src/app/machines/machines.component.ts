@@ -9,71 +9,42 @@ import { HttpClient } from '@angular/common/http';
 export class MachinesComponent implements OnInit {
 
   constructor(private http: HttpClient) { }
-  backendURL = "https://ricsoesatiranyos.herokuapp.com";
+  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
 
-  machines: Array<any>= [];
-  displayedColumns = ["specs","type", "buttons"];
-
-  newSpecType: any;
-  newSpecDetails: any;
+  pages: any = [];
 
   ngOnInit(): void {
-    this.getSpecs();
+    this.getPages();
   }
 
-  modifySpecs(id: any, machinesId: any){
-    const model = this.machines[machinesId-1];
-    let tmpArray = model.specs;
+  getPages(){
+    this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
+      {
+        next: (data: any) => {this.pages = data;},
+        error: error => {console.log(error);}
+      }
+    )
+  }
 
-    let stmpArray = [];
+  
 
-    for (let index = 0; index < tmpArray.length; index++) {
-      if(tmpArray[index][0] != id) stmpArray.push(tmpArray[index])
+  savePages(){
+    for (let index = 0; index < this.pages.length; index++) {
+      this.http.put<any[]>(this.backendURL+"/api/pages/" + this.pages[index]._id, this.pages[index]).subscribe(
+        {
+          next: (data: any) => {console.log("OK");},
+          error: error => {console.log(error); console.log(this.pages[index])}
+        }
+      );
     }
-    model.specs = stmpArray;
 
-
-    this.http.put<any[]>(this.backendURL+"/api/machine/"+machinesId,model).subscribe(
-      {
-        next: (data: any) => {this.machines = data;window.location.reload();},
-        error: error => {console.log(error); window.location.reload();}
-      }
-    )
+    // this.pages.forEach(page => {
+    //   this.http.put<any[]>(this.backendURL+"/api/page/"+page._id, page).subscribe(
+    //     {
+    //       next: (data: any) => {console.log("OK");},
+    //       error: error => {console.log(error);}
+    //     }
+    //   );
+    // });
   }
-
-  createSpecs(machinesId: any){
-    const model = this.machines[machinesId-1];
-    let tmpArray = model.specs;
-    let sTmpArray = [this.getSpecsNewID(machinesId),this.newSpecType, this.newSpecDetails];
-    tmpArray.push(sTmpArray);
-    model.specs = tmpArray;
-
-    this.http.put<any[]>(this.backendURL+"/api/machine/"+machinesId,model).subscribe(
-      {
-        next: (data: any) => {this.machines = data; window.location.reload();},
-        error: error => {console.log(error); window.location.reload();}
-      }
-    )
-  }
-
-  getSpecsNewID(machinesId: any){
-    const tmpArray = this.machines[machinesId-1].specs;
-    let max = 0;
-    for (let index = 0; index < tmpArray.length; index++) {
-      max =  tmpArray[index][0] < max ? max :  tmpArray[index][0];
-    }
-    return parseInt(max.toString())+1;
-  }
-
-  getSpecs(){
-    this.http.get<any[]>(this.backendURL+"/api/machines").subscribe(
-      {
-        next: (data: any) => {this.machines = data;},
-        error: error => console.log(error)
-      }
-    )
-
-    
-  }
-
 }
