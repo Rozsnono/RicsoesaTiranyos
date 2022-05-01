@@ -14,7 +14,6 @@ const routes: Routes = [
   {path: "rolunk", component: AboutComponent},
   {path: "", component: HomeComponent},
   {path: "**", pathMatch: 'full', component: PageNotFoundComponent}
-
 ];
 
 @NgModule({
