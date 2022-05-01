@@ -33,13 +33,13 @@ export class MachinesComponent implements OnInit {
   gamePicture(pic: string){
     switch (pic) {
       case "Patrik":
-        return "../../assets/PatrikMachine.png";
+        return "../../assets/patrikmachine.png";
         break;
       case "Bence":
-        return "../../assets/BenceMachine.png";
+        return "../../assets/bencemachine.png";
         break;
       case "Norbi":
-        return "../../assets/NonoMachine.png";     
+        return "../../assets/nonomachine.png";     
         break;  
       default:
         return "";

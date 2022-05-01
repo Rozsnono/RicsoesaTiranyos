@@ -76,13 +76,16 @@ export class HomeComponent implements OnInit {
     this.getStream();
     this.getAuthFromTwitch();
     this.getYoutubeSubs();
-    this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=" + this.getUrl());
+    this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=www.ricsoesatiranyos.hu");
   }
 
 
   getUrl(){
     if(window.location.href.includes("localhost")){
       return "localhost";
+    }
+    if(window.location.href.includes("www")){
+      return "ricsoesatiranyos.hu";
     }
     return window.location.href.split('//')[1].split('/')[0];
   }
