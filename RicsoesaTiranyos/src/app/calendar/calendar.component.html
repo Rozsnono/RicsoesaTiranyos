@@ -86,7 +86,9 @@
                   <ng-template #showMoreBlock>
                       <ng-container *ngIf="i <= 1">
                         <div class="cal-events d-lg-block d-none" *ngIf="i == 1" [ngStyle]="{ backgroundColor: '#A970FF', color: '#000' }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="több..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
-                          <span class="d-lg-block d-none text-end">több...</span>
+                          <span class="d-lg-block d-none text-end"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots me-2" viewBox="0 0 16 16">
+                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+                          </svg></span>
   
                       </div>
                       </ng-container>
