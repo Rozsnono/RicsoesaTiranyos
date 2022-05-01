@@ -5,6 +5,8 @@ import onesideModel from "./oneside.model";
 import linkModel from "./link.model";
 import youtubeLink from "./youtubeLink.model";
 import machineModel from "./machine.model";
+import pagesModel from "./pages.model";
+
 
 export default class nsideController implements Controller {
     public path = "/api/xyz";
@@ -14,6 +16,7 @@ export default class nsideController implements Controller {
     private linkM = linkModel;
     private machineM = machineModel;
     private ylM = youtubeLink;
+    private page = pagesModel;
 
     constructor() {
         this.router.get("/", (req: Request, res: Response) => {
@@ -30,6 +33,7 @@ export default class nsideController implements Controller {
         this.router.get("/api/games/:id", this.getByIdGame);
         this.router.get("/api/youtube", this.getAllYoutubeLink);
         this.router.get("/api/youtube/:name", this.getYoutubeLinkByName);
+        this.router.get("/api/pages", this.getAllPage);
 
 
         this.router.post("/api/date", this.create);
@@ -37,16 +41,63 @@ export default class nsideController implements Controller {
         this.router.post("/api/link", this.createLink);
         this.router.post("/api/machine", this.createMachine);
         this.router.post("/api/youtube", this.createYoutube);
+        this.router.post("/api/page", this.createPage);
 
         this.router.put("/api/date/:id", this.modifyPUTdate);
 		this.router.put("/api/game/:id", this.modifyPUTgame);
         this.router.put("/api/link/:id", this.modifyPUTlink);
         this.router.put("/api/machine/:id", this.modifyPUTmachine);
+        this.router.put("/api/page/:id", this.modifyPUTpage);
 
         this.router.delete("/api/dates/:id", this.delete);
         this.router.delete("/api/games/:id", this.deleteGame);
         this.router.delete("/api/youtube/:id", this.deleteYoutube);
     }
+
+
+    private getAllPage = async (req: Request, res: Response) => {
+        try {
+            const data = await this.page.find();
+            res.send(data);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private createPage = async (req: Request, res: Response) => {
+        try {
+            const body = req.body;
+            const createdDocument = new this.page({
+                ...body,
+            });
+            const savedDocument = await createdDocument.save();
+            res.send(savedDocument);
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private modifyPUTpage = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const body = req.body;
+            const modificationResult = await this.page.replaceOne({ _id: id }, body, { runValidators: true });
+            if (modificationResult.modifiedCount) {
+                const updatedDoc = await this.page.findById(id);
+                res.send(updatedDoc);
+            } else {
+                res.status(404).send(`Document with id ${id} not found!`);
+            }
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+
+
+
+
+
 
     private getAll = async (req: Request, res: Response) => {
         try {
