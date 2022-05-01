@@ -32,6 +32,8 @@ export class AppComponent {
   youtube: any;
   insta: any;
 
+  pages: any = [];
+
   constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){
     router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
@@ -44,6 +46,7 @@ export class AppComponent {
 
   ngOnInit(){
     this.getLinks();
+    this.getPages();
   }
 
   getLinks(){
@@ -55,6 +58,15 @@ export class AppComponent {
           this.twitch = this.links.filter(x => x.name === "twitch")[0].link;
           this.insta = this.links.filter(x => x.name === "instagram")[0].link;
         },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  getPages(){
+    this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
+      {
+        next: (data: any) => {this.pages = data;},
         error: error => console.log(error)
       }
     )

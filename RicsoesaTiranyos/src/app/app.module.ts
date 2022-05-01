@@ -24,6 +24,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { AboutComponent } from './about/about.component';
 import { CalendarComponent } from './calendar/calendar.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 
@@ -34,7 +35,8 @@ import { CalendarComponent } from './calendar/calendar.component';
     MachinesComponent,
     VideosComponent,
     AboutComponent,
-    CalendarComponent
+    CalendarComponent,
+    PageNotFoundComponent
   ],
   imports: [
     HttpClientModule,
