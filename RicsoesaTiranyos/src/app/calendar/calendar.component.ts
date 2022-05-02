@@ -21,8 +21,25 @@ export class CalendarComponent implements OnInit {
 
   ngOnInit() {
     this.getDates();
+    this.getRoute();
     this.getLinkById();
     this.getGame();
+  }
+
+  getRoute(){
+    this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
+      {
+        next: (data: any[]) => {
+          if(data.filter(x => x.route === "menetrend")[0].disabled){
+            this.router.navigateByUrl('/not-found');
+          }else{
+            this.eventLoaded += 1;
+          }
+
+        },
+        error: error => console.log(error)
+      }
+    )
   }
 
   backendURL = "https://ricsoesatiranyos2.herokuapp.com";
@@ -44,7 +61,7 @@ export class CalendarComponent implements OnInit {
   tmpEvents: any[] = [];
   tmpDate: any;
 
-  eventLoaded: any = false;
+  eventLoaded: any = 0;
 
   dialogClose2: any = 'none';
 
@@ -74,7 +91,7 @@ export class CalendarComponent implements OnInit {
             });
             
           }
-          this.eventLoaded = true;
+          this.eventLoaded += 1;
           this.events = this.tmpEvents;
           if(this.events.length == 0) this.modalRef = this.modalService.open(ModalComponent);
 

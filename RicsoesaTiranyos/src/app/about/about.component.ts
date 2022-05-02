@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -8,12 +9,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router) { }
 
   backendURL = "https://ricsoesatiranyos2.herokuapp.com";
 
   ngOnInit(): void {
+    this.getRoute();
     this.getLinks();
+  }
+
+  getRoute(){
+    this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
+      {
+        next: (data: any[]) => {
+          if(data.filter(x => x.route === "rolunk")[0].disabled){
+            this.router.navigateByUrl('/not-found');
+          }else{
+          }
+
+        },
+        error: error => console.log(error)
+      }
+    )
   }
 
   links: any[] = [];

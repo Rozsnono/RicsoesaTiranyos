@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 import {FormControl} from '@angular/forms';
+import { Router } from '@angular/router';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 @Component({
@@ -11,7 +12,7 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class VideosComponent implements OnInit {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private router: Router) { }
 
   links: any[] = [];
   backendURL = "https://ricsoesatiranyos2.herokuapp.com";
@@ -20,6 +21,7 @@ export class VideosComponent implements OnInit {
   isAllEmpty: any = false;
 
   ngOnInit(): void {
+    this.getRoute();
     this.getAllGames();
     this.getAllLink();
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -42,6 +44,23 @@ export class VideosComponent implements OnInit {
   InputChange(game: any){
     this.selectedGameName = game;
   }
+
+  getRoute(){
+    this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
+      {
+        next: (data: any[]) => {
+          if(data.filter(x => x.route === "videok")[0].disabled){
+            this.router.navigateByUrl('/not-found');
+          }else{
+          }
+
+        },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  
 
   getAllLink(){
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
