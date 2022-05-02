@@ -27,6 +27,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ModalComponent } from './modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import {MatSliderModule} from '@angular/material/slider';
 
 
 
@@ -57,6 +58,7 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
     ReactiveFormsModule,
     MatInputModule,
     MdbModalModule,
+    MatSliderModule,
     
     
     CalendarModule.forRoot({

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 
 import { ModalComponent } from '../modal/modal.component';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { NumberInput } from '@angular/cdk/coercion';
 
 @Component({
   selector: 'app-calendar',
@@ -103,6 +104,32 @@ export class CalendarComponent implements OnInit {
     }
   }
 
+
+  getMaxToSlider(start: any, end: any): NumberInput{
+    const Dstart = new Date(start);
+    const Dend = new Date(end);
+
+    const DstartMin = Dstart.getHours() * 60 + Dstart.getMinutes();
+    const DendMin = Dend.getHours() * 60 + Dend.getMinutes();
+
+    const Max = DendMin - DstartMin;
+    return Max
+  }
+
+  
+  getValueToSlider(start: any, end: any): NumberInput{
+    const Dstart = new Date(start);
+    const Dend = new Date(end);
+    const Dnow = new Date();
+
+    const DstartMin = Dstart.getHours() * 60 + Dstart.getMinutes();
+    const DendMin = Dend.getHours() * 60 + Dend.getMinutes();
+    const DnowMin = Dnow.getHours() * 60 + Dnow.getMinutes();
+
+    if(DendMin < DnowMin) return -1;
+    const Now = DnowMin - DstartMin;
+    return Now < 0 ? -1 : Now;
+  }
 
 
   getGame(){
