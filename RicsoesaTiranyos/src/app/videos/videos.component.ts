@@ -40,14 +40,13 @@ export class VideosComponent implements OnInit {
   }
 
   InputChange(game: any){
-    console.log(game);
     this.selectedGameName = game;
   }
 
   getAllLink(){
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
-        next: (data: any) => {this.links = data; console.log(this.links); this.loaded = true; this.isAllEmpty = (this.links.length == 0); },
+        next: (data: any) => {this.links = data; this.loaded = true; this.isAllEmpty = (this.links.length == 0); },
         error: error => console.log(error)
       }
     )

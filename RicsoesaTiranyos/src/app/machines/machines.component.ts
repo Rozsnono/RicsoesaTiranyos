@@ -47,9 +47,4 @@ export class MachinesComponent implements OnInit {
     } 
   }
 
-
-  Testdata(data:any){
-    console.log(data);
-    return data;
-  }
 }
