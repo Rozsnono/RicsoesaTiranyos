@@ -113,7 +113,7 @@ export default class nsideController implements Controller {
             const tmpData = await this.nsideM.find().sort({start : 1}).populate("game", "-_id");
             const data: any[] = [];
             for (let index = 0; index < tmpData.length; index++) {
-                if(new Date(tmpData[index].end) > new Date()){
+                if(new Date(tmpData[index].end) > new Date(req.body.date)){
                     data.push(new Date());
                     data.push(tmpData[index]);
                 }
