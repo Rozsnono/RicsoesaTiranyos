@@ -81,7 +81,10 @@ export class HomeComponent implements OnInit {
   }
 
   onChangeTime(time: any){
-    if(parseInt(time.target.value.split(':')[1]) >= 50 && parseInt(time.target.value.split(':')[1]) < 10) time.target.value = time.target.value.split(':')[0] + ":00";
+    console.log(parseInt(time.target.value.split(':')[1]) >= 50 && parseInt(time.target.value.split(':')[1]) < 10);
+    
+    if(parseInt(time.target.value.split(':')[1]) >= 0 && parseInt(time.target.value.split(':')[1]) < 10) time.target.value = time.target.value.split(':')[0] + ":00";
+    if(parseInt(time.target.value.split(':')[1]) >= 50 && parseInt(time.target.value.split(':')[1]) < 60) time.target.value = time.target.value.split(':')[0] + ":00";
     if(parseInt(time.target.value.split(':')[1]) >= 10 && parseInt(time.target.value.split(':')[1]) < 20) time.target.value = time.target.value.split(':')[0] + ":15";
     if(parseInt(time.target.value.split(':')[1]) >= 20 && parseInt(time.target.value.split(':')[1]) < 40) time.target.value = time.target.value.split(':')[0] + ":30";
     if(parseInt(time.target.value.split(':')[1]) >= 40 && parseInt(time.target.value.split(':')[1]) < 50) time.target.value = time.target.value.split(':')[0] + ":45";
