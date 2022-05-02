@@ -3,6 +3,10 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+
+import { ModalComponent } from '../modal/modal.component';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
+
 @Component({
   selector: 'app-calendar',
   templateUrl: './calendar.component.html',
@@ -10,7 +14,9 @@ import { Router } from '@angular/router';
 })
 export class CalendarComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) { }
+  modalRef: MdbModalRef<ModalComponent> | null = null;
+
+  constructor(private http: HttpClient, private router: Router, private modalService: MdbModalService) { }
 
   ngOnInit() {
     this.getDates();
@@ -65,7 +71,7 @@ export class CalendarComponent implements OnInit {
           }
           this.eventLoaded = true;
           this.events = this.tmpEvents;
-          if(this.events.length == 0) this.dialogClose2 = 'block';
+          if(this.events.length == 0) this.modalRef = this.modalService.open(ModalComponent);
 
         },
         error: error => console.log(error)

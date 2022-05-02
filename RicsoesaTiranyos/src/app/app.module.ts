@@ -25,6 +25,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AboutComponent } from './about/about.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -36,7 +37,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     VideosComponent,
     AboutComponent,
     CalendarComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ModalComponent
   ],
   imports: [
     HttpClientModule,
@@ -53,6 +55,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
+    
     
     CalendarModule.forRoot({
       provide: DateAdapter,

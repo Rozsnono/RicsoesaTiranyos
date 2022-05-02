@@ -101,6 +101,18 @@
 .cards a{
     color: white;
 }
+.cards .img{
+    border-radius: 3rem 0;
+    height: 24rem;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+.cards .img2{
+    border-radius: 0 3rem;
+    height: 24rem;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
 
 .li-g{
     border-radius: 1rem !important;
