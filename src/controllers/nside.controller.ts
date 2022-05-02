@@ -24,7 +24,7 @@ export default class nsideController implements Controller {
         });
         
         this.router.get("/api/alldates", this.getAll);
-        this.router.get("/api/dates",this.getFutureDates)
+        this.router.post("/api/dates",this.getFutureDates)
         this.router.get("/api/links", this.getAllLink);
 		this.router.get("/api/links/:id", this.getLinkById);
         this.router.get("/api/machines", this.getAllMachine);
