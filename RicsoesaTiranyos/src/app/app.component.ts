@@ -32,6 +32,14 @@ export class AppComponent {
   youtube: any;
   insta: any;
 
+  logos = [
+    "",
+    "fa-regular fa-address-card",
+    "fa-solid fa-calendar-day",
+    "fa-solid fa-computer",
+    "fa-solid fa-film"
+  ];
+
   pages: any = [];
 
   constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){

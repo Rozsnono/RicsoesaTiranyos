@@ -26,6 +26,7 @@ import { AboutComponent } from './about/about.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ModalComponent } from './modal/modal.component';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 
 
 
@@ -55,6 +56,7 @@ import { ModalComponent } from './modal/modal.component';
     MatSelectModule,
     ReactiveFormsModule,
     MatInputModule,
+    MdbModalModule,
     
     
     CalendarModule.forRoot({

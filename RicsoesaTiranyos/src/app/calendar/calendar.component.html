@@ -38,22 +38,15 @@
   
                         <button mat-fab color="primary" class="prev-btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
                           <!-- prev -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
-                            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
-                          </svg>
+                          <i class="fa-solid fa-caret-left fs-5"></i>
                         </button>
                         <button mat-fab color="success" class="mx-3 home-btn" mwlCalendarToday [(viewDate)]="viewDate">
                           <!-- home -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-house-fill mb-1" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="m8 3.293 6 6V13.5a1.5 1.5 0 0 1-1.5 1.5h-9A1.5 1.5 0 0 1 2 13.5V9.293l6-6zm5-.793V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
-                            <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
-                          </svg>
+                          <i class="fa-solid fa-house fs-5 mb-1"></i>
                         </button>
                         <button mat-fab color="primary" class="prev-btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
                           <!-- next -->
-                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
-                            <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
-                          </svg>
+                          <i class="fa-solid fa-caret-right fs-5"></i>
                         </button>
                         
                   </div>
@@ -86,11 +79,8 @@
                   <ng-template #showMoreBlock>
                       <ng-container *ngIf="i <= 1">
                         <div class="cal-events d-lg-block d-none" *ngIf="i == 1" [ngStyle]="{ backgroundColor: '#A970FF', color: '#000' }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="több..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
-                          <span class="d-lg-block d-none text-end"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots me-2" viewBox="0 0 16 16">
-                            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
-                          </svg></span>
-  
-                      </div>
+                          <i class="fa-solid fa-ellipsis"></i>
+                        </div>
                       </ng-container>
                   </ng-template>
               </div>
