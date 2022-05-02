@@ -50,10 +50,10 @@ export class CalendarComponent implements OnInit {
 
   getDates(){
     const tmpModal = {
-      date: new Date()
+      date: this.format_date(new Date(),"-",":")
     }
 
-    this.http.get<any[]>(this.backendURL+"/api/dates", tmpModal).subscribe(
+    this.http.post<any[]>(this.backendURL+"/api/dates", tmpModal).subscribe(
       {
         next: (data: any) => {
           for (let index = 0; index < data.length; index++) {
@@ -193,11 +193,10 @@ export class CalendarComponent implements OnInit {
     return  + pic;
   }
 
-  public timeZone = "2";
   public loc = "Győr, Hungary";
 
   ToGoogleCalendar(title: any, description: any, start: any, end: any){
-    const final_date = this.format_date(new Date(start)) + "/" + this.format_date(new Date(end));
+    const final_date = this.format_date(new Date(start),"","",2) + "/" + this.format_date(new Date(end),"","",2);
     window.location.href = "https://www.google.com/calendar/render?action=TEMPLATE&text="+ title +"&dates="+ final_date +"&details="+ description +"&location="+ this.loc +"&sf=true&output=xml";
   }
 
@@ -214,15 +213,8 @@ export class CalendarComponent implements OnInit {
 
   }
 
-  checkWyNotWorking(i: any, event: any, day: any, type: any){
-    console.log(new Date(day.date).getDate());
-    console.log(i);
-    console.log(type);
-    console.log(event);
-    return i;
-  }
 
-  format_date(date:any) {
+  format_date(date:any, sep: any, sepHour: any, timeZone: any = 0) {
     var day = date.getDate();
     var monthIndex = date.getMonth();
     var year = date.getFullYear();
@@ -234,7 +226,7 @@ export class CalendarComponent implements OnInit {
     if(hour === 0 && minutes === 0) {
       formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day);
     } else {
-      formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day) + "T" + this.zero_pad2(hour-parseInt(this.timeZone)) + this.zero_pad2(minutes) + "00Z";
+      formatted_date = ("" + year) + sep + this.zero_pad2(monthIndex + 1) + sep + this.zero_pad2(day) + "T" + this.zero_pad2(hour-parseInt(timeZone)) + sepHour + this.zero_pad2(minutes) +sepHour + "00Z";
     }
     
     return formatted_date;

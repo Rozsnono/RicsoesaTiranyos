@@ -152,7 +152,12 @@ export class HomeComponent implements OnInit {
   }
 
   getStream(){
-    this.http.get<any[]>(this.backendURL+"/api/futureDates").subscribe(
+
+    const tmpModal = {
+      date: this.format_date(new Date(),"-",":")
+    }
+
+    this.http.post<any[]>(this.backendURL+"/api/dates", tmpModal).subscribe(
       {
         next: (data: any) => 
           {
@@ -211,6 +216,27 @@ export class HomeComponent implements OnInit {
   }
 
   
+  format_date(date:any, sep: any, sepHour: any, timeZone: any = 0) {
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    
+    var hour = date.getHours();
+    var minutes = date.getMinutes();
+    
+    let formatted_date;
+    if(hour === 0 && minutes === 0) {
+      formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day);
+    } else {
+      formatted_date = ("" + year) + sep + this.zero_pad2(monthIndex + 1) + sep + this.zero_pad2(day) + "T" + this.zero_pad2(hour-parseInt(timeZone)) + sepHour + this.zero_pad2(minutes) +sepHour + "00Z";
+    }
+    
+    return formatted_date;
+  }
 
+  zero_pad2(num: any) {
+    if(num < 10) return "0" + num;
+      return num;
+  }
 }
 
