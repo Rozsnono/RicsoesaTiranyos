@@ -23,8 +23,8 @@ export default class nsideController implements Controller {
             res.send("MEGY!");
         });
         
-        this.router.get("/api/dates", this.getAll);
-        this.router.get("/api/futureDates",this.getFutureDates)
+        this.router.get("/api/alldates", this.getAll);
+        this.router.get("/api/dates",this.getFutureDates)
         this.router.get("/api/links", this.getAllLink);
 		this.router.get("/api/links/:id", this.getLinkById);
         this.router.get("/api/machines", this.getAllMachine);
