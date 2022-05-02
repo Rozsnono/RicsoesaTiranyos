@@ -61,9 +61,10 @@ export class HomeComponent implements OnInit {
 
 
   getDates(){
-    this.http.get<any[]>(this.backendURL+"/api/dates").subscribe(
+
+    this.http.get<any[]>(this.backendURL+"/api/alldates",).subscribe(
       {
-        next: (data: any) => {this.dates = data.sort((n1,n2) => {
+        next: (data: any) => {this.dates = data.sort((n1: any,n2: any) => {
           if (n1.start > n2.start) {
               return 1;
           }
