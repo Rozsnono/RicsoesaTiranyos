@@ -141,7 +141,7 @@ export default class nsideController implements Controller {
     };
     private getAllYoutubeLink = async (req: Request, res: Response) => {
         try {
-            const data = await this.ylM.find();
+            const data = await this.ylM.find().sort({date: 1});
             res.send(data);
         } catch (error) {
             res.status(400).send(error.message);
