@@ -49,7 +49,11 @@ export class CalendarComponent implements OnInit {
   dialogClose2: any = 'none';
 
   getDates(){
-    this.http.get<any[]>(this.backendURL+"/api/futureDates").subscribe(
+    const tmpModal = {
+      date: new Date()
+    }
+
+    this.http.get<any[]>(this.backendURL+"/api/dates", tmpModal).subscribe(
       {
         next: (data: any) => {
           for (let index = 0; index < data.length; index++) {
