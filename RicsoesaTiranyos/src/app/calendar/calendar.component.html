@@ -44,7 +44,7 @@
                           <!-- home -->
                           <i class="fa-solid fa-house fs-5 mb-1"></i>
                         </button>
-                        <button mat-fab color="primary" class="prev-btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate">
+                        <button mat-fab color="primary" class="prev-btn" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (click)="eventPerDay = []">
                           <!-- next -->
                           <i class="fa-solid fa-caret-right fs-5"></i>
                         </button>
@@ -93,30 +93,30 @@
 
       </div>
   
-      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{backgroundColor: event.color.primary, color: event.color.primary, borderColor: event.color.secondary}" >
+      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{color: event.color.secondary, borderColor: event.color.secondary}" >
           <div class="container">
               <div class="row">
   
                 
-                <div class="col-12 col-lg-2 d-flex justify-content-center mb-5 mb-lg-0">
+                <div class="col-12 col-lg-2 mb-5 mb-lg-0 p-3 imgs" [style]="{backgroundColor: event.color.primary}">
                   <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
                 </div>
   
-                <div class="col-12 col-lg-1  eventDate text-center">
+                <div class="col-12 col-lg-1 text-center p-4">
                   <div class="eventDateBack">
-                    <h3 class="eventMonth filtered">{{convertToDateMonth(event.start)}}</h3>
-                    <h5 class="eventDate filtered">{{convertToDate(event.start)}}</h5>
+                    <h2 class="eventDate">{{convertToDate(event.start)}}</h2>
+                    <h3 class="eventMonth">{{convertToDateMonth(event.start)}}.</h3>
                   </div>
                 </div>
   
   
-                <div class="col-12 col-lg-9">
+                <div class="col-12 col-lg-9 p-3 titles">
   
                   <div class="row ">
-                    <div class="col-12 filtered">
+                    <div class="col-12">
                       <h1>{{checkLength(event.title,40)}}</h1>
                     </div>
-                    <div class="col-12 filtered">
+                    <div class="col-12">
                       <h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                       </svg> {{convertToTime(event.start)}} - {{convertToTime(event.end)}}</h5>
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="col-12">
-                      <mat-slider class="w-100" disabled min="0" [max]="getMaxToSlider(event.start, event.end)" [value]="getValueToSlider(event.start, event.end)" *ngIf="getValueToSlider(event.start, event.end) > 0"></mat-slider>
+                      <mat-slider class="w-100" disabled min="0" [max]="getMaxToSlider(event.start, event.end)" [value]="getValueToSlider(event.start, event.end)" *ngIf="getValueToSlider(event.start, event.end) > 0" [color]="event.color.secondary"></mat-slider>
                     </div>
                   </div>
   

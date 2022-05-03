@@ -195,3 +195,16 @@ app-add-to-calendar button{
 .mat-form-field-flex{
     background-color: #ffffffb0 !important;
 }
+
+.mat-accent .mat-slider-track-fill {
+    background-color: white !important;
+}
+
+.mat-slider-thumb-label {
+    background-color: white !important;
+
+}
+
+.mat-slider-thumb {
+    background-color: white !important;
+}
