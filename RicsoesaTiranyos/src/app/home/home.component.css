@@ -17,10 +17,14 @@
 }
 
 .newGame{
-    border: 1px solid black;
     padding: 1rem;
-    border-radius: 1rem;
+    border-radius: 2rem;
     background-color: #ffffff50;
 }
 
 
+.newEvent, .newGame, .newConvert{
+    background-color: #ffffff50;
+    padding: 1rem;
+    border-radius: 2rem;
+}

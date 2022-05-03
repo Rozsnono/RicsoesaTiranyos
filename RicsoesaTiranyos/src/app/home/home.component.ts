@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
   dates: any[] = [];
 
   isModify: boolean = false;
+  isModifyGame: boolean = false;
 
   newEventTMPdate: any;
   newEventTMPstart: any;
@@ -170,6 +171,37 @@ export class HomeComponent implements OnInit {
 
   resetPage(){
     window.location.reload();
+  }
+
+  getModifyGame(id: any){
+    const tmpGame = this.games.filter(x => x._id === id)[0];
+    this.newGameName = tmpGame.name;
+    this.newGamePicture = tmpGame.picture;
+    this.newGameColor = tmpGame.color;
+    this.isModifyGame = true;
+    this.modifiedGameId = id;
+  }
+
+  modifiedGameId: any;
+
+  modifyGames(){
+    const tmpModel = {
+      name: String,
+      _id: this.modifiedGameId,
+      color: String,
+      picture: String,
+    }
+
+    tmpModel.name = this.newGameName;
+    tmpModel.color = this.newGameColor;
+    tmpModel.picture = this.newGamePicture;
+
+    this.http.put<any[]>(this.backendURL+"/api/game/"+this.modifiedGameId,tmpModel).subscribe(
+      {
+        next: (data: any) => {this.resetPage(); this.OKmessage = true},
+        error: error => this.errorMessage = error.message
+      }
+    )
   }
 
   saveLink(){
