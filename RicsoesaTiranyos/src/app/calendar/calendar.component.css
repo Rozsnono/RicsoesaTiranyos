@@ -29,6 +29,13 @@
     background-image: linear-gradient(to left, #ffffff90, #000);
 }
 
+@media screen and (max-width: 729px)  {
+    
+    .eventDetails{
+        background-image: linear-gradient(to top, #ffffff90, #000);
+    }
+}
+
 .filtered{
     filter: invert(100%);
 }

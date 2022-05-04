@@ -93,11 +93,10 @@
 
       </div>
   
-      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{color: event.color.secondary, borderColor: event.color.secondary}" >
+      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{color: '#fff', borderColor: event.color.secondary}" >
           <div class="container">
               <div class="row">
-  
-                
+
                 <div class="col-12 col-lg-2 mb-5 mb-lg-0 p-3 imgs" [style]="{backgroundColor: event.color.primary}">
                   <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
                 </div>

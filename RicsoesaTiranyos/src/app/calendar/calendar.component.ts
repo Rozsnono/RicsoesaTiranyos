@@ -143,6 +143,8 @@ export class CalendarComponent implements OnInit {
     const Dend = new Date(end);
     const Dnow = new Date();
 
+    if(Dnow < Dstart) return -1;
+
     const DstartMin = Dstart.getHours() * 60 + Dstart.getMinutes();
     const DendMin = Dend.getHours() * 60 + Dend.getMinutes();
     const DnowMin = Dnow.getHours() * 60 + Dnow.getMinutes();
