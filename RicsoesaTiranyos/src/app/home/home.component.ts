@@ -99,6 +99,7 @@ export class HomeComponent implements OnInit {
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
     const TMPdateEnd = new Date(this.newEventTMPdate);
+    if(this.newEventTMPend.split(':')[0] == "00") TMPdateEnd.setDate(TMPdateEnd.getDate()+1);
     TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
     TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
 
@@ -134,6 +135,7 @@ export class HomeComponent implements OnInit {
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
     const TMPdateEnd = new Date(this.newEventTMPdate);
+    if(this.newEventTMPend.split(':')[0] == "00") TMPdateEnd.setDate(TMPdateEnd.getDate()+1);
     TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
     TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
 
