@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   }
   
   
-  displayedColumns: string[] = ['name', 'date', 'functions'];
+  displayedColumns: string[] = ['name', 'functions'];
   dates: any[] = [];
 
   isModify: boolean = false;
@@ -345,13 +345,27 @@ export class HomeComponent implements OnInit {
     return parseFloat(max)+1;
   }
 
-  convertDate(date: any, sep: any, toSave: boolean = false){
+  convertDate(date: any, sep: any, toSave: boolean = false, onlyTime: boolean = null){
     if(toSave){
       const d = new Date(date);
-      return d.getFullYear() + sep + (d.getMonth()+1 < 10 ? '0' : '') + (d.getMonth()+1) + sep + (d.getDate() < 10 ? '0' : '') + d.getDate() + (toSave? "T" : sep+"- ") + (d.getHours() < 10 ? '0' : '') + d.getHours() +":" + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+      if(onlyTime === null){
+        return d.getFullYear() + sep + (d.getMonth()+1 < 10 ? '0' : '') + (d.getMonth()+1) + sep + (d.getDate() < 10 ? '0' : '') + d.getDate() + (toSave? "T" : sep+"- ") + (d.getHours() < 10 ? '0' : '') + d.getHours() +":" + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+      }else if(onlyTime){
+        return (d.getHours() < 10 ? '0' : '') + d.getHours() +":" + (d.getMinutes() < 10 ? '0' : '') + d.getMinutes();
+      }
+
+      return d.getFullYear() + sep + (d.getMonth()+1 < 10 ? '0' : '') + (d.getMonth()+1) + sep + (d.getDate() < 10 ? '0' : '') + d.getDate();
+      
     }else{
       const d = date.split('T');
-      return d[0].split('-')[0] + sep + d[0].split('-')[1] + sep + d[0].split('-')[2] + sep + "- " + d[1].split(":")[0] +":"+ d[1].split(":")[1];
+      if(onlyTime === null){
+        return d[0].split('-')[0] + sep + d[0].split('-')[1] + sep + d[0].split('-')[2] + sep + "- " + d[1].split(":")[0] +":"+ d[1].split(":")[1];
+      }else if(onlyTime){
+        return d[1].split(":")[0] +":"+ d[1].split(":")[1];
+      }
+
+      return d[0].split('-')[0] + sep + d[0].split('-')[1] + sep + d[0].split('-')[2] + sep;
+      
     }
   
   }
