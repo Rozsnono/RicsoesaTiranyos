@@ -62,7 +62,7 @@ export default class nsideController implements Controller {
     private login = async (req: Request, res: Response) => {
         try {
             const body = req.body;
-            const data = await this.userM.find(body.username);
+            const data = await this.userM.find({'username' : body.username});
 
             if(data[0].password === body.password){
                 res.status(200).send("Logined");
