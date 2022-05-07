@@ -12,3 +12,42 @@
 .loging hr{
     color: white;
 }
+
+.th-name{
+    padding: 0.5rem;
+    border-radius: 1rem;
+    text-shadow: 1px 1px black;
+}
+
+.new-model{
+    margin: 2rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    background-color: #ffffff80;
+    padding: 1rem;
+}
+
+.Time{
+    height: 3.7rem;
+}
+
+.newGame{
+    padding: 1rem;
+    border-radius: 2rem;
+    background-color: #ffffff50;
+}
+
+
+.newEvent, .newGame, .newConvert{
+    background-color: #ffffff50;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+
+.btn{
+    box-shadow: none ;
+}
+
+mat-form-field{
+    width: 100%;
+}

@@ -13,6 +13,8 @@ export class AppComponent {
 
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
 
+  currentRoute: string;
+
   links: Array<any> = [];
   loading: boolean;
 
@@ -46,6 +48,7 @@ export class AppComponent {
   constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){
     router.events.subscribe(event => {
       if(event instanceof NavigationStart) {
+        sessionStorage.clear();
         this.loading = true;
       }else if(event instanceof NavigationEnd) {
         this.loading = false;
@@ -84,5 +87,9 @@ export class AppComponent {
   scroll(){
     this.dom.body.scrollTop =0;
     this.dom.documentElement.scrollTop=0;
+  }
+
+  checking(){
+    return sessionStorage["user"];
   }
 }

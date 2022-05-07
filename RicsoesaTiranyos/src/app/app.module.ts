@@ -13,7 +13,6 @@ import { MachinesComponent } from './machines/machines.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatButtonModule} from '@angular/material/button';
 import { AddToCalendarModule } from 'add-events-to-google-calendar';
 import { VideosComponent } from './videos/videos.component';
@@ -30,6 +29,9 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatIconModule} from '@angular/material/icon';
 import { AdminComponent } from './admin/admin.component';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 
 
@@ -64,6 +66,9 @@ import { AdminComponent } from './admin/admin.component';
     MdbModalModule,
     MatSliderModule,
     MatIconModule,
+    MatTooltipModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
     
     
     CalendarModule.forRoot({
