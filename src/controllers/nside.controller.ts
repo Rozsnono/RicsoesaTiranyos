@@ -6,6 +6,7 @@ import linkModel from "./link.model";
 import youtubeLink from "./youtubeLink.model";
 import machineModel from "./machine.model";
 import pagesModel from "./pages.model";
+import userModel from "./user.model";
 
 
 export default class nsideController implements Controller {
@@ -17,6 +18,7 @@ export default class nsideController implements Controller {
     private machineM = machineModel;
     private ylM = youtubeLink;
     private page = pagesModel;
+    private userM = userModel;
 
     constructor() {
         this.router.get("/", (req: Request, res: Response) => {
@@ -42,6 +44,9 @@ export default class nsideController implements Controller {
         this.router.post("/api/machine", this.createMachine);
         this.router.post("/api/youtube", this.createYoutube);
         this.router.post("/api/page", this.createPage);
+        
+        this.router.post("/login", this.login);
+        this.router.post("/register", this.register);
 
         this.router.put("/api/date/:id", this.modifyPUTdate);
 		this.router.put("/api/game/:id", this.modifyPUTgame);
@@ -53,6 +58,36 @@ export default class nsideController implements Controller {
         this.router.delete("/api/games/:id", this.deleteGame);
         this.router.delete("/api/youtube/:id", this.deleteYoutube);
     }
+
+    private login = async (req: Request, res: Response) => {
+        try {
+            const body = req.body;
+
+            const data = await this.userM.find(body.username);
+
+            if(data.password === body.password){
+                res.status(200).send("Logined");
+            }else{
+                res.status(401);
+            }
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private register = async (req: Request, res: Response) => {
+        try {
+            const body = req.body;
+            const createdDocument = new this.userM({
+                ...body,
+            });
+            const savedDocument = await createdDocument.save();
+            res.send("Registered");
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
 
 
     private getAllPage = async (req: Request, res: Response) => {
