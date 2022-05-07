@@ -6,6 +6,7 @@ import { VideosComponent } from './videos/videos.component';
 import { AboutComponent } from './about/about.component';
 import { CalendarComponent } from './calendar/calendar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { AdminComponent } from './admin/admin.component';
 
 const routes: Routes = [
   {path: "menetrend", component: CalendarComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: "videok", component: VideosComponent},
   {path: "rolunk", component: AboutComponent},
   {path: "", component: HomeComponent},
+  {path: "admin", component: AdminComponent},
   {path: "**", pathMatch: 'full', component: PageNotFoundComponent}
 ];
 

@@ -11,7 +11,8 @@ import { DOCUMENT } from '@angular/common';
 export class AppComponent {
   title = 'RicsoesaTiranyos';
 
-  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
+  backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
+
   links: Array<any> = [];
   loading: boolean;
 

@@ -13,7 +13,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 export class HomeComponent implements OnInit {
 
   safeSrc: SafeResourceUrl;
-  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
+  backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
 
   youtubeURL: SafeResourceUrl;
   twitchURL: SafeResourceUrl;

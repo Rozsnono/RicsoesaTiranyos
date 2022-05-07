@@ -42,7 +42,8 @@ export class CalendarComponent implements OnInit {
     )
   }
 
-  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
+  backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
+
   link: any = "";
 
   viewDate: Date = new Date();

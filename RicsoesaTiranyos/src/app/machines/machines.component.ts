@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
 export class MachinesComponent implements OnInit {
 
   constructor(private http: HttpClient,private router: Router) { }
-  backendURL = "https://ricsoesatiranyos2.herokuapp.com";
+  backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
+
 
   machines: Array<any>= [];
   displayedColumns = ["specs","type"];

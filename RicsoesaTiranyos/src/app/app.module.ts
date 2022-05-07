@@ -28,6 +28,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ModalComponent } from './modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatIconModule} from '@angular/material/icon';
+import { AdminComponent } from './admin/admin.component';
+
 
 
 
@@ -40,7 +43,8 @@ import {MatSliderModule} from '@angular/material/slider';
     AboutComponent,
     CalendarComponent,
     PageNotFoundComponent,
-    ModalComponent
+    ModalComponent,
+    AdminComponent
   ],
   imports: [
     HttpClientModule,
@@ -59,6 +63,7 @@ import {MatSliderModule} from '@angular/material/slider';
     MatInputModule,
     MdbModalModule,
     MatSliderModule,
+    MatIconModule,
     
     
     CalendarModule.forRoot({

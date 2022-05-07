@@ -1,0 +1,14 @@
+.loging{
+    background-color: #6060603e;
+    border-radius: 2rem;
+    padding: 3rem;
+}
+
+.loging h1{
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.loging hr{
+    color: white;
+}
