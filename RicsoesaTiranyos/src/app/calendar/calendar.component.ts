@@ -24,6 +24,7 @@ export class CalendarComponent implements OnInit {
     this.getRoute();
     this.getLinkById();
     this.getGame();
+    sessionStorage.clear();
   }
 
   getRoute(){

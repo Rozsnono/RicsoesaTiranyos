@@ -17,6 +17,7 @@ export class AboutComponent implements OnInit {
   ngOnInit(): void {
     this.getRoute();
     this.getLinks();
+    sessionStorage.clear();
   }
 
   getRoute(){

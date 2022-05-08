@@ -1,65 +1,71 @@
-<div class="loading" *ngIf="loading">
 
-  <div class="loader">
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
-    <div></div>
+<div *ngIf="!checkMaintenance()">
+  <div class="loading" *ngIf="loading">
+
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+  
+  <div class="link">
+    <form class="d-flex justify-content-end">
+      <a class="btn btn-outline-primary" [href]="face">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+      <a class="btn btn-outline-info mx-2 tw-btn" [href]="twitch">
+        <i class="fa-brands fa-twitch mt-1"></i>
+      </a>
+      <a class="btn btn-outline-danger" [href]="youtube">
+        <i class="fa-brands fa-youtube"></i>
+      </a>
+      <a class="btn btn-outline-warning ms-2" [href]="insta">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+    </form>
+  </div>
+  
+  <div class="header">
+    
+    
+    <nav class="navbar navbar-expand-lg navbar-light nav">
+      <div class="container-fluid">
+        <!-- <img src="../assets/Logo.jpg" class="rounded-circle me-2" style="width: 2.0rem;"
+          alt="Avatar" /> -->
+        <a class="navbar-brand navHeader" [routerLink]="pages[0].route">RicsoesaTiranyos</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ">
+  
+            <li class="nav-item" *ngFor="let page of pages; index as i">
+              <a class="nav-link" aria-current="page" [routerLink]="page.route" *ngIf="page.name != 'home' && !page.disabled">
+                <i [class]="logos[i]"></i>
+                
+                {{page.title}}
+              </a>
+            </li>
+  
+          </ul>
+          <button class="btn btn-primary" *ngIf="checking()" (click)="signOut()">Kijelentkezés</button>
+        </div>
+      </div>
+    </nav>
   </div>
 </div>
 
-<div class="link">
-  <form class="d-flex justify-content-end">
-    <a class="btn btn-outline-primary" [href]="face">
-      <i class="fa-brands fa-facebook-f"></i>
-    </a>
-    <a class="btn btn-outline-info mx-2 tw-btn" [href]="twitch">
-      <i class="fa-brands fa-twitch mt-1"></i>
-    </a>
-    <a class="btn btn-outline-danger" [href]="youtube">
-      <i class="fa-brands fa-youtube"></i>
-    </a>
-    <a class="btn btn-outline-warning ms-2" [href]="insta">
-      <i class="fa-brands fa-instagram"></i>
-    </a>
-  </form>
-</div>
+<app-maintenance *ngIf="checkMaintenance()">
+</app-maintenance>
 
-<div class="header">
-  
-  
-  <nav class="navbar navbar-expand-lg navbar-light nav">
-    <div class="container-fluid">
-      <!-- <img src="../assets/Logo.jpg" class="rounded-circle me-2" style="width: 2.0rem;"
-        alt="Avatar" /> -->
-      <a class="navbar-brand navHeader" [routerLink]="pages[0].route">RicsoesaTiranyos</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ">
-
-          <li class="nav-item" *ngFor="let page of pages; index as i">
-            <a class="nav-link" aria-current="page" [routerLink]="page.route" *ngIf="page.name != 'home' && !page.disabled">
-              <i [class]="logos[i]"></i>
-              
-              {{page.title}}
-            </a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
-</div>
-
-
-<router-outlet>
+<router-outlet *ngIf="!checkMaintenance()">
 </router-outlet>
 
 <div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">
@@ -69,4 +75,3 @@
     </svg>
   </button>
 </div>
-

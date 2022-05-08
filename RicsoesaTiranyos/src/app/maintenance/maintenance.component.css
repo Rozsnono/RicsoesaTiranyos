@@ -1,0 +1,190 @@
+
+
+.cont_principal {
+    top: 0px;
+    position: fixed;  
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    background-image: radial-gradient(#242222, #242222) !important;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
+}
+
+.cont_error {
+    position: absolute;
+    width: 100%;
+    height: 10rem;
+    margin: auto;
+    text-align: center;
+    top: 30%;
+}
+  
+.cont_error > h1  {
+    font-family: 'Lato', sans-serif;  
+    font-weight: 400;
+    font-size:150px;
+    color:#fff;
+    position: relative;
+    left:-100%;
+    transition: all 0.5s;
+}
+  
+  
+.cont_error > p  {
+    font-family: 'Lato', sans-serif;  
+    font-weight: 300;
+    font-size:24px;
+    letter-spacing: 5px;
+    color:#8a8a8a;
+    position: relative;
+    left:100%;
+    transition: all 0.5s;
+    transition-delay: 0.5s;
+    -webkit-transition: all 0.5s;
+    -webkit-transition-delay: 0.5s;
+}
+  
+.cont_aura_1 {
+    position:absolute;
+    width: 20rem;
+    height: 120%;
+    top: 5rem;
+    right: -10rem;
+    background-color: #626262;
+    box-shadow: 0px 0px  60px  20px  rgba(90, 90, 90, 0.5);
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+  
+.cont_aura_2 {
+    position:absolute;
+    width: 100%;
+    height: 20rem;
+    right:-10%;
+    bottom:-20rem;
+    background-color: #626262;
+    box-shadow: 0px 0px 60px 10px rgba(65, 65, 65, 0.5),0px 0px  20px  0px  rgba(0,0,0,0.1);
+    z-index:5;
+    transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+}
+  
+  .cont_error_active > .cont_error > h1 {
+    left:0%;
+  }
+  .cont_error_active > .cont_error > p {
+    left:0%;
+  }
+  
+  .cont_error_active > .cont_aura_2 {
+      animation-name: animation_error_2;
+      animation-duration: 4s;
+    animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+  transform: rotate(-20deg);    
+  }
+
+  .cont_error_active > .cont_aura_1 {
+   transform: rotate(20deg);
+    right:-170px;
+      animation-name: animation_error_1;
+      animation-duration: 4s;
+    animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+  }
+
+@media screen and (max-width: 729px) {
+    .cont_error h1{
+        font-size: 5rem !important;
+    }
+    .cont_error p{
+        font-size: 1rem !important;
+    }
+    .cont_aura_1{
+        width: 10rem;
+    }
+    .cont_aura_2{
+        right: -20%
+    }
+}
+
+  
+  @-webkit-keyframes animation_error_1 {
+    from {
+      -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+    }
+    to {  -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+    }
+  }
+  @-o-keyframes animation_error_1 {
+    from {
+      -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+    }
+    to {  -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+    }
+  
+  }
+  @-moz-keyframes animation_error_1 {
+    from {
+      -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+    }
+    to {  -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+    }
+  
+  }
+  @keyframes animation_error_1 {
+    from {
+      -webkit-transform: rotate(20deg);
+    transform: rotate(20deg);
+    }
+    to {  -webkit-transform: rotate(25deg);
+    transform: rotate(25deg);
+    }
+  }
+  
+  
+  
+  
+  @-webkit-keyframes animation_error_2 {
+    from { -webkit-transform: rotate(-15deg); 
+    transform: rotate(-15deg);
+    }
+    to { -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    }
+  }
+  @-o-keyframes animation_error_2 {
+    from { -webkit-transform: rotate(-15deg); 
+    transform: rotate(-15deg);
+    }
+    to { -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    }
+  }
+  
+  @-moz-keyframes animation_error_2 {
+    from { -webkit-transform: rotate(-15deg); 
+    transform: rotate(-15deg);
+    }
+    to { -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    }
+  }
+  @keyframes animation_error_2 {
+    from { -webkit-transform: rotate(-15deg); 
+    transform: rotate(-15deg);
+    }
+    to { -webkit-transform: rotate(-20deg);
+    transform: rotate(-20deg);
+    }
+  }
+  

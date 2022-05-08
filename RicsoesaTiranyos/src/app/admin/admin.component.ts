@@ -18,7 +18,9 @@ export class AdminComponent implements OnInit {
     this.getDates();
     this.getLinkLastId();
     this.getGames();
+    this.getPages();
   }
+
 
   displayedColumns: string[] = ['name', 'functions'];
   dates: any[] = [];
@@ -52,7 +54,31 @@ export class AdminComponent implements OnInit {
   
   tmpGameId: any;
   games: any[] = [];
+  pages: any[];
 
+    
+  getPages() {
+    this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
+      {
+        next: (data: any) => {this.pages = data},
+        error: error => this.errorMessage = error.message
+      }
+    )
+  }
+
+  modifyPages(){
+    for (let index = 0; index < this.pages.length; index++) {
+      const element = this.pages[index];
+      
+      this.http.put<any[]>(this.backendURL+"/api/page/"+element._id,element).subscribe(
+        {
+          next: (data: any) => {window.location.reload();},
+          error: error => this.errorMessage = error.message
+        }
+      )
+    }
+    
+  }
 
   getDates(){
 

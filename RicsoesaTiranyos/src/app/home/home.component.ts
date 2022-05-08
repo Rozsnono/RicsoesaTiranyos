@@ -73,6 +73,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     document.body.style.overflow = "hidden";
+    sessionStorage.clear();
     this.getStream();
     this.getAuthFromTwitch();
     this.getYoutubeSubs();

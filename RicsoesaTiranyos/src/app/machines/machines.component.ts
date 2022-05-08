@@ -22,6 +22,7 @@ export class MachinesComponent implements OnInit {
   ngOnInit(): void {
     this.getSpecs();
     this.getRoute();
+    sessionStorage.clear();
   }
 
   getRoute(){

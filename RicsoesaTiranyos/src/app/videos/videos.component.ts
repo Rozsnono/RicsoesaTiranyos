@@ -22,6 +22,7 @@ export class VideosComponent implements OnInit {
   isAllEmpty: any = false;
 
   ngOnInit(): void {
+    sessionStorage.clear();
     this.getRoute();
     this.getAllGames();
     this.getAllLink();

@@ -32,6 +32,7 @@ import { AdminComponent } from './admin/admin.component';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MaintenanceComponent } from './maintenance/maintenance.component';
 
 
 
@@ -46,7 +47,8 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     CalendarComponent,
     PageNotFoundComponent,
     ModalComponent,
-    AdminComponent
+    AdminComponent,
+    MaintenanceComponent
   ],
   imports: [
     HttpClientModule,

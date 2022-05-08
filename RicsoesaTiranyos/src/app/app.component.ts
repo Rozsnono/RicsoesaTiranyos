@@ -47,8 +47,8 @@ export class AppComponent {
 
   constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){
     router.events.subscribe(event => {
+      console.log(this.router.url);
       if(event instanceof NavigationStart) {
-        sessionStorage.clear();
         this.loading = true;
       }else if(event instanceof NavigationEnd) {
         this.loading = false;
@@ -60,6 +60,8 @@ export class AppComponent {
     this.getLinks();
     this.getPages();
   }
+
+  maintenance: any;
 
   getLinks(){
     this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
@@ -82,6 +84,21 @@ export class AppComponent {
         error: error => console.log(error)
       }
     )
+  }
+
+  checkMaintenance(){
+    if(this.router.url === "/admin"){
+      return false;
+    }
+
+    for (let index = 0; index < this.pages.length; index++) {
+      const element = this.pages[index];
+      if(element.name === "home") {return element.disabled;}
+    }
+  }
+
+  signOut(){
+    sessionStorage.clear();
   }
 
   scroll(){
