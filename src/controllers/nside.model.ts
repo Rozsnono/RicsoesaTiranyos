@@ -20,6 +20,10 @@ const nsideSchema = new Schema(
             type: String,
             required: true,
         },
+        missing: {
+            type: Boolean,
+            default: false,
+        }
         // description: {
         //     type: String,
         //     required: true,
