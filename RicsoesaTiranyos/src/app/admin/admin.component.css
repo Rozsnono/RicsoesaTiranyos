@@ -56,3 +56,11 @@ mat-form-field{
     padding: 0.4rem;
     border-radius: 1rem 0 !important;
 }
+
+.TOconvert{
+    background-image: linear-gradient(to right, #164812, #00000000 );
+}
+
+.TOmissing{
+    background-image: linear-gradient(to right, #64550b, #00000000 );
+}
