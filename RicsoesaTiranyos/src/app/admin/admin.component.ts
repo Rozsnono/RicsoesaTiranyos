@@ -148,6 +148,8 @@ export class AdminComponent implements OnInit {
     )
   }
 
+  
+
   modifyDate(){
     const TMPdateStart = new Date(this.newEventTMPdate);
     TMPdateStart.setHours(this.newEventTMPstart.split(':')[0]);
@@ -177,6 +179,25 @@ export class AdminComponent implements OnInit {
     tmpModel.game = this.tmpGameId;
 
     this.http.put<any[]>(this.backendURL+"/api/date/"+this.selectedEventId ,tmpModel).subscribe(
+      {
+        next: (data: any) => {window.location.reload()},
+        error: error => this.errorMessage = error.message
+      }
+    )
+  }
+
+  missingDate(element: any, denied: boolean){
+
+    const tmpModel = {
+      start: element.start,
+      end: element.end,
+      _id: element._id,
+      game: this.games.filter(x => x.name === element.game.name)[0]._id,
+      missing: denied
+    }
+
+
+    this.http.put<any[]>(this.backendURL+"/api/date/"+element._id ,tmpModel).subscribe(
       {
         next: (data: any) => {window.location.reload()},
         error: error => this.errorMessage = error.message

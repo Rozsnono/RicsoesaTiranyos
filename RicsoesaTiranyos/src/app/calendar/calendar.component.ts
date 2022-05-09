@@ -67,6 +67,8 @@ export class CalendarComponent implements OnInit {
 
   dialogClose2: any = 'none';
 
+  dates: any[];
+
   getDates(){
     const tmpModal = {
       date: this.format_date(new Date(),"-",":")
@@ -75,6 +77,7 @@ export class CalendarComponent implements OnInit {
     this.http.post<any[]>(this.backendURL+"/api/dates", tmpModal).subscribe(
       {
         next: (data: any) => {
+          this.dates = data;
           for (let index = 0; index < data.length; index++) {
             let tmpName = data[index].game.name;
             let tmpObj = {
@@ -103,6 +106,10 @@ export class CalendarComponent implements OnInit {
     )
   }
 
+  checkDateDeleted(event: any){
+    return this.dates.filter(x => x._id === event.id)[0].missing ? "deleted" : "";
+  }
+
   convertToTime(date: any): string {
     return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
   }
@@ -117,14 +124,29 @@ export class CalendarComponent implements OnInit {
   eventPerDay: any;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
+
     this.eventPerDay = [];
     if(events.length != 0){
       this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
-
+      
       // this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
       // this.selectedEvent.date = this.tmpDate;     
       // this.selectedEvent.selected = true;
+      
+      this.scrollTo("eventss");
     }
+  }
+
+  async scrollTo(className: string) {
+    await this.delay(10);
+
+    const elementList = document.querySelectorAll('.' + className);
+    const element = elementList[0] as HTMLElement;
+    element.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
   }
 
 

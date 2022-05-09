@@ -73,7 +73,7 @@
                   </ng-template>
                   <ng-template #showEventsBlock>
                       <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.primary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
-                          <span class="d-lg-block d-none filtered eventTitle">{{checkLength(event.title,20)}}</span>
+                          <span class="d-lg-block d-none filtered eventTitle" [ngClass]="checkDateDeleted(event)" > {{checkLength(event.title,20)}}</span>
                       </div>
                   </ng-template>
                   <ng-template #showMoreBlock>
@@ -93,15 +93,16 @@
 
       </div>
   
-      <div class="eventDetails" id="eDetails" *ngFor="let event of eventPerDay" [style]="{color: '#fff', borderColor: event.color.secondary}" >
+      <div >
+        <div class="eventDetails" *ngFor="let event of eventPerDay" [style]="{color: '#fff', borderColor: event.color.secondary}" >
           <div class="container">
               <div class="row">
 
-                <div class="col-12 col-lg-2 mb-5 mb-lg-0 p-3 imgs" [style]="{backgroundColor: event.color.primary}">
+                <div class="col-12 col-lg-2 p-3 imgs" [style]="{backgroundColor: event.color.primary}">
                   <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
                 </div>
   
-                <div class="col-12 col-lg-1 text-center p-4">
+                <div class="col-12 col-lg-1 text-center">
                   <div class="eventDateBack">
                     <h2 class="eventDate">{{convertToDate(event.start)}}</h2>
                     <h3 class="eventMonth">{{convertToDateMonth(event.start)}}.</h3>
@@ -113,16 +114,21 @@
   
                   <div class="row ">
                     <div class="col-12">
-                      <h1>{{checkLength(event.title,40)}}</h1>
+                      <h1 [ngClass]="checkDateDeleted(event)">{{checkLength(event.title,40)}}</h1>
                     </div>
                     <div class="col-12">
-                      <h5><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
+                      <h5 *ngIf="checkDateDeleted(event) === ''"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
                       </svg> {{convertToTime(event.start)}} - {{convertToTime(event.end)}}</h5>
+
+                      <h5 *ngIf="checkDateDeleted(event) === 'deleted'">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        Elmarad!
+                      </h5>
                     </div>
   
   
-                    <div class="col-12 d-flex justify-content-center justify-content-lg-start" *ngIf="getValueToSlider(event.start, event.end) < 0">
+                    <div class="col-12 d-flex justify-content-center justify-content-lg-start" *ngIf="getValueToSlider(event.start, event.end) < 0 && checkDateDeleted(event) === ''">
                       <button class="btn GoogleCalendar" (click)='ToGoogleCalendar(event.title,"RicsoesaTiranyos Stream",event.start,event.end)'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus mb-1" viewBox="0 0 16 16">
                         <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
                         <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
@@ -130,14 +136,18 @@
                     </div>
 
                     <div class="col-12">
-                      <mat-slider class="w-100" disabled min="0" [max]="getMaxToSlider(event.start, event.end)" [value]="getValueToSlider(event.start, event.end)" *ngIf="getValueToSlider(event.start, event.end) > 0" [color]="event.color.secondary"></mat-slider>
+                      <mat-slider class="w-100" disabled min="0" [max]="getMaxToSlider(event.start, event.end)" [value]="getValueToSlider(event.start, event.end)" *ngIf="getValueToSlider(event.start, event.end) > 0 && checkDateDeleted(event) === ''" [color]="event.color.secondary"></mat-slider>
                     </div>
                   </div>
   
                 </div>
               </div>
           </div>
+        </div>
+
+        <div class="eventss"></div>
       </div>
+      
 
       <div class="spacer">
         
