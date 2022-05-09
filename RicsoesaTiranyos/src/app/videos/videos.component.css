@@ -16,6 +16,7 @@
     -moz-transition: all .5s;
     -o-transition: all .5s;
     transition: all .5s;
+    background-position: 40% 0;
 }
 
 .youtube_link{
