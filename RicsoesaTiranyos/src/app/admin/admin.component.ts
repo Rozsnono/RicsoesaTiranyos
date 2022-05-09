@@ -4,6 +4,8 @@ import { CalendarEvent, CalendarView } from 'angular-calendar';
 import {FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { AmazingTimePickerService } from 'amazing-time-picker';
+import { NgxMaterialTimepickerTheme } from 'ngx-material-timepicker';
 
 @Component({
   selector: 'app-admin',
@@ -12,7 +14,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 })
 export class AdminComponent implements OnInit {
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private atp: AmazingTimePickerService) { }
 
   ngOnInit(): void {
     this.getDates();
@@ -101,16 +103,30 @@ export class AdminComponent implements OnInit {
   }
 
   onChangeTime(time: any){
-    console.log(parseInt(time.target.value.split(':')[1]) >= 50 && parseInt(time.target.value.split(':')[1]) < 10);
     
-    if(parseInt(time.target.value.split(':')[1]) >= 0 && parseInt(time.target.value.split(':')[1]) < 10) time.target.value = time.target.value.split(':')[0] + ":00";
-    if(parseInt(time.target.value.split(':')[1]) >= 50 && parseInt(time.target.value.split(':')[1]) < 60) time.target.value = time.target.value.split(':')[0] + ":00";
-    if(parseInt(time.target.value.split(':')[1]) >= 10 && parseInt(time.target.value.split(':')[1]) < 20) time.target.value = time.target.value.split(':')[0] + ":15";
-    if(parseInt(time.target.value.split(':')[1]) >= 20 && parseInt(time.target.value.split(':')[1]) < 40) time.target.value = time.target.value.split(':')[0] + ":30";
-    if(parseInt(time.target.value.split(':')[1]) >= 40 && parseInt(time.target.value.split(':')[1]) < 50) time.target.value = time.target.value.split(':')[0] + ":45";
-    this.newEventTMPstart = time.target.value;
-    this.newEventTMPend = time.target.value;
+    if(parseInt(time.split(':')[1]) >= 0 && parseInt(time.split(':')[1]) < 10) time = time.split(':')[0] + ":00";
+    if(parseInt(time.split(':')[1]) >= 50 && parseInt(time.split(':')[1]) < 60) time = time.split(':')[0] + ":00";
+    if(parseInt(time.split(':')[1]) >= 10 && parseInt(time.split(':')[1]) < 20) time = time.split(':')[0] + ":15";
+    if(parseInt(time.split(':')[1]) >= 20 && parseInt(time.split(':')[1]) < 40) time = time.split(':')[0] + ":30";
+    if(parseInt(time.split(':')[1]) >= 40 && parseInt(time.split(':')[1]) < 50) time = time.split(':')[0] + ":45";
+    this.newEventTMPstart = time;
+    this.newEventTMPend = time;
   }
+
+  darkTheme: NgxMaterialTimepickerTheme = {
+    container: {
+        bodyBackgroundColor: '#424242',
+        buttonColor: '#fff'
+    },
+    dial: {
+        dialBackgroundColor: '#555',
+    },
+    clockFace: {
+        clockFaceBackgroundColor: '#555',
+        clockHandColor: '#9fbd90',
+        clockFaceTimeInactiveColor: '#fff'
+    }
+};
 
   saveDates(){
     const TMPdateStart = new Date(this.newEventTMPdate);

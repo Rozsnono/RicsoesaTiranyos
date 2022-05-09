@@ -89,14 +89,34 @@
               <div class="row d-flex justify-content-center">
                 <div class="col-4">
                   <div class="input-group mb-3">
-                      <input type="time" class="form-control Time" step="00:15" [(ngModel)]="newEventTMPstart" (change)="onChangeTime($event)" required> 
+
+                    <mat-form-field>
+                      <input matInput class="timepicker " [ngxTimepicker]="toggleIcon" [format]=24 minutesGap="2" placeholder="Kezdete" [(ngModel)]="newEventTMPstart" step="00:15" required>
+                    </mat-form-field>
+
+                    <ngx-material-timepicker #toggleIcon 
+                        [minutesGap]="15"
+                        [theme]="darkTheme"
+                        (timeChanged)="onChangeTime($event)"
+                        >
+                        
+                    </ngx-material-timepicker>
                   </div>
                 </div>
                 
                 
                 <div class="col-4">
                   <div class="input-group mb-3">
-                    <input type="time" class="form-control Time" step="00:15" [(ngModel)]="newEventTMPend" required> 
+                    <mat-form-field>
+                      <input matInput class="timepicker " [ngxTimepicker]="toggleIcon2" [format]=24 placeholder="Vége" [defaultValue]="newEventTMPstart" [(ngModel)]="newEventTMPend" step="00:15" required>
+                    </mat-form-field>
+
+                    <ngx-material-timepicker #toggleIcon2
+                        [minutesGap]="15"
+                        [theme]="darkTheme"
+                        >
+                        
+                    </ngx-material-timepicker>
                   </div>
                 </div>
               </div>

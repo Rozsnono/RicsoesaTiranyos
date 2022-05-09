@@ -34,6 +34,9 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
 
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import { AmazingTimePickerModule } from 'amazing-time-picker';
+
 
 
 
@@ -71,6 +74,8 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
     MatTooltipModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    AmazingTimePickerModule,
+    NgxMaterialTimepickerModule,
     
     
     CalendarModule.forRoot({
