@@ -1,19 +1,6 @@
 
 <div *ngIf="!checkMaintenance()">
-  <div class="loading" *ngIf="loading">
-
-    <div class="loader">
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
+  
   
   <div class="link">
     <form class="d-flex justify-content-end">
@@ -66,6 +53,20 @@
 </app-maintenance>
 
 <router-outlet *ngIf="!checkMaintenance()">
+  <div class="loading" *ngIf="loading">
+
+    <div class="loader">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
 </router-outlet>
 
 <div class="scroll-to-top" [ngClass]="{'show-scrollTop': windowScrolled}">

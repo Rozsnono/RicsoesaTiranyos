@@ -47,13 +47,13 @@ export class AppComponent {
 
   constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){
     router.events.subscribe(event => {
-      console.log(this.router.url);
       if(event instanceof NavigationStart) {
         this.loading = true;
       }else if(event instanceof NavigationEnd) {
         this.loading = false;
       }
     });
+    
   }
 
   ngOnInit(){
