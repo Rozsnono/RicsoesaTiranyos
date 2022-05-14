@@ -67,6 +67,7 @@ export class HomeComponent implements OnInit {
   }
 
   links: any[] = [];
+  video: any;
   twitchSubsLink: any;
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient) { }
@@ -77,9 +78,18 @@ export class HomeComponent implements OnInit {
     this.getStream();
     this.getAuthFromTwitch();
     this.getYoutubeSubs();
+    this.getVideos();
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=www.ricsoesatiranyos.hu");
   }
 
+  getVideos(){
+    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
+      {
+        next: (data: any) => {this.video = data[0];},
+        error: error => console.log(error)
+      }
+    )
+  }
 
   getUrl(){
     if(window.location.href.includes("localhost")){
@@ -162,7 +172,15 @@ export class HomeComponent implements OnInit {
       {
         next: (data: any) => 
           {
-            this.nextStream = data[0];
+            for (let index = 0; index < data.length; index++) {
+              const element = data[index];
+              
+              if(!element.missing){
+                this.nextStream = !element.missing ? element : [];
+                break;
+              }
+              
+            }
 
             if (data.length === 0) {
               this.nextStream = [];
@@ -238,6 +256,15 @@ export class HomeComponent implements OnInit {
   zero_pad2(num: any) {
     if(num < 10) return "0" + num;
       return num;
+  }
+
+  PicToBase64(pic: string){
+    return "data:image/jpeg;base64," + pic;
+  }
+
+  toCorrectTime(time: any){
+    const date = new Date(time);
+    return date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()) < 10 ? '0' + (date.getDate()) : (date.getDate())) + ".";
   }
 }
 

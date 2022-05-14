@@ -55,7 +55,7 @@
 
         <div class="col-12 col-lg-12"></div>
         <div class="col-12 col-lg-3 mb-2" *ngFor="let link of links">
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-img-top parent">
                     <div class="child" [style.background-image]="'url(' + PicToBase64(link.picture) + ')'">
                         <a [href]="link.link" class="youtube_link"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
@@ -70,7 +70,8 @@
                     <mat-chip *ngFor="let type of link.type"> {{ type }} </mat-chip>
                   </mat-chip-list>                  
                 </div>
-              </div>
+              </div> -->
+              <app-video-card [link]="link"></app-video-card>
         </div>
     </div>
 </div>

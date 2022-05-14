@@ -26,15 +26,27 @@
     background-position: center;
     background-size: 100%;
     height: 55vh;
-    padding-top: 18vh;
+    padding-top: 20vh;
     
 }
 
-@media screen and (max-width: 712px) {
+@media screen and (max-width: 980px) {
     .main{
-        padding-top: 5vh;
-        height: 25vh;
+        height: 30vh;
     }
+
+    .main h1{
+        font-size: 2rem !important;
+    }
+
+    .event .bordered{
+        border-right: none !important;
+        border-bottom: 1px solid #ffffff60;
+    }
+}
+
+.event .bordered{
+    border-right: 1px solid #ffffff60;
 }
 
 .main h1{
@@ -42,18 +54,21 @@
 }
 
 .twitchDiv{
-    background-image: url("../../assets/twitch.jpg");
+    background-image: linear-gradient(to left, #72139ba8, #72139ba8), url("../../assets/twitch.jpg");
     background-repeat: no-repeat;
-    background-size: auto;
+    background-size: 300%;
     padding: 3rem;
 }
 
 .youtubeDiv{
-    background-image: url("../../assets/youtube.jpg");
+    background-image: linear-gradient(to left, #9f4b4ba8, #9f4b4ba8), url("../../assets/y_wallpaper.jpg");
     background-repeat: no-repeat;
     background-size: auto;
+    background-position: 50% 30%;
     padding: 3rem;
+    height: 100%;
 }
+
 
 .youtubeDiv .header{
     text-shadow: 1px 2px black;
@@ -112,7 +127,7 @@
     cursor: pointer;
 
     background-size: 300% 100%;
-    background-image: linear-gradient(to right, #eac966, #a24b4b, #d6c96b, #d77a37);
+    background-image: linear-gradient(to right, #eac966, #ba6c52, #d6c96b, #d77a37);
     box-shadow: 0 4px 15px 0 rgba(255, 0, 0, 0.75);
     transition: all .4s ease-in-out;
 }
@@ -149,7 +164,7 @@
     margin: 2rem;
     padding: 2rem;
     width: 100%;
-    height: 100%;
+    height: 90%;
 
     border-radius: 0.4rem;
     transition: 0.3s;
@@ -162,9 +177,7 @@
     margin-top: 1rem;
     background-color: #ffffff50;
 }
-.event .bordered{
-    border-right: 1px solid #ffffff60;
-}
+
 .twitchStream{
     margin: 2rem;
     padding-right: 2rem;
@@ -205,4 +218,14 @@
     height: 3rem;
     width: 100%;
     background-color: #2d2d2d;
+}
+
+
+.card{
+    background-color: #2d2d2d !important;
+    color: white;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    height: 100%;
+    text-shadow: none !important;
 }

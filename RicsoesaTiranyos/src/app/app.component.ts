@@ -16,7 +16,7 @@ export class AppComponent {
   currentRoute: string;
 
   links: Array<any> = [];
-  loading: boolean;
+  loading: boolean = true;
 
   windowScrolled: boolean;
 
@@ -46,14 +46,6 @@ export class AppComponent {
   pages: any = [];
 
   constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){
-    router.events.subscribe(event => {
-      if(event instanceof NavigationStart) {
-        this.loading = true;
-      }else if(event instanceof NavigationEnd) {
-        this.loading = false;
-      }
-    });
-    
   }
 
   ngOnInit(){
@@ -71,6 +63,7 @@ export class AppComponent {
           this.youtube = this.links.filter(x => x.name === "youtube")[0].link;
           this.twitch = this.links.filter(x => x.name === "twitch")[0].link;
           this.insta = this.links.filter(x => x.name === "instagram")[0].link;
+          this.loading = false;
         },
         error: error => console.log(error)
       }

@@ -48,6 +48,10 @@
     box-shadow: none ;
 }
 
+.margin{
+    margin-top: 15vh;
+}
+
 mat-form-field{
     width: 100%;
 }
