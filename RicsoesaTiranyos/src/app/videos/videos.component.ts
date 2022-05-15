@@ -87,14 +87,28 @@ export class VideosComponent implements OnInit {
   }
 
   getLinkByName(){
-    this.http.get<any[]>(this.backendURL+"/api/youtube/"+this.selectedGameName).subscribe(
+
+    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
         next: (data: any) => {
-          this.links = data; this.loaded = true; this.isEmpty = (this.links.length == 0);
+          this.links = data;
+          this.links = this.links.filter(x => x.name.includes(this.selectedGameName));
+          this.loaded = true; this.isEmpty = (this.links.length == 0);
         },
         error: error => console.log(error)
       }
     )
+
+    
+
+    // this.http.get<any[]>(this.backendURL+"/api/youtube/"+this.selectedGameName).subscribe(
+    //   {
+    //     next: (data: any) => {
+    //       this.links = data; 
+    //     },
+    //     error: error => console.log(error)
+    //   }
+    // )
   }
 
   PicToBase64(pic: string){
