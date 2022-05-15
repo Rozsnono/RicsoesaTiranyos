@@ -273,6 +273,8 @@ export class AdminComponent implements OnInit {
 
   }
 
+  series: any;
+
   saveLink(){
     const tmpModel = {
       _id: Number,
@@ -282,14 +284,20 @@ export class AdminComponent implements OnInit {
       type: Array,
       date: String,
     }
+
+    let index = "";
+    if(this.series){
+      index = " #"+(this.links.filter(x => x.name === this.convertEvent.game.name).length + 1);
+    }
     
 
     const date: any = new Date(this.convertEvent.start);
+    const name: any = this.convertEvent.game.name + index;
 
     tmpModel._id = this.LinkLastId + 1;
     tmpModel.link = this.convertLink;
     tmpModel.type = this.convertTypes;
-    tmpModel.name = this.convertEvent.game.name;
+    tmpModel.name = name;
     tmpModel.picture = this.convertEvent.game.picture;
     tmpModel.date = date;
 
@@ -310,6 +318,7 @@ export class AdminComponent implements OnInit {
       }
     )
   }
+
 
   saveGames(){
     const tmpModel = {
@@ -392,10 +401,12 @@ export class AdminComponent implements OnInit {
   }
 
   LinkLastId: any = 0;
+  links: any[];
   getLinkLastId(): any{
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
         next: (data: any) => {
+          this.links = data;
           for (let index = 0; index < data.length; index++) {
             this.LinkLastId = data[index]._id > this.LinkLastId ? data[index]._id : this.LinkLastId;
           }
