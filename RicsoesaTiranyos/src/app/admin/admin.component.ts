@@ -287,7 +287,7 @@ export class AdminComponent implements OnInit {
 
     let index = "";
     if(this.series){
-      index = " #"+(this.links.filter(x => x.name === this.convertEvent.game.name).length + 1);
+      index = " #"+(this.links.filter(x => x.name.includes(this.convertEvent.game.name)).length + 1);
     }
     
 
