@@ -7,6 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class VideoCardComponent implements OnInit {
   @Input() link: any = {}; // decorate the property with @Input()
+  @Input() isSeries: any = false; // decorate the property with @Input()
   constructor() { }
 
   ngOnInit(): void {

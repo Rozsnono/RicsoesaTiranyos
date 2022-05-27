@@ -15,11 +15,16 @@ export class VideosComponent implements OnInit {
   constructor(private http: HttpClient,private router: Router) { }
 
   links: any[] = [];
+  NotSeriesLinks: any[] = [];
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
 
   loaded: any = false;
   isEmpty: any = false;
   isAllEmpty: any = false;
+
+  seriesArray: any = [];
+  chosenSeries: any;
+
 
   ngOnInit(): void {
     sessionStorage.clear();
@@ -67,7 +72,19 @@ export class VideosComponent implements OnInit {
   getAllLink(){
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
-        next: (data: any) => {this.links = data; this.loaded = true; this.isAllEmpty = (this.links.length == 0); },
+        next: (data: any) => {
+          this.links = data; this.loaded = true; this.isAllEmpty = (this.links.length == 0); 
+          for (let index = 0; index < data.length; index++) {
+            const element = data[index];
+
+            if(data[index].name.includes('#') && !this.seriesArray.includes(data[index].name.split('#')[0])){
+              this.seriesArray.push(data[index].name.split('#')[0]);
+            }
+
+            this.chosenSeries = this.seriesArray[0];
+            this.getNotSeriesLinks();
+          }
+        },
         error: error => console.log(error)
       }
     )
@@ -91,9 +108,10 @@ export class VideosComponent implements OnInit {
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
         next: (data: any) => {
-          this.links = data;
-          this.links = this.links.filter(x => x.name.includes(this.selectedGameName));
-          this.loaded = true; this.isEmpty = (this.links.length == 0);
+          this.NotSeriesLinks = data;
+          this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
+          this.NotSeriesLinks = this.NotSeriesLinks.filter(x => x.name.includes(this.selectedGameName));
+          this.loaded = true; this.isEmpty = (this.NotSeriesLinks.length == 0);
         },
         error: error => console.log(error)
       }
@@ -118,5 +136,25 @@ export class VideosComponent implements OnInit {
   toCorrectTime(time: any){
     const date = new Date(time);
     return date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()) < 10 ? '0' + (date.getDate()) : (date.getDate())) + ".";
+  }
+
+  getSeriesLinkByNameAndPage(name: any, page: any)
+  {
+    const tmpArray = this.links.filter(x => x.name.includes(name)).reverse().splice((page-1)*4,4);
+    console.log(tmpArray);
+    return tmpArray;
+  }
+
+  getSeriesPageNumber(name: any){
+    let tmpArray = [];
+    const tmpLength = this.links.filter(x => x.name.includes(name)).length / 4 + (this.links.filter(x => x.name.includes(name)).length % 4 === 0 ? 0 : 1)
+    for (let index = 1; index < tmpLength; index++) {
+      tmpArray.push(index);
+    }
+    return tmpArray;
+  }
+
+  getNotSeriesLinks(){
+    this.NotSeriesLinks = this.links.filter(x => !x.name.includes('#'));
   }
 }
