@@ -169,11 +169,12 @@ export class VideosComponent implements OnInit {
 
   getSeriesPageNumber(name: any){
     let tmpArray = [];
+    
     const tmpLength = this.links.filter(x => x.name.includes(name)).length / 4 + (this.links.filter(x => x.name.includes(name)).length % 4 === 0 ? 0 : 1)
-    for (let index = 1; index < tmpLength; index++) {
+    
+    for (let index = 1; index <= tmpLength; index++) {
       tmpArray.push(index);
     }
-    
     return tmpArray;
   }
 }
