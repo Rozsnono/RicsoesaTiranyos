@@ -22,4 +22,8 @@ export class VideoCardComponent implements OnInit {
     return date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()) < 10 ? '0' + (date.getDate()) : (date.getDate())) + ".";
   }
 
+  WhichEpisode(name: any){
+    return name.split('#')[1] + ". rész";
+  }
+
 }
