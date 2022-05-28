@@ -18,7 +18,7 @@
 <div class="container">
     <div class="row">
 
-      <div class="col-12 text-light">
+      <div class="col-12 text-light" *ngIf="!isMobile">
         <div class="row">
           <div class="col-12 col-lg-8">
             <h1>Sorozatok</h1>
@@ -26,9 +26,9 @@
           <div class="col-12 col-lg-4 float-end text-end">
             <mat-form-field appearance="fill">
               <mat-label>Sorozatok</mat-label>
-              <mat-select [(ngModel)]="chosenSeries" name="food">
-                <mat-option *ngFor="let food of seriesArray" [value]="food" >
-                  {{food}}
+              <mat-select [(ngModel)]="chosenSeries" name="series">
+                <mat-option *ngFor="let series of seriesArray" [value]="series" >
+                  {{series}}
                 </mat-option>
               </mat-select>
             </mat-form-field>

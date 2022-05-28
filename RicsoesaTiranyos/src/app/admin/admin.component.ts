@@ -496,7 +496,6 @@ export class AdminComponent implements OnInit {
           if(error.status === 200){
             sessionStorage.setItem('user', JSON.stringify(loginModel)), console.log(JSON.parse(sessionStorage["user"]));
           }
-          console.log(error.status)
         }
       }
     )
@@ -535,7 +534,6 @@ export class AdminComponent implements OnInit {
       const charIndex = passArray[index].charCodeAt(0);
       tmpPass += String.fromCharCode((charIndex - 10),(charIndex - 20));
     }
-    console.log(tmpPass);
     return tmpPass;
   }
 

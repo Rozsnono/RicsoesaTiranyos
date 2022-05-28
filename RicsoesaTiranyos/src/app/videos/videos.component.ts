@@ -35,7 +35,17 @@ export class VideosComponent implements OnInit {
       startWith(''),
       map(value => this._filter(value)),
     );
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      // true for mobile device
+      this.isMobile = true;
+    }else{
+      // false for not mobile device
+      this.isMobile = false;
+    }
   }
+
+  isMobile: boolean = false;
 
   myControl = new FormControl();
   options: string[] = [];
@@ -73,16 +83,25 @@ export class VideosComponent implements OnInit {
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
         next: (data: any) => {
-          this.links = data; this.loaded = true; this.isAllEmpty = (this.links.length == 0); 
+          this.links = data;
+          this.loaded = true; 
+          this.isAllEmpty = (this.links.length == 0);
+
           for (let index = 0; index < data.length; index++) {
-            const element = data[index];
 
             if(data[index].name.includes('#') && !this.seriesArray.includes(data[index].name.split('#')[0])){
               this.seriesArray.push(data[index].name.split('#')[0]);
             }
 
             this.chosenSeries = this.seriesArray[0];
-            this.getNotSeriesLinks();
+          }
+          this.links = data;
+          this.NotSeriesLinks = data;
+
+          this.NotSeriesLinks = this.NotSeriesLinks.slice(0,32);
+          
+          if(!this.isMobile){
+            this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
           }
         },
         error: error => console.log(error)
@@ -109,7 +128,9 @@ export class VideosComponent implements OnInit {
       {
         next: (data: any) => {
           this.NotSeriesLinks = data;
-          this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
+          if(!this.isMobile){
+            this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
+          }
           this.NotSeriesLinks = this.NotSeriesLinks.filter(x => x.name.includes(this.selectedGameName));
           this.loaded = true; this.isEmpty = (this.NotSeriesLinks.length == 0);
         },
@@ -140,8 +161,9 @@ export class VideosComponent implements OnInit {
 
   getSeriesLinkByNameAndPage(name: any, page: any)
   {
+    
     const tmpArray = this.links.filter(x => x.name.includes(name)).reverse().splice((page-1)*4,4);
-    console.log(tmpArray);
+    
     return tmpArray;
   }
 
@@ -151,10 +173,7 @@ export class VideosComponent implements OnInit {
     for (let index = 1; index < tmpLength; index++) {
       tmpArray.push(index);
     }
+    
     return tmpArray;
-  }
-
-  getNotSeriesLinks(){
-    this.NotSeriesLinks = this.links.filter(x => !x.name.includes('#'));
   }
 }
