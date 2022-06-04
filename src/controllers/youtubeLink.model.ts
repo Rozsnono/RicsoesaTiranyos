@@ -21,6 +21,10 @@ const youtubeSchema = new Schema(
             type: String,
             required: true,
         },
+        running: {
+            type: Boolean,
+            required: true
+        },
         type: {
             type: Array,
             required: false
