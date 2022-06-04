@@ -53,6 +53,7 @@ export default class nsideController implements Controller {
         this.router.put("/api/link/:id", this.modifyPUTlink);
         this.router.put("/api/machine/:id", this.modifyPUTmachine);
         this.router.put("/api/page/:id", this.modifyPUTpage);
+        this.router.put("/api/youtube/:id", this.modifyPUTyoutube);
 
         this.router.delete("/api/dates/:id", this.delete);
         this.router.delete("/api/games/:id", this.deleteGame);
@@ -328,6 +329,22 @@ export default class nsideController implements Controller {
             const body = req.body;
             const updatedDoc = await this.nsideM.findByIdAndUpdate(id, body, { new: true, runValidators: true }).populate("FK_neve", "-_id");
             if (updatedDoc) {
+                res.send(updatedDoc);
+            } else {
+                res.status(404).send(`Document with id ${id} not found!`);
+            }
+        } catch (error) {
+            res.status(400).send(error.message);
+        }
+    };
+
+    private modifyPUTyoutube = async (req: Request, res: Response) => {
+        try {
+            const id = req.params.id;
+            const body = req.body;
+            const modificationResult = await this.ylM.replaceOne({ _id: id }, body, { runValidators: true });
+            if (modificationResult.modifiedCount) {
+                const updatedDoc = await this.ylM.findById(id);
                 res.send(updatedDoc);
             } else {
                 res.status(404).send(`Document with id ${id} not found!`);
