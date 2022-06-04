@@ -65,18 +65,23 @@ export class VideosComponent implements OnInit {
   }
 
   InputChange(game: any){
-    this.selectedGameName = game;
+    if(game){
 
-    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
-      {
-        next: (data: any) => {
-          this.SeriesBackArray = data;
-          this.SeriesBackArray = this.SeriesBackArray.filter(x => x.name.toLowerCase().includes(game.toLowerCase()));
-          this.loaded = true; this.isEmpty = (this.NotSeriesLinks.length == 0);
-        },
-        error: error => console.log(error)
-      }
-    )
+      this.selectedGameName = game;
+      
+      this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
+        {
+          next: (data: any) => {
+            this.SeriesBackArray = data;
+            this.SeriesBackArray = this.SeriesBackArray.filter(x => x.name.toLowerCase().includes(game.toLowerCase()));
+            this.loaded = true; this.isEmpty = (this.SeriesBackArray.length == 0);
+          },
+          error: error => console.log(error)
+        }
+        )
+    }else{
+      this.SeriesBackArray = this.SeriesBackArray.filter(x => !x.running);
+    }
   }
 
   getRoute(){
@@ -105,12 +110,12 @@ export class VideosComponent implements OnInit {
 
           this.SeriesNowArray = data;
           this.SeriesNowArray = this.SeriesNowArray.filter(x => x.running);
-          console.log(this.SeriesNowArray);
 
           this.NoSeriesNow = (this.SeriesNowArray.length === 0);
 
           this.SeriesBackArray = data;
           this.SeriesBackArray = this.SeriesBackArray.filter(x => !x.running);
+         
 
           this.NoSeriesBack = (this.SeriesBackArray.length === 0);
 
@@ -143,7 +148,7 @@ export class VideosComponent implements OnInit {
             this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
           }
           this.NotSeriesLinks = this.NotSeriesLinks.filter(x => x.name.includes(this.selectedGameName));
-          this.loaded = true; this.isEmpty = (this.NotSeriesLinks.length == 0);
+          this.loaded = true; this.isEmpty = (this.SeriesBackArray.length == 0);
         },
         error: error => console.log(error)
       }

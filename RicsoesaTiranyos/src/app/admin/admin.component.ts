@@ -296,21 +296,34 @@ export class AdminComponent implements OnInit {
   }
 
   getRunningGame(gameId: any){
-    
+    if (!gameId){
+      return false
+    }
+    else if(this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === gameId)[0].name)).length === 0){
+      return false
+    }
     return gameId ? this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === gameId)[0].name))[0].running : false;
   }
 
   checkChange(e: any){
-    if(this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].running){
-      this.convertTypes = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].type;
-      this.convertLink = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].link;
-      this.newLinkDate = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].date;
-      this.modifyLinkId = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0]._id;
-    }else{
+    console.log(this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0]);
+    try {
+      if(this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].running){
+        this.convertTypes = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].type;
+        this.convertLink = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].link;
+        this.newLinkDate = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].date;
+        this.modifyLinkId = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0]._id;
+      }else{
+        this.convertTypes = [];
+        this.convertLink = "";
+        this.newLinkDate = "";
+      }
+    } catch (error) {
       this.convertTypes = [];
       this.convertLink = "";
       this.newLinkDate = "";
     }
+    
   }
 
   modifyLinkId: any;
