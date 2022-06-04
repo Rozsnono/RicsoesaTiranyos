@@ -12,7 +12,7 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 const routes: Routes = [
   {path: "menetrend", component: CalendarComponent},
   {path: "gepeink", component: MachinesComponent},
-  {path: "videok", component: VideosComponent},
+  {path: "sorozatok", component: VideosComponent},
   {path: "rolunk", component: AboutComponent},
   {path: "", component: HomeComponent},
   {path: "error", component: MaintenanceComponent},
