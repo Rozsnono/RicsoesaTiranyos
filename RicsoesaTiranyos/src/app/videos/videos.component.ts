@@ -16,6 +16,12 @@ export class VideosComponent implements OnInit {
 
   links: any[] = [];
   NotSeriesLinks: any[] = [];
+
+  SeriesNowArray: any[] = [];
+  SeriesBackArray: any[] = [];
+  NoSeriesNow: Boolean = false;
+  NoSeriesBack: Boolean = false;
+
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
 
   loaded: any = false;
@@ -60,16 +66,12 @@ export class VideosComponent implements OnInit {
 
   InputChange(game: any){
     this.selectedGameName = game;
-    console.log(game);
 
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
         next: (data: any) => {
-          this.NotSeriesLinks = data;
-          if(!this.isMobile){
-            this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
-          }
-          this.NotSeriesLinks = this.NotSeriesLinks.filter(x => x.name.toLowerCase().includes(game.toLowerCase()));
+          this.SeriesBackArray = data;
+          this.SeriesBackArray = this.SeriesBackArray.filter(x => x.name.toLowerCase().includes(game.toLowerCase()));
           this.loaded = true; this.isEmpty = (this.NotSeriesLinks.length == 0);
         },
         error: error => console.log(error)
@@ -100,24 +102,18 @@ export class VideosComponent implements OnInit {
         next: (data: any) => {
           this.links = data;
           this.loaded = true; 
-          this.isAllEmpty = (this.links.length == 0);
 
-          for (let index = 0; index < data.length; index++) {
+          this.SeriesNowArray = data;
+          this.SeriesNowArray = this.SeriesNowArray.filter(x => x.running);
+          console.log(this.SeriesNowArray);
 
-            if(data[index].name.includes('#') && !this.seriesArray.includes(data[index].name.split('#')[0])){
-              this.seriesArray.push(data[index].name.split('#')[0]);
-            }
+          this.NoSeriesNow = (this.SeriesNowArray.length === 0);
 
-            this.chosenSeries = this.seriesArray[0];
-          }
-          this.links = data;
-          this.NotSeriesLinks = data;
+          this.SeriesBackArray = data;
+          this.SeriesBackArray = this.SeriesBackArray.filter(x => !x.running);
 
-          this.NotSeriesLinks = this.NotSeriesLinks.slice(0,32);
-          
-          if(!this.isMobile){
-            this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
-          }
+          this.NoSeriesBack = (this.SeriesBackArray.length === 0);
+
         },
         error: error => console.log(error)
       }

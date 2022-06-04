@@ -21,6 +21,7 @@ export class AdminComponent implements OnInit {
     this.getLinkLastId();
     this.getGames();
     this.getPages();
+    this.getAllLink();
   }
 
 
@@ -275,6 +276,47 @@ export class AdminComponent implements OnInit {
 
   series: any;
 
+  GameToLink: any;
+
+  YoutubeLinks: any[];
+
+  getAllLink(){
+    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
+      {
+        next: (data: any) => {
+          this.YoutubeLinks = data;
+        },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  getDataToGame(gameName: any, length: Boolean){
+    return this.YoutubeLinks.filter(x => x.name.includes(gameName)).length === 0 ? 0 : length ? this.YoutubeLinks.filter(x => x.name.includes(gameName)).length : this.YoutubeLinks.filter(x => x.name.includes(gameName))[0].running;
+  }
+
+  getRunningGame(gameId: any){
+    
+    return gameId ? this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === gameId)[0].name))[0].running : false;
+  }
+
+  checkChange(e: any){
+    if(this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].running){
+      this.convertTypes = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].type;
+      this.convertLink = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].link;
+      this.newLinkDate = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0].date;
+      this.modifyLinkId = this.YoutubeLinks.filter(x => x.name.includes(this.games.filter(x => x._id === e)[0].name))[0]._id;
+    }else{
+      this.convertTypes = [];
+      this.convertLink = "";
+      this.newLinkDate = "";
+    }
+  }
+
+  modifyLinkId: any;
+
+  newLinkDate: any;
+
   saveLink(){
     const tmpModel = {
       _id: Number,
@@ -283,27 +325,58 @@ export class AdminComponent implements OnInit {
       picture: String,
       type: Array,
       date: String,
-    }
-
-    let index = "";
-    if(this.series){
-      index = " #"+(this.links.filter(x => x.name.includes(this.convertEvent.game.name)).length + 1);
+      running: Boolean
     }
     
 
-    const date: any = new Date(this.convertEvent.start);
-    const name: any = this.convertEvent.game.name + index;
+    const game: any = this.games.filter(x => x._id === this.GameToLink)[0];
+
+    const date: any = new Date(this.newLinkDate);
+    const running: any = true;
 
     tmpModel._id = this.LinkLastId + 1;
     tmpModel.link = this.convertLink;
     tmpModel.type = this.convertTypes;
-    tmpModel.name = name;
-    tmpModel.picture = this.convertEvent.game.picture;
+    tmpModel.name = game.name;
+    tmpModel.picture = game.picture;
     tmpModel.date = date;
+    tmpModel.running = running;
 
     this.http.post<any[]>(this.backendURL+"/api/youtube",tmpModel).subscribe(
       {
-        next: (data: any) => {this.OKmessage = true; this.deleteDates(this.convertEvent._id)},
+        next: (data: any) => {this.OKmessage = true;},
+        error: error => this.errorMessage = error.message
+      }
+    )
+  }
+
+  modifyLink(){
+    const tmpModel = {
+      _id: Number,
+      link: String,
+      name: String,
+      picture: String,
+      type: Array,
+      date: String,
+      running: Boolean
+    }
+    
+
+    const game: any = this.games.filter(x => x._id === this.GameToLink)[0];
+
+    const date: any = new Date();
+    const running: any = !this.series;
+
+    tmpModel.link = this.convertLink;
+    tmpModel.type = this.convertTypes;
+    tmpModel.name = game.name;
+    tmpModel.picture = game.picture;
+    tmpModel.date = date;
+    tmpModel.running = running;
+
+    this.http.put<any[]>(this.backendURL+"/api/youtube/" + this.modifyLinkId,tmpModel).subscribe(
+      {
+        next: (data: any) => {this.OKmessage = true;},
         error: error => this.errorMessage = error.message
       }
     )
