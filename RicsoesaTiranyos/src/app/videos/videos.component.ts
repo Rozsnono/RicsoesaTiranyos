@@ -60,6 +60,21 @@ export class VideosComponent implements OnInit {
 
   InputChange(game: any){
     this.selectedGameName = game;
+    console.log(game);
+
+    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
+      {
+        next: (data: any) => {
+          this.NotSeriesLinks = data;
+          if(!this.isMobile){
+            this.NotSeriesLinks = this.NotSeriesLinks.filter(x => !x.name.includes('#'));
+          }
+          this.NotSeriesLinks = this.NotSeriesLinks.filter(x => x.name.toLowerCase().includes(game.toLowerCase()));
+          this.loaded = true; this.isEmpty = (this.NotSeriesLinks.length == 0);
+        },
+        error: error => console.log(error)
+      }
+    )
   }
 
   getRoute(){

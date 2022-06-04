@@ -18,20 +18,33 @@
 <div class="container">
     <div class="row">
 
-      <div class="col-12 text-light" *ngIf="!isMobile">
+      <div class="col-12 col-lg-6 mx-auto justify-content-center d-flex">
+        <form class="example-form w-100" *ngIf="!isAllEmpty">
+          <mat-form-field class="example-full-width w-100" appearance="fill">
+            <mat-label class="text-light">Játék keresése</mat-label>
+            <mat-icon matPrefix>search &nbsp; </mat-icon>
+            <input type="text"
+                  [(ngModel)]="selectedGameName"
+                   matInput
+                   [formControl]="myControl"
+                   (ngModelChange)="InputChange($event)"
+                   class="text-light">
+            <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete> -->
+            <button *ngIf="selectedGameName" matSuffix mat-icon-button aria-label="Clear" (click)="selectedGameName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      </div>
+
+      <div class="col-12 text-light" *ngIf="!isMobile && !selectedGameName">
         <div class="row">
           <div class="col-12 col-lg-8">
-            <h1>Sorozatok</h1>
-          </div>
-          <div class="col-12 col-lg-4 float-end text-end">
-            <mat-form-field appearance="fill">
-              <mat-label>Sorozatok</mat-label>
-              <mat-select [(ngModel)]="chosenSeries" name="series">
-                <mat-option *ngFor="let series of seriesArray" [value]="series" >
-                  {{series}}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+            <h1>Jelenleg futó sorozatok</h1>
           </div>
         </div>
         
@@ -56,19 +69,19 @@
           <div class="col-12 col-lg-4 float-end text-end">
             <form class="example-form" *ngIf="!isAllEmpty">
               <mat-form-field class="example-full-width" appearance="fill">
-                <mat-label>Játék keresése</mat-label>
+                <mat-label class="text-light">Játék keresése</mat-label>
+                <mat-icon matSuffix>search</mat-icon>
                 <input type="text"
                        placeholder="Válassz"
                        matInput
                        [formControl]="myControl"
-                       [matAutocomplete]="auto"
                        (ngModelChange)="InputChange($event)"
-                       class="text-dark">
-                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                       class="text-light">
+                <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
                   <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
                     {{option}}
                   </mat-option>
-                </mat-autocomplete>
+                </mat-autocomplete> -->
               </mat-form-field>
               <button class="btn btn-success ms-1 search-btn" (click)="getLinkByName()">  
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search mb-1 " viewBox="0 0 16 16">

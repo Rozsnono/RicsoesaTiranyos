@@ -208,3 +208,16 @@ app-add-to-calendar button{
 .mat-slider-thumb {
     background-color: white !important;
 }
+
+.mat-form-field-flex{
+    color: white !important;
+    background-color: #ffffff10 !important;
+}
+
+.mat-form-field-flex input ::placeholder{
+    color: white !important;
+}
+
+.mat-form-field-infix{
+    color: white !important;
+}
