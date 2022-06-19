@@ -56,7 +56,7 @@
 <!-- <app-maintenance *ngIf="checkMaintenance()">
 </app-maintenance> -->
 
-<div class="shutdown">
+<div class="shutdown" *ngIf="checkMaintenance()">
   <hr>
   <h1>Sajnáljuk jelenleg a weboldal nem elérhető! <br><span class="rt">Ricsó és a Tirányos</span></h1>
   <hr>
