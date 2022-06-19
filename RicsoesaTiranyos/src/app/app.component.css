@@ -70,3 +70,17 @@
     margin-bottom: 0.5rem;
     background-color: #9c9c9ce2 !important;
    }
+
+
+.shutdown
+{
+  margin: auto;
+  text-align: center;
+  font-size: 5vh;
+  color: #ffffffd0;
+  text-shadow: 1px 1px 3px black;
+}
+
+.rt{
+  font-size: 3vh;
+}

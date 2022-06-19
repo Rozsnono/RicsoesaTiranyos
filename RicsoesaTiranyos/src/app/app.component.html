@@ -53,8 +53,17 @@
   </div>
 </div>
 
-<app-maintenance *ngIf="checkMaintenance()">
-</app-maintenance>
+<!-- <app-maintenance *ngIf="checkMaintenance()">
+</app-maintenance> -->
+
+<div class="shutdown">
+  <hr>
+  <h1>Sajnáljuk jelenleg a weboldal nem elérhető! <br><span class="rt">Ricsó és a Tirányos</span></h1>
+  <hr>
+</div>
+
+<app-calendar *ngIf="checkMaintenance()">
+</app-calendar>
 
 <router-outlet *ngIf="!checkMaintenance()" class="body">
 </router-outlet>
