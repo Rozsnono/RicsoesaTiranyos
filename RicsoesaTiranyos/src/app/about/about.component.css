@@ -23,12 +23,16 @@
     z-index:1;
     padding-top: 2%;
     text-align: center;
-    color: #ffffff80
+    color: #ffffffb9;
+    text-shadow: 1px 1px 3px black;
 }
 
 .overlay h5{
     line-height: 6vh;
     font-size: 4vh;
+}
+.overlay b{
+  font-size: 5vh;
 }
 
 @media screen and (max-width: 728px){

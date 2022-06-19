@@ -31,7 +31,10 @@ export class HomeComponent implements OnInit {
     "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
   ]
 
-  
+
+  goToYoutube(){
+    window.location.href = "https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w";
+  }
 
   convertToDateMonth(d: any, type: any = "3"): string{
     try {
@@ -43,7 +46,7 @@ export class HomeComponent implements OnInit {
     } catch (error) {
       return "";
     }
-    
+
   }
   convertToDateYear(d: any): string{
     const date = new Date(d);
@@ -112,7 +115,7 @@ export class HomeComponent implements OnInit {
 
     this.http.post<any[]>("https://id.twitch.tv/oauth2/token?client_id=hpb1bshobiw3k31pmu78v3c1wnyqos&client_secret=jt0mixedykuf57n384qz9yijzwlfzl&grant_type=client_credentials",model).subscribe(
       {
-        next: (data: any) => 
+        next: (data: any) =>
           {
             this.authToken = data.access_token;
             this.readyCounter += 1;
@@ -132,7 +135,7 @@ export class HomeComponent implements OnInit {
 
     this.http.get<any[]>("https://api.twitch.tv/helix/users/follows?to_id=777755687",{"headers":headers}).subscribe(
       {
-        next: (data: any) => 
+        next: (data: any) =>
           {
             this.readyCounter += 1;
             this.twitch = this.subConverter("twitch",data.total);
@@ -150,7 +153,7 @@ export class HomeComponent implements OnInit {
 
     this.http.get<any[]>(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${id}&key=${key}`).subscribe(
       {
-        next: (data: any) => 
+        next: (data: any) =>
           {
             this.youtube = data["items"][0].statistics.subscriberCount;
             this.readyCounter += 1;
@@ -170,16 +173,16 @@ export class HomeComponent implements OnInit {
 
     this.http.post<any[]>(this.backendURL+"/api/dates", tmpModal).subscribe(
       {
-        next: (data: any) => 
+        next: (data: any) =>
           {
             for (let index = 0; index < data.length; index++) {
               const element = data[index];
-              
+
               if(!element.missing){
                 this.nextStream = !element.missing ? element : [];
                 break;
               }
-              
+
             }
 
             if (data.length === 0) {
@@ -221,7 +224,7 @@ export class HomeComponent implements OnInit {
       for (let index = subIn.length-1; index >= 0; index--) {
         finalSubs += subIn[index];
       }
-      
+
       return finalSubs;
     }
 
@@ -234,22 +237,22 @@ export class HomeComponent implements OnInit {
     return tmp.link;
   }
 
-  
+
   format_date(date:any, sep: any, sepHour: any, timeZone: any = 0) {
     var day = date.getDate();
     var monthIndex = date.getMonth();
     var year = date.getFullYear();
-    
+
     var hour = date.getHours();
     var minutes = date.getMinutes();
-    
+
     let formatted_date;
     if(hour === 0 && minutes === 0) {
       formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day);
     } else {
       formatted_date = ("" + year) + sep + this.zero_pad2(monthIndex + 1) + sep + this.zero_pad2(day) + "T" + this.zero_pad2(hour-parseInt(timeZone)) + sepHour + this.zero_pad2(minutes) +sepHour + "00Z";
     }
-    
+
     return formatted_date;
   }
 

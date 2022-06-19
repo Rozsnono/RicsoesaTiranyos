@@ -47,7 +47,10 @@ export class AboutComponent implements OnInit {
   }
 
   getLinkByName(name: any){
+    if(name === "high"){
+      return "https://www.youtube.com/channel/UC4x9Z4hBYFKuoqBFI6qRbAQ";
+    }
     return this.links.filter(x => x.name === name)[0].link;
   }
-  
+
 }
