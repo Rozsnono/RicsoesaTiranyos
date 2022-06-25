@@ -101,6 +101,9 @@ export class HomeComponent implements OnInit {
     if(window.location.href.includes("www")){
       return "ricsoesatiranyos.hu";
     }
+    if(window.location.href.includes("ricsoesatiranyos")){
+      return "ricsoesatiranyos.hu";
+    }
     return window.location.href.split('//')[1].split('/')[0];
   }
 
