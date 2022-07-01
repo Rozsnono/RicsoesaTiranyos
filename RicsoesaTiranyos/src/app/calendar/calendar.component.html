@@ -72,13 +72,13 @@
                   <ng-template *ngIf="i < 1; then showEventsBlock; else showMoreBlock">
                   </ng-template>
                   <ng-template #showEventsBlock>
-                      <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.primary }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
-                          <span class="d-lg-block d-none filtered eventTitle" [ngClass]="checkDateDeleted(event)" > {{checkLength(event.title,20)}}</span>
+                      <div class="cal-events" *ngIf="i < 1" [ngStyle]="{ backgroundColor: event.color.primary, color: event.color.primary }" [ngClass]="event?.cssClass" [ngClass]="checkEventLength(event, day)" (mwlClick)="eventClicked.emit({event: event})" [mwlCalendarTooltip]="event.title | calendarEventTitle: 'monthTooltip':event" [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                          <span class="d-lg-block d-none filtered eventTitle"  [ngClass]="checkDateDeleted(event)"  > {{checkLength(event.title,20)}}</span>
                       </div>
                   </ng-template>
                   <ng-template #showMoreBlock>
                       <ng-container *ngIf="i <= 1">
-                        <div class="cal-events d-lg-block d-none" *ngIf="i == 1" [ngStyle]="{ backgroundColor: '#A970FF', color: '#000' }" [ngClass]="event?.cssClass" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="továbbiak..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
+                        <div class="cal-events d-lg-block d-none" *ngIf="i == 1" [ngStyle]="{ backgroundColor: '#A970FF', color: '#000' }" [ngClass]="event?.cssClass" [ngClass]="checkEventLength(event, day)" (mwlClick)="eventClicked.emit({event: event})" mwlCalendarTooltip="továbbiak..." [tooltipPlacement]="tooltipPlacement" [tooltipEvent]="event" [tooltipTemplate]="tooltipTemplate" [tooltipAppendToBody]="tooltipAppendToBody" [tooltipDelay]="tooltipDelay">
                           <i class="fa-solid fa-ellipsis"></i>
                         </div>
                       </ng-container>
@@ -103,7 +103,7 @@
                 </div>
   
                 <div class="col-12 col-lg-1 text-center">
-                  <div class="eventDateBack">
+                  <div class="eventDateBack" [ngClass]="checkEventMoreDay(event)">
                     <h2 class="eventDate">{{convertToDate(event.start)}}</h2>
                     <h3 class="eventMonth">{{convertToDateMonth(event.start)}}.</h3>
                   </div>

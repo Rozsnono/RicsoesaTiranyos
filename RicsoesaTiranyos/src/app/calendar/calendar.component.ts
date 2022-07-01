@@ -110,6 +110,27 @@ export class CalendarComponent implements OnInit {
     return this.dates.filter(x => x._id === event.id)[0].missing ? "deleted" : "";
   }
 
+  checkEventLength(event: any, day: any){
+    
+    
+    if(new Date(event.start).getDate() === new Date(event.end).getDate()){
+      return "oneDay-event"
+    }
+    if(new Date(event.start).getDate() != new Date(event.end).getDate()){
+      if(this.DateConverter(event.start) === this.DateConverter(day.date)){
+        return "moreDay-event-start"
+      }else if(this.DateConverter(event.end) === this.DateConverter(day.date)){
+        return "moreDay-event-end"
+      }
+      return "moreDay-event"
+    }
+    return ""
+  }
+
+  DateConverter(date: any){
+    return new Date(date).getFullYear() + "-" + new Date(date).getMonth() + "-" + new Date(date).getDate()
+  }
+
   convertToTime(date: any): string {
     return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
   }
@@ -124,17 +145,22 @@ export class CalendarComponent implements OnInit {
   eventPerDay: any;
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-
+    console.log(events);
+    
     this.eventPerDay = [];
     if(events.length != 0){
-      this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
-      
+      // this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
+      this.eventPerDay = events;
       // this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
       // this.selectedEvent.date = this.tmpDate;     
       // this.selectedEvent.selected = true;
       
       this.scrollTo("eventss");
     }
+  }
+
+  checkEventMoreDay(event: any){
+    return this.DateConverter(event.start) === this.DateConverter(event.end) ? "" : "eventIsMoreDay"
   }
 
   async scrollTo(className: string) {
@@ -161,6 +187,12 @@ export class CalendarComponent implements OnInit {
     return Max
   }
 
+  checkBreak(event: any){
+    if(event.title === "Adásszünet"){
+      return "event-break";
+    }
+    return ""
+  }
   
   getValueToSlider(start: any, end: any): NumberInput{
     const Dstart = new Date(start);

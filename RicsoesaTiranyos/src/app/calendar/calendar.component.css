@@ -4,7 +4,7 @@
 
 .cal-events{
     padding: 0.4rem;
-    border-radius: 1rem;
+    
 }
 
 .cal-days{
@@ -143,4 +143,29 @@
     font-family: 'Times New Roman', Times, serif;
     font-style: italic;
     color: rgb(175, 175, 175);
+}
+
+.oneDay-event{
+    border-radius: 1rem;
+}
+
+.moreDay-event{
+    border-radius: 0rem !important;
+    color: #00000000 !important;
+}
+
+.moreDay-event-start{
+    border-radius: 1rem 0rem 0rem 1rem !important;
+}
+
+.moreDay-event-end{
+    border-radius: 0rem 1rem 1rem 0rem  !important;
+    color: #00000000 !important;
+}
+
+.eventIsMoreDay{
+    color: #00000000 !important;
+}
+.event-break{
+    color: black !important;
 }

@@ -71,7 +71,7 @@
                 <div class="col-6  col-lg-6">
                   <mat-form-field appearance="fill">
                     <mat-label>Stream kezdete</mat-label>
-                    <input matInput [matDatepicker]="db" required [(ngModel)]="newEventTMPdate">
+                    <input matInput [matDatepicker]="db" required [(ngModel)]="newEventTMPdateStart">
                     <mat-datepicker-toggle matSuffix [for]="db"></mat-datepicker-toggle>
                     <mat-datepicker #db></mat-datepicker>
                   </mat-form-field>
@@ -79,9 +79,9 @@
                 <div class="col-6 col-lg-6">
                   <mat-form-field appearance="fill">
                     <mat-label>Stream vége</mat-label>
-                    <input matInput [matDatepicker]="db" required [(ngModel)]="newEventTMPdate">
-                    <mat-datepicker-toggle matSuffix [for]="db"></mat-datepicker-toggle>
-                    <mat-datepicker #db></mat-datepicker>
+                    <input matInput [matDatepicker]="db2" required [(ngModel)]="newEventTMPdateEnd">
+                    <mat-datepicker-toggle matSuffix [for]="db2"></mat-datepicker-toggle>
+                    <mat-datepicker #db2></mat-datepicker>
                   </mat-form-field>
                 </div>
               </div>

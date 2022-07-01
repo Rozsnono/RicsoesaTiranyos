@@ -130,11 +130,11 @@ export class AdminComponent implements OnInit {
 };
 
   saveDates(){
-    const TMPdateStart = new Date(this.newEventTMPdate);
+    const TMPdateStart = new Date(this.newEventTMPdateStart);
     TMPdateStart.setHours(this.newEventTMPstart.split(':')[0]);
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
-    const TMPdateEnd = new Date(this.newEventTMPdate);
+    const TMPdateEnd = new Date(this.newEventTMPdateEnd);
     if(this.newEventTMPend.split(':')[0] == "00") TMPdateEnd.setDate(TMPdateEnd.getDate()+1);
     TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
     TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
@@ -157,12 +157,18 @@ export class AdminComponent implements OnInit {
     tmpModel.end = this.newEventTMPdateEnd;
     tmpModel.game = this.tmpGameId;
 
-    this.http.post<any[]>(this.backendURL+"/api/date",tmpModel).subscribe(
-      {
-        next: (data: any) => {this.dates.push(data); this.OKmessage = true; window.location.reload()},
-        error: error => this.errorMessage = error.message
-      }
-    )
+    if(TMPdateStart > TMPdateEnd){
+      this.errorMessage = "error";
+    }else{
+      this.http.post<any[]>(this.backendURL+"/api/date",tmpModel).subscribe(
+        {
+          next: (data: any) => {this.dates.push(data); this.OKmessage = true; window.location.reload()},
+          error: error => this.errorMessage = error.message
+        }
+      )
+    }
+
+    
   }
 
   
