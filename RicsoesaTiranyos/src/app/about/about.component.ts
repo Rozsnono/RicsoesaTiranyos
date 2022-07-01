@@ -12,12 +12,21 @@ export class AboutComponent implements OnInit {
   constructor(private http: HttpClient,private router: Router) { }
 
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
+  isMobile:boolean;
 
 
   ngOnInit(): void {
     this.getRoute();
     this.getLinks();
     sessionStorage.clear();
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      // true for mobile device
+      this.isMobile = true;
+    }else{
+      // false for not mobile device
+      this.isMobile = false;
+    }
   }
 
   getRoute(){
