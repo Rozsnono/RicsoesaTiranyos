@@ -60,6 +60,14 @@
     padding: 3rem;
 }
 
+.twitch-div{
+    background-image: linear-gradient(to left, #72139ba8, #72139ba8), url("../../assets/twitch.jpg");
+    background-repeat: no-repeat;
+    background-size: auto;
+
+    padding: 3rem;
+}
+
 .youtubeDiv{
     background-image: linear-gradient(to left, #9f4b4ba8, #9f4b4ba8), url("../../assets/y_wallpaper.jpg");
     background-repeat: no-repeat;
@@ -67,6 +75,31 @@
     background-position: 50% 30%;
     padding: 3rem;
     height: 100%;
+}
+
+.twitch-text{
+    padding: 1rem;
+    background-color: #2d2d2d;
+    border-radius: 2rem;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.twitch-tv{
+    background-color: #764ba2;
+    /* border-radius: 2rem; */
+    padding: 1rem;
+}
+
+.twitch-closest-stream{
+    border: #111111;
+}
+
+.padding{
+    padding: 2rem;
+}
+
+.twitch-closest-stream-header{
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
 }
 
 
@@ -87,7 +120,7 @@
     font-size: 1.5rem;
 }
 
-.header iframe{
+iframe{
     width: 100%;
     height: 100%;
 }
@@ -196,9 +229,11 @@
     transition: 0.3s;
 }
 
-.closestStream .date{
+.date{
     color: #ffffff90;
     font-size: 1.5rem;
+    text-align: end !important;
+    float: right !important;
 }
 
 

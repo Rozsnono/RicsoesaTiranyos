@@ -53,7 +53,7 @@
 
   <div class="row w-100 m-0">
     <div class="col-12 col-lg-12">
-        <div class="twitchDiv text-center">
+        <!-- <div class="twitchDiv text-center">
             <div class="header">
                 <h1>Nézz minket Twitchen!</h1>
 
@@ -101,8 +101,44 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+      <div class="twitch-div text-center">
+          <div class="row d-lg-flex justify-content-center">
+              <div class="twitch-text col-12 col-lg-5">
+                <h2>Nézz minket Twitchen</h2>
+                <hr>
+                <div class="padding">
+                    <div class="twitch-closest-stream text-start mx-auto">
+                        <i class="fa-solid fa-video fs-1 mb-4"> <span class="twitch-closest-stream-header"> A következő stream </span></i>
+                        <span class="date" *ngIf="!checkNextStream()"> {{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
+    
+                        <div class="event row">
+    
+                            <div class="col-lg-2 col-12 bordered text-center">
+                                <span *ngIf="!checkNextStream()">
+                                    <h3>{{convertToDate(nextStream.start)}}</h3>
+                                    <h5>{{convertToDateMonth(nextStream.start)}}.</h5>
+                                </span>
+                            </div>
+                            <div class="col-lg-10 col-12 mt-3 mt-lg-0">
+                                <h4 *ngIf="checkNextStream()">Nincs tervezett stream!</h4>
+                                <span *ngIf="!checkNextStream()">
+                                    <h5>{{getNextStreamName()}}</h5>
+                                    {{convertToTime(nextStream.start)}} - {{convertToTime(nextStream.end)}}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+              </div>
+              <div class="col-lg-1 col-0"></div>
+              <div class="twitch-tv col-12 col-lg-5">
+                <iframe [src]="safeSrc" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
+              </div>
+          </div>
       </div>
+    </div>
       <div class="col-12 col-lg-12 mt-3">
         <div class="youtubeDiv text-center">
             <div class="header">
