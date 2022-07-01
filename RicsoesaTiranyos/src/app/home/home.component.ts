@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
     "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
   ]
 
+  
 
   goToYoutube(){
     window.location.href = "https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w";
@@ -72,11 +73,19 @@ export class HomeComponent implements OnInit {
   links: any[] = [];
   video: any;
   twitchSubsLink: any;
+  isMobile: boolean;
 
   constructor(private sanitizer: DomSanitizer, private http: HttpClient) { }
 
   ngOnInit(): void {
     document.body.style.overflow = "hidden";
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      // true for mobile device
+      this.isMobile = true;
+    }else{
+      // false for not mobile device
+      this.isMobile = false;
+    }
     sessionStorage.clear();
     this.getStream();
     this.getAuthFromTwitch();

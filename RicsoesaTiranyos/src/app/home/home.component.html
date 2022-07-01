@@ -109,10 +109,10 @@
                 <hr>
                 <div class="padding">
                     <div class="twitch-closest-stream text-start mx-auto">
-                        <i class="fa-solid fa-video fs-1 mb-4"> <span class="twitch-closest-stream-header"> A következő stream </span></i>
-                        <span class="date" *ngIf="!checkNextStream()"> {{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
+                        <i class="fa-solid fa-video mb-4" [ngClass]="isMobile ? 'fs-3' : 'fs-1'"> <span class="twitch-closest-stream-header"> A következő stream </span></i>
+                        <span class="date" *ngIf="!checkNextStream() && !isMobile"> {{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
     
-                        <div class="event row">
+                        <div class="event row" *ngIf="!isMobile">
     
                             <div class="col-lg-2 col-12 bordered text-center">
                                 <span *ngIf="!checkNextStream()">
@@ -128,18 +128,30 @@
                                 </span>
                             </div>
                         </div>
+
+                        <div class="event row" *ngIf="isMobile">
+                            <div class="col-12 text-center">
+                                <h5 *ngIf="checkNextStream()">Nincs tervezett stream!</h5>
+                                <span *ngIf="!checkNextStream()">
+                                    <h5>{{getNextStreamName()}}</h5>
+                                    <hr>
+                                    <h5>{{convertToDateMonth(nextStream.start)}}. {{convertToDate(nextStream.start)}} </h5>
+                                    {{convertToTime(nextStream.start)}} - {{convertToTime(nextStream.end)}}
+                                </span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
               </div>
               <div class="col-lg-1 col-0"></div>
-              <div class="twitch-tv col-12 col-lg-5">
+              <div class="twitch-tv col-12 col-lg-5" [ngClass]="isMobile ? 'mt-4' : ''">
                 <iframe [src]="safeSrc" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
               </div>
           </div>
       </div>
     </div>
-      <div class="col-12 col-lg-12 mt-3">
+      <div class="col-12 col-lg-12 mt-3 mb-3">
         <div class="youtubeDiv text-center">
             <div class="header">
                 <h3>Ha lemaradtál volna a közvetítésekről a Youtube csatornánkon bármikor visszanézheted!</h3>
@@ -149,15 +161,6 @@
                 <button class="vidBtn" (click)="goToYoutube()">
                     <i class="fa-solid fa-play"></i>  Youtube
                 </button>
-
-                <!-- <div class="card mx-auto mt-5 col-12 col-lg-7">
-                    <i class="fa-brands fa-youtube fs-1 mt-2 mb-2"></i>
-                    <h3>Utolsó videó</h3>
-                    <hr>
-                    <div class="col-12">
-                        <app-video-card [link]="video"></app-video-card>
-                    </div>
-                </div> -->
 
 
             </div>
