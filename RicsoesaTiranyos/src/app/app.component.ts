@@ -30,7 +30,7 @@ export class AppComponent {
 }
 
 
-  face: any;
+  tiktok: any;
   twitch: any;
   youtube: any;
   insta: any;
@@ -59,7 +59,7 @@ export class AppComponent {
     this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
       {
         next: (data: any) => {this.links = data;
-          this.face = this.links.filter(x => x.name === "facebook")[0].link;
+          this.tiktok = this.links.filter(x => x.name === "tiktok")[0].link;
           this.youtube = this.links.filter(x => x.name === "youtube")[0].link;
           this.twitch = this.links.filter(x => x.name === "twitch")[0].link;
           this.insta = this.links.filter(x => x.name === "instagram")[0].link;
