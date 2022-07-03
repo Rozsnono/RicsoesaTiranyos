@@ -8,6 +8,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AdminComponent } from './admin/admin.component';
 import { MaintenanceComponent } from './maintenance/maintenance.component';
+import { BackInTimeComponent } from './back-in-time/back-in-time.component';
 
 const routes: Routes = [
   {path: "menetrend", component: CalendarComponent},
@@ -17,6 +18,7 @@ const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "error", component: MaintenanceComponent},
   {path: "admin", component: AdminComponent},
+  {path: "backintime", component: BackInTimeComponent},
   {path: "**", pathMatch: 'full', component: PageNotFoundComponent}
 ];
 

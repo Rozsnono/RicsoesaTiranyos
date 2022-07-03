@@ -37,6 +37,7 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { VideoCardComponent } from './video-card/video-card.component';
+import { BackInTimeComponent } from './back-in-time/back-in-time.component';
 
 
 
@@ -53,7 +54,8 @@ import { VideoCardComponent } from './video-card/video-card.component';
     ModalComponent,
     AdminComponent,
     MaintenanceComponent,
-    VideoCardComponent
+    VideoCardComponent,
+    BackInTimeComponent
   ],
   imports: [
     HttpClientModule,
