@@ -112,7 +112,7 @@ export class PageSettingsComponent implements OnInit {
   register(){
 
     const loginModel = {
-      _id: 3,
+      _id: 4,
       username: this.username,
       password: this.password,
     }

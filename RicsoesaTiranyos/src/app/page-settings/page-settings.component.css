@@ -68,3 +68,8 @@ mat-form-field{
 .TOmissing{
     background-image: linear-gradient(to right, #64550b, #00000000 );
 }
+
+#exampleColorInput{
+
+    background-color: #00000010 !important;
+}

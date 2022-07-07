@@ -39,9 +39,14 @@
 
 
 .newEvent, .newGame, .newConvert{
-    background-color: #ffffff50;
+    background-color: #ffffff0b;
+    color: white !important;
     padding: 1rem;
     border-radius: 2rem;
+    border: 2px solid white;
+}
+mat-label{
+    color: white;
 }
 
 .btn{

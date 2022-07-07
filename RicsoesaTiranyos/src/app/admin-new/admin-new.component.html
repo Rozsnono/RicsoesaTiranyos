@@ -5,13 +5,11 @@
         <mat-tab label="Esemény hozzáadása/módosítása">
           <div class="col-12 col-lg-5 newEvent mt-4 mx-auto">
             <div class="row">
-              <div class="col-6 col-lg-8">
+              <div class="col-12 col-lg-12 text-center">
                 <h3 *ngIf="!isModify">Új esemény hozzáadása</h3>
                 <h3 *ngIf="isModify">Esemény módosítása</h3>
               </div>
-              <div class="col-6 col-lg-4">
-                <button class="btn btn-primary" (click)="resetPage()">Újratöltés</button>
-              </div>
+
             </div>
             <div class="mb-4"></div>
             <hr>
@@ -62,6 +60,10 @@
                   </ngx-material-timepicker>
                 </div>
               </div>
+
+              <div class="col-2">
+                <button class="btn btn-primary w-100 " (click)="resetPage()">Újratöltés</button>
+              </div>
             </div>
   
             <hr>
@@ -106,7 +108,7 @@
         </mat-tab>
         <mat-tab label="Események megtekintése">
           <div>
-            <button class="btn btn-danger m-2" (click)="DeletePastStreams()">Volt események törlése</button> 
+            <button class="btn btn-danger m-2 " (click)="DeletePastStreams()">Volt események törlése</button> 
           </div>
           <table mat-table [dataSource]="dates"  class="mat-elevation-z8 w-100">
             <ng-container matColumnDef="name">
@@ -159,13 +161,11 @@
         <mat-tab label="Játék hozzáadása/módosítása">
           <div class="col-12 col-lg-5 newGame mt-4 mx-auto">
             <div class="row">
-              <div class="col-6 col-lg-9">
+              <div class="col-12 col-lg-12 text-center">
                 <h3 *ngIf="!isModifyGame">Új játék hozzáadása</h3>
                 <h3 *ngIf="isModifyGame">Játék módosítása</h3>
               </div>
-              <div class="col-6 col-lg-3 ">
-                <button class="btn btn-primary" (click)="resetPage()"><i class="fa-solid fa-rotate"></i></button>
-              </div>
+              
             </div>
   
             <div class="mb-4"></div>
@@ -190,6 +190,7 @@
               <div class="col-12 col-lg-12">
                 <div class="input-group mb-2">
                   <input type="color" class="form-control form-control-color ColorPicker" id="exampleColorInput" value="#563d7c" title="Válassz színt!" [(ngModel)]="newGameColor">
+                  <button class="btn btn-primary" (click)="resetPage()"><i class="fa-solid fa-rotate"></i></button>
                 </div>
               </div>
               <div class="col-12">
@@ -210,7 +211,7 @@
         <mat-tab label="Sorozat konvertálás">
           <div class="col-12 col-lg-5 newConvert mb-2 mt-4 mx-auto">
             <div class="row">
-              <div class="col-12 col-lg-12">
+              <div class="col-12 col-lg-12 text-center">
                 <h3>Konvertálás</h3>
               </div>
             </div>
