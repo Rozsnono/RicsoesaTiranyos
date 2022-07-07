@@ -38,6 +38,9 @@ import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { VideoCardComponent } from './video-card/video-card.component';
 import { BackInTimeComponent } from './back-in-time/back-in-time.component';
+import { AdminNewComponent } from './admin-new/admin-new.component';
+import { AdminPastComponent } from './admin-past/admin-past.component';
+import { PageSettingsComponent } from './page-settings/page-settings.component';
 
 
 
@@ -55,7 +58,10 @@ import { BackInTimeComponent } from './back-in-time/back-in-time.component';
     AdminComponent,
     MaintenanceComponent,
     VideoCardComponent,
-    BackInTimeComponent
+    BackInTimeComponent,
+    AdminNewComponent,
+    AdminPastComponent,
+    PageSettingsComponent
   ],
   imports: [
     HttpClientModule,

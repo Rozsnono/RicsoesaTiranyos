@@ -1,0 +1,70 @@
+.loging{
+    background-color: #6060603e;
+    border-radius: 2rem;
+    padding: 3rem;
+}
+
+.loging h1{
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.loging hr{
+    color: white;
+}
+
+.th-name{
+    padding: 0.5rem;
+    border-radius: 1rem;
+    text-shadow: 1px 1px black;
+}
+
+.new-model{
+    margin: 2rem;
+    border-radius: 1rem;
+    border: 1px solid black;
+    background-color: #ffffff80;
+    padding: 1rem;
+}
+
+.Time{
+    height: 3.7rem;
+}
+
+.newGame{
+    padding: 1rem;
+    border-radius: 2rem;
+    background-color: #ffffff50;
+}
+
+
+.newEvent, .newGame, .newConvert{
+    background-color: #ffffff50;
+    padding: 1rem;
+    border-radius: 2rem;
+}
+
+.btn{
+    box-shadow: none ;
+}
+
+.margin{
+    margin-top: 15vh;
+}
+
+mat-form-field{
+    width: 100%;
+}
+
+.timepicker{
+    padding: 0.4rem;
+    border-radius: 1rem 0 !important;
+}
+
+.TOconvert{
+    background-image: linear-gradient(to right, #164812, #00000000 );
+}
+
+.TOmissing{
+    background-image: linear-gradient(to right, #64550b, #00000000 );
+}

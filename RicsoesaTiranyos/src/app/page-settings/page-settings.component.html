@@ -1,0 +1,64 @@
+
+
+
+
+
+<div class="admin margin" *ngIf="checking()">
+    <body>
+
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-lg-2 loging text-center">
+            <div class="col-12 mt-2" *ngFor="let page of pages">
+              <div class="form-check form-switch" *ngIf="page.route !== ''">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="page.disabled">
+                <label class="form-check-label text-light" for="flexSwitchCheckDefault"> {{page.route === "" ? "Leállítás" : page.route}} </label>
+              </div>
+            </div>
+            <div class="col-12 mx-auto mt-4">
+              <button class="btn btn-primary" (click)="modifyPages()">Mentés</button>
+            </div>
+          </div>
+
+          <div class="col-0 col-lg-1"></div>
+
+          <div class="col-12 col-lg-4 loging text-center">
+            <div class="col-12">
+              <h1>Regisztráció</h1>
+            </div>
+  
+            <hr>
+  
+            <div class="col-12">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Felhasználónév</mat-label>
+                    <input matInput placeholder="Felhasználónév" required [(ngModel)]="username">
+                    <!-- <mat-error></mat-error> -->
+                </mat-form-field>
+            </div>
+  
+            <div class="col-12">
+                <mat-form-field appearance="fill" class="w-100">
+                    <mat-label>Jelszó</mat-label>
+                    <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-pressed]="hide"     >
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+            </div>
+  
+            <div class="col-12">
+                <button class="btn btn-primary" (click)="register()">Regisztráció</button>
+            </div>        
+          </div>
+
+          <div class="col-0 col-lg-1"></div>
+
+          <div class="col-12 col-lg-2 loging">
+            <button class="btn h-100" [class]="this.pages[0].disabled ? 'btn-primary' : 'btn-danger'" (click)="Maintenance()">{{this.pages[0].disabled ? 'Oldal elindítása' : 'Oldal leállítása'}}</button>
+          </div>
+        </div>
+      </div>
+      
+    </body>
+</div>
