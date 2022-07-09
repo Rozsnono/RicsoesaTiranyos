@@ -111,11 +111,24 @@ export class AdminNewComponent implements OnInit {
           }
       
           return 0;
-          });},
+          });
+          this.countDates();
+        },
         error: error => console.log(error)
       }
     )
   }
+
+
+  countDates(){
+    this.dates.forEach(element => {
+      if(!this.convertableCheck(element.end)){
+        this.numberOfDates++;
+      }
+    });
+  }
+
+  numberOfDates: any = 0;
 
   onChangeTime(time: any){
     
@@ -466,6 +479,7 @@ export class AdminNewComponent implements OnInit {
   }
 
   DeletePastStreams(){
+    let tmpCounter = 0;
     for (let index = 0; index < this.dates.length; index++) {
       const element = this.dates[index];
       
@@ -473,15 +487,16 @@ export class AdminNewComponent implements OnInit {
       if(!this.convertableCheck(element.end)){
         this.http.delete<any[]>(this.backendURL+"/api/dates/"+element._id).subscribe(
           {
-            next: (data: any) => {},
-            error: error => {this.errorMessage = error.message;  }
+            next: (data: any) => {tmpCounter++;},
+            error: error => {this.errorMessage = error.message; tmpCounter++; if(tmpCounter === this.numberOfDates){
+              window.location.reload();
+             }}
           }
         )
       }
       
     }
-
-    window.location.reload();
+   
   }
 
 

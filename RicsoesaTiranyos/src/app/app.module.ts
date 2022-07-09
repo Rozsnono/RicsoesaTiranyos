@@ -41,6 +41,7 @@ import { BackInTimeComponent } from './back-in-time/back-in-time.component';
 import { AdminNewComponent } from './admin-new/admin-new.component';
 import { AdminPastComponent } from './admin-past/admin-past.component';
 import { PageSettingsComponent } from './page-settings/page-settings.component';
+import {MatBadgeModule} from '@angular/material/badge';
 
 
 
@@ -86,6 +87,7 @@ import { PageSettingsComponent } from './page-settings/page-settings.component';
     MatNativeDateModule,
     AmazingTimePickerModule,
     NgxMaterialTimepickerModule,
+    MatBadgeModule,
     
     
     CalendarModule.forRoot({

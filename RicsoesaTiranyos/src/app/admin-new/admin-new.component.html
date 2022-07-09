@@ -2,212 +2,255 @@
 <div class="admin margin" *ngIf="checking()">
     <body>
       <mat-tab-group mat-align-tabs="start" [(selectedIndex)]="MatTabSelectedIndex">
-        <mat-tab label="Esemény hozzáadása/módosítása">
-          <div class="col-12 col-lg-5 newEvent mt-4 mx-auto">
+        
+
+
+        <mat-tab label="Esemény kezelése">
+          <div class="container">
             <div class="row">
-              <div class="col-12 col-lg-12 text-center">
-                <h3 *ngIf="!isModify">Új esemény hozzáadása</h3>
-                <h3 *ngIf="isModify">Esemény módosítása</h3>
-              </div>
-
-            </div>
-            <div class="mb-4"></div>
-            <hr>
-            <div class="row">
-              <div class="col-12">
-                <mat-form-field appearance="fill">
-                  <mat-label>Stream kezdete és vége</mat-label>
-                  <mat-date-range-input [rangePicker]="picker">
-                    <input matStartDate placeholder="Kezdete" [(ngModel)]="newEventTMPdateStart">
-                    <input matEndDate placeholder="Vége" [(ngModel)]="newEventTMPdateEnd">
-                  </mat-date-range-input>
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-date-range-picker #picker></mat-date-range-picker>
-                </mat-form-field>
-              </div>
-            </div>
-            
-            <div class="row d-flex justify-content-center">
-              <div class="col-4">
-                <div class="input-group mb-3">
-
-                  <mat-form-field>
-                    <input matInput class="timepicker " [ngxTimepicker]="toggleIcon" [format]=24 minutesGap="2" placeholder="Kezdete" [(ngModel)]="newEventTMPstart" step="00:15" required>
-                  </mat-form-field>
-
-                  <ngx-material-timepicker #toggleIcon 
-                      [minutesGap]="15"
-                      [theme]="darkTheme"
-                      (timeChanged)="onChangeTime($event)"
-                      >
-                      
-                  </ngx-material-timepicker>
-                </div>
-              </div>
-              
-              
-              <div class="col-4">
-                <div class="input-group mb-3">
-                  <mat-form-field>
-                    <input matInput class="timepicker " [ngxTimepicker]="toggleIcon2" [format]=24 placeholder="Vége" [defaultValue]="newEventTMPstart" [(ngModel)]="newEventTMPend" step="00:15" required>
-                  </mat-form-field>
-
-                  <ngx-material-timepicker #toggleIcon2
-                      [minutesGap]="15"
-                      [theme]="darkTheme"
-                      >
-                      
-                  </ngx-material-timepicker>
-                </div>
-              </div>
-
-              <div class="col-2">
-                <button class="btn btn-primary w-100 " (click)="resetPage()">Újratöltés</button>
-              </div>
-            </div>
-  
-            <hr>
-            
-            <div class="col-12">
-              <mat-form-field appearance="fill">
-                <mat-label>Válassz egy játékot!</mat-label>
-                <mat-select required [(ngModel)]="tmpGameId" #gameId>
-                  <mat-option *ngFor="let game of games" [value]="game._id" #optvalue>
-                    {{checkLength(game.name,30)}} 
-                    <button class="btn" [style]="{backgroundColor: game.color, border: '1px solid black'}" disabled> </button> 
-                    <a class="ms-5 text-danger float-end" (click)="deleteGames(game._id)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-                      </svg>
-                    </a>
-                    <a class="ms-5 text-primary float-end" (click)="getModifyGame(game._id)">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                      </svg>
-                    </a>
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-  
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12 d-flex justify-content-center">
-                  <button class="btn btn-success mx-auto" *ngIf="!isModify" (click)="saveDates()">Hozzáadás</button>
-                  <button class="btn btn-primary mx-auto" *ngIf="isModify" (click)="modifyDate()">Módosítás</button>
-                </div>
-              </div>
-            </div>
-  
-            <div class="col-12 mt-3">
-              <div class="alert alert-success text-center" *ngIf="OKmessage">Sikeres művelet!</div>
-              <div class="alert alert-danger text-center" *ngIf="errorMessage">Hiba van a rendszerben!</div>
-            </div>
-  
-          </div>
-        </mat-tab>
-        <mat-tab label="Események megtekintése">
-          <div>
-            <button class="btn btn-danger m-2 " (click)="DeletePastStreams()">Volt események törlése</button> 
-          </div>
-          <table mat-table [dataSource]="dates"  class="mat-elevation-z8 w-100">
-            <ng-container matColumnDef="name">
-              <th mat-header-cell *matHeaderCellDef> Név </th>
-              <td mat-cell *matCellDef="let element" [ngClass]="!convertableCheck(element.end) && !element.missing ? 'TOconvert' : element.missing ? 'TOmissing' : ''">
-                <span class="th-name" > {{element.game.name}} 
-                  <button mat-raised-button class="btn text-light"
-                        [matTooltip]="convertDate(element.start,'. ') + ' --- ' + convertDate(element.end,'. ',false,true)">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle-fill mb-1" viewBox="0 0 16 16">
-                          <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                        </svg>
-                  </button>
-                </span>
-    
-                
-              </td>
-            </ng-container>
-    
-            <ng-container matColumnDef="functions">
-              <th mat-header-cell *matHeaderCellDef class="text-end"> Funkciók </th>
-              <td mat-cell *matCellDef="let element" class="text-end">
-                <button class="btn btn-success" title="Videóvá konvertálás" (click)="convertDates(element._id)" *ngIf="!convertableCheck(element.end)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
-                    <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
-                  </svg>
-                </button> 
-                <button class="btn btn-primary mx-1 mx-lg-2" title="Esemény módosítása" (click)="dateById(element._id)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
-                    <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
-                  </svg>
-                </button> 
-                <button class="btn btn-warning me-1 me-lg-2" title="Esemény lemodása" (click)="missingDate(element,true)" *ngIf="convertableCheck(element.end) && !element.missing">
-                  <i class="fa-solid fa-ban"></i>
-                </button> 
-                <button class="btn btn-info me-1 me-lg-2" title="Esemény engedélyezése" (click)="missingDate(element,false)" *ngIf="convertableCheck(element.end) && element.missing">
-                  <i class="fa-regular fa-circle-check"></i>
-                </button> 
-                <button class="btn btn-danger" title="Esemény törlése" (click)="deleteDates(element._id)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
-                    <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                  </svg>
-                </button> 
-              </td>
-            </ng-container>
+              <div class="col-12 col-lg-9">
+                <table mat-table [dataSource]="dates" class="mat-elevation-z8 w-100 mt-4">
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Név </th>
+                    <td mat-cell *matCellDef="let element" [ngClass]="!convertableCheck(element.end) && !element.missing ? 'TOconvert' : element.missing ? 'TOmissing' : ''">
+                      <span class="th-name" > {{element.game.name}} 
+                        <button mat-raised-button class="btn text-light"
+                              [matTooltip]="convertDate(element.start,'. ') + ' --- ' + convertDate(element.end,'. ',false,true)">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle-fill mb-1" viewBox="0 0 16 16">
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                              </svg>
+                        </button>
+                      </span>
           
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
-        </mat-tab>
-        <mat-tab label="Játék hozzáadása/módosítása">
-          <div class="col-12 col-lg-5 newGame mt-4 mx-auto">
-            <div class="row">
-              <div class="col-12 col-lg-12 text-center">
-                <h3 *ngIf="!isModifyGame">Új játék hozzáadása</h3>
-                <h3 *ngIf="isModifyGame">Játék módosítása</h3>
+                      
+                    </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="functions">
+                    <th mat-header-cell *matHeaderCellDef class="text-end"> Funkciók </th>
+                    <td mat-cell *matCellDef="let element" class="text-end">
+                      <button class="btn btn-success" title="Videóvá konvertálás" (click)="convertDates(element._id)" *ngIf="!convertableCheck(element.end)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" viewBox="0 0 16 16">
+                          <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
+                      </button> 
+                      <button class="btn btn-primary mx-1 mx-lg-2" title="Esemény módosítása" (click)="dateById(element._id)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                          <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                        </svg>
+                      </button> 
+                      <button class="btn btn-warning me-1 me-lg-2" title="Esemény lemodása" (click)="missingDate(element,true)" *ngIf="convertableCheck(element.end) && !element.missing">
+                        <i class="fa-solid fa-ban"></i>
+                      </button> 
+                      <button class="btn btn-info me-1 me-lg-2" title="Esemény engedélyezése" (click)="missingDate(element,false)" *ngIf="convertableCheck(element.end) && element.missing">
+                        <i class="fa-regular fa-circle-check"></i>
+                      </button> 
+                      <button class="btn btn-danger" title="Esemény törlése" (click)="deleteDates(element._id)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                      </button> 
+                    </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
               </div>
-              
-            </div>
-  
-            <div class="mb-4"></div>
-  
-            <hr>
-  
-            <div class="row">
-              <div class="col-12  col-lg-12">
-                <mat-form-field class="example-form-field" appearance="fill">
-                  <mat-label>Játék neve</mat-label>
-                  <input matInput type="text" [(ngModel)]="newGameName">
-                  <button *ngIf="newGameName" matSuffix mat-icon-button aria-label="Clear" (click)="newGameName=''">
-                    <mat-icon>close</mat-icon>
-                  </button>
-                </mat-form-field>
-              </div>
-              <div class="col-12 col-lg-12">
-                <div class="input-group mt-2 mb-2">
-                  <input type="file" (change)="onUploadChange($event)" class="form-control" placeholder="Kép">
-                </div>
-              </div>
-              <div class="col-12 col-lg-12">
-                <div class="input-group mb-2">
-                  <input type="color" class="form-control form-control-color ColorPicker" id="exampleColorInput" value="#563d7c" title="Válassz színt!" [(ngModel)]="newGameColor">
-                  <button class="btn btn-primary" (click)="resetPage()"><i class="fa-solid fa-rotate"></i></button>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="alert alert-info text-center"><a href="https://www.reduceimages.com/">Új játék hozzáadásához szükséges a kép méretének csökkentése! (600px * 400px)</a></div>
-              </div>
-            </div>
-  
-            <div class="col-12">
-              <div class="row">
-                <div class="col-12 d-flex justify-content-center">
-                  <button class="btn btn-success mx-auto" *ngIf="!isModifyGame" (click)="saveGames()">Hozzáadás</button>
-                  <button class="btn btn-primary mx-auto" *ngIf="isModifyGame" (click)="modifyGames()">Módosítás</button>
+              <div class="col-12 col-lg-3">
+                <div class=" newEvent mt-4 mx-auto">
+                  <div class="row">
+                    <div class="col-12 col-lg-12 text-center">
+                      <h3 *ngIf="!isModify">Új esemény hozzáadása</h3>
+                      <h3 *ngIf="isModify">Esemény módosítása</h3>
+                    </div>
+      
+                  </div>
+                  <div class="mb-4"></div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-12">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Stream kezdete és vége</mat-label>
+                        <mat-date-range-input [rangePicker]="picker">
+                          <input matStartDate placeholder="Kezdete" [(ngModel)]="newEventTMPdateStart">
+                          <input matEndDate placeholder="Vége" [(ngModel)]="newEventTMPdateEnd">
+                        </mat-date-range-input>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  
+                  <div class="row d-flex justify-content-center">
+                    <div class="col-4">
+                      <div class="input-group mb-3">
+      
+                        <mat-form-field>
+                          <input matInput class="timepicker " [ngxTimepicker]="toggleIcon" [format]=24 minutesGap="2" placeholder="Kezdete" [(ngModel)]="newEventTMPstart" step="00:15" required>
+                        </mat-form-field>
+      
+                        <ngx-material-timepicker #toggleIcon 
+                            [minutesGap]="15"
+                            [theme]="darkTheme"
+                            (timeChanged)="onChangeTime($event)"
+                            >
+                            
+                        </ngx-material-timepicker>
+                      </div>
+                    </div>
+                    
+                    
+                    <div class="col-4">
+                      <div class="input-group mb-3">
+                        <mat-form-field>
+                          <input matInput class="timepicker " [ngxTimepicker]="toggleIcon2" [format]=24 placeholder="Vége" [defaultValue]="newEventTMPstart" [(ngModel)]="newEventTMPend" step="00:15" required>
+                        </mat-form-field>
+      
+                        <ngx-material-timepicker #toggleIcon2
+                            [minutesGap]="15"
+                            [theme]="darkTheme"
+                            >
+                            
+                        </ngx-material-timepicker>
+                      </div>
+                    </div>
+      
+                    
+                  </div>
+        
+                  <hr>
+                  
+                  <div class="col-12">
+                    <mat-form-field appearance="fill">
+                      <mat-label>Válassz egy játékot!</mat-label>
+                      <mat-select required [(ngModel)]="tmpGameId" #gameId>
+                        <mat-option *ngFor="let game of games" [value]="game._id" #optvalue>
+                          {{checkLength(game.name,24)}} 
+                          <button class="btn float-end mt-3" [style]="{backgroundColor: game.color, border: '1px solid black'}" disabled> </button> 
+
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+        
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-success mx-auto" (click)="saveDates()">Hozzáadás</button>
+                        <button class="btn btn-primary mx-auto" *ngIf="isModify" (click)="modifyDate()">Módosítás</button>                       
+                      </div>
+                      <div class="col-12 d-flex justify-content-center mt-2" *ngIf="numberOfDates !== 0 ? true : false">
+                        <button mat-raised-button class="btn btn-danger mx-auto" (click)="DeletePastStreams()"
+                            [matBadge]="numberOfDates" matBadgePosition="after" matBadgeColor="primary">
+                            Volt események törlése
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+        
+                  <div class="col-12 mt-3">
+                    <div class="alert alert-success text-center" *ngIf="OKmessage">Sikeres művelet!</div>
+                    <div class="alert alert-danger text-center" *ngIf="errorMessage">Hiba van a rendszerben!</div>
+                  </div>
+        
                 </div>
               </div>
             </div>
           </div>
         </mat-tab>
+
+        <mat-tab label="Játékok kezelése">
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-lg-9">
+                <table mat-table [dataSource]="games"  class="mat-elevation-z8 w-100 mt-4">
+                  <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef> Név </th>
+                    <td mat-cell *matCellDef="let element">
+                      <span class="th-name" > {{element.name}} 
+                          <button class="btn" [style]="{backgroundColor: element.color, border: '1px solid black'}" disabled> </button> 
+                      </span>
+          
+                      
+                    </td>
+                  </ng-container>
+          
+                  <ng-container matColumnDef="functions">
+                    <th mat-header-cell *matHeaderCellDef class="text-end"> Funkciók </th>
+                    <td mat-cell *matCellDef="let element" class="text-end">
+                      <button class="btn btn-primary mx-1 mx-lg-2" title="Játék módosítása" (click)="getModifyGame(element._id)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                          <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                        </svg>
+                      </button> 
+                      <button class="btn btn-danger" title="Játék törlése" (click)="deleteGames(element._id)">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                          <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                        </svg>
+                      </button> 
+                    </td>
+                  </ng-container>
+                
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+              </div>
+
+
+              <div class="col-12 col-lg-3">
+                <div class="newGame mt-4 mx-auto">
+                  <div class="row">
+                    <div class="col-12 col-lg-12 text-center">
+                      <h3 *ngIf="!isModifyGame">Új játék hozzáadása</h3>
+                      <h3 *ngIf="isModifyGame">Játék módosítása</h3>
+                    </div>
+                    
+                  </div>
+        
+                  <div class="mb-4"></div>
+        
+                  <hr>
+        
+                  <div class="row">
+                    <div class="col-12  col-lg-12">
+                      <mat-form-field class="example-form-field" appearance="fill">
+                        <mat-label>Játék neve</mat-label>
+                        <input matInput type="text" [(ngModel)]="newGameName">
+                        <button *ngIf="newGameName" matSuffix mat-icon-button aria-label="Clear" (click)="newGameName=''">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-12 col-lg-12">
+                      <div class="input-group mt-2 mb-2">
+                        <input type="file" (change)="onUploadChange($event)" class="form-control" placeholder="Kép">
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-12">
+                      <div class="input-group mb-2">
+                        <input type="color" class="form-control form-control-color ColorPicker" id="exampleColorInput" value="#563d7c" title="Válassz színt!" [(ngModel)]="newGameColor">
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <div class="alert alert-info text-center"><a href="https://www.reduceimages.com/">Új játék hozzáadásához szükséges a kép méretének csökkentése! (600px * 400px)</a></div>
+                    </div>
+                  </div>
+        
+                  <div class="col-12">
+                    <div class="row">
+                      <div class="col-12 d-flex justify-content-center">
+                        <button class="btn btn-success mx-auto" (click)="saveGames()">Hozzáadás</button>
+                        <button class="btn btn-primary mx-auto" *ngIf="isModifyGame" (click)="modifyGames()">Módosítás</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
         <mat-tab label="Sorozat konvertálás">
           <div class="col-12 col-lg-5 newConvert mb-2 mt-4 mx-auto">
             <div class="row">
