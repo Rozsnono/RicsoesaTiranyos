@@ -220,3 +220,34 @@ app-add-to-calendar button{
 .mat-form-field-infix{
     color: white !important;
 }
+
+
+.logo{
+    transform: scale(25%);
+    animation: rotation 5s infinite;
+    position: absolute;
+    top: 0px;
+}
+
+.logo-loading{
+    width: 100%;
+    position: fixed;
+    z-index: 1000;
+    top: 0px;
+    height: 100%;
+    display: flex;
+    background-color: #00000090;
+    justify-content: center;
+    color:white;
+    padding: 20%;
+
+}
+
+@keyframes rotation{
+    0%{
+        transform: rotate(0deg) scale(25%);
+    }
+    100%{
+        transform: rotate(720deg) scale(25%);
+    }
+}
