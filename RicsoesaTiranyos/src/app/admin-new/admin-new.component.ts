@@ -158,7 +158,6 @@ export class AdminNewComponent implements OnInit {
 
   saveDates(){
 
-    console.log(this.newEventTMPdateStart);
     const TMPdateStart = new Date(this.newEventTMPdateStart);
     TMPdateStart.setHours(this.newEventTMPstart.split(':')[0]);
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
@@ -203,11 +202,11 @@ export class AdminNewComponent implements OnInit {
   
 
   modifyDate(){
-    const TMPdateStart = new Date(this.newEventTMPdate);
+    const TMPdateStart = new Date(this.newEventTMPdateStart);
     TMPdateStart.setHours(this.newEventTMPstart.split(':')[0]);
     TMPdateStart.setMinutes(this.newEventTMPstart.split(':')[1]);
 
-    const TMPdateEnd = new Date(this.newEventTMPdate);
+    const TMPdateEnd = new Date(this.newEventTMPdateEnd);
     if(this.newEventTMPend.split(':')[0] == "00") TMPdateEnd.setDate(TMPdateEnd.getDate()+1);
     TMPdateEnd.setHours(this.newEventTMPend.split(':')[0]);
     TMPdateEnd.setMinutes(this.newEventTMPend.split(':')[1]);
@@ -277,7 +276,6 @@ export class AdminNewComponent implements OnInit {
     this.newGameColor = tmpGame.color;
     this.isModifyGame = true;
     this.modifiedGameId = id;
-    this.MatTabSelectedIndex = 2;
   }
 
   modifiedGameId: any;
@@ -463,7 +461,7 @@ export class AdminNewComponent implements OnInit {
 
     this.http.post<any[]>(this.backendURL+"/api/game",tmpModel).subscribe(
       {
-        next: (data: any) => {this.games.push(data); this.OKmessage = true},
+        next: (data: any) => {this.games.push(data); this.OKmessage = true; this.resetPage()},
         error: error => this.errorMessage = error.message
       }
     )
@@ -632,5 +630,11 @@ export class AdminNewComponent implements OnInit {
 
 
   MatTabSelectedIndex = 0;
+
+  gamePicture(pic: string){
+    return "data:image/jpeg;base64," + pic;
+  }
   
 }
+
+

@@ -73,3 +73,9 @@ mat-form-field{
 .TOmissing{
     background-image: linear-gradient(to right, #64550b, #00000000 );
 }
+
+
+.img{
+    border-radius: 1rem;
+    border: 2px solid black;
+}

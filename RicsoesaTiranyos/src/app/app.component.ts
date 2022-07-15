@@ -33,7 +33,7 @@ export class AppComponent {
   tiktok: any;
   twitch: any;
   youtube: any;
-  insta: any;
+  discord: any;
 
   logos = [
     "",
@@ -62,7 +62,7 @@ export class AppComponent {
           this.tiktok = this.links.filter(x => x.name === "tiktok")[0].link;
           this.youtube = this.links.filter(x => x.name === "youtube")[0].link;
           this.twitch = this.links.filter(x => x.name === "twitch")[0].link;
-          this.insta = this.links.filter(x => x.name === "instagram")[0].link;
+          this.discord = this.links.filter(x => x.name === "discord")[0].link;
           this.loading = false;
         },
         error: error => console.log(error)
