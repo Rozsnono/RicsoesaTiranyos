@@ -1,0 +1,153 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-lg-9">
+      <table mat-table [dataSource]="YoutubeLinks"  class="mat-elevation-z8 w-100 mt-4">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Név </th>
+          <td mat-cell *matCellDef="let element">
+            <span class="th-name" > {{element.name}}
+            </span>
+
+
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="functions">
+          <th mat-header-cell *matHeaderCellDef class="text-end"> Funkciók </th>
+          <td mat-cell *matCellDef="let element" class="text-end">
+            <button class="btn btn-primary mx-1 mx-lg-2" title="Sorozat módosítása" (click)="getModifyLink(element._id)" *ngIf="isModify !== element._id">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+              </svg>
+            </button>
+            <button class="btn btn-danger mx-1 mx-lg-2" title="Sorozat módosításának visszavonása" (click)="cancelModification()" *ngIf="isModify === element._id">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+              </svg>
+            </button>
+            <button class="btn btn-warning" title="Sorozat lezárása" (click)="LetsEndOfSeries(element)" *ngIf="element.running">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-stop-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                <path d="M5 6.5A1.5 1.5 0 0 1 6.5 5h3A1.5 1.5 0 0 1 11 6.5v3A1.5 1.5 0 0 1 9.5 11h-3A1.5 1.5 0 0 1 5 9.5v-3z"/>
+              </svg>
+            </button>
+            <button class="btn btn-success" title="Sorozat újraindítása" (click)="LetsReloadTheSeries(element)" *ngIf="!element.running">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+              </svg>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <div class="col-12 col-lg-3  mb-2 mt-4 mx-auto" [ngClass]="isModify ? 'newConvert_modify' : 'newConvert'">
+      <div class="row">
+        <div class="col-12 col-lg-12 text-center">
+          <h3>Konvertálás</h3>
+        </div>
+      </div>
+      <div class="mb-4"></div>
+      <hr>
+      <div class="row">
+        <div class="col-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Válassz egy játékot!</mat-label>
+            <mat-select required [(ngModel)]="GameToLink" #gameId (valueChange)="checkChange($event)">
+              <mat-option *ngFor="let game of games" [value]="game._id" #optvalue>
+                {{checkLength(game.name,30)}}
+                <button class="btn" [style]="{backgroundColor: game.color, border: '1px solid black'}" disabled> </button>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-lg-12">
+          <div class="row">
+            <div class="col-12">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>Cím</mat-label>
+                <input matInput placeholder="cím" [(ngModel)]="convertingTitle" [disabled]="optionalTitle">
+              </mat-form-field>
+            </div>
+            <div class="col-12 mb-4">
+              <div class="form-check ">
+                <input class="form-check-input" type="checkbox" id="flexCheckChecked" [(ngModel)]="optionalTitle">
+                <label class="form-check-label" for="flexCheckChecked">
+                  Játék címének használata
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 mb-4">
+          <div class="col-12" *ngIf="convertingPic">
+            <img [src]="gamePicture(convertingPic)" alt="kep" class="w-100 img">
+          </div>
+          <div class="input-group mt-2 mb-2">
+            <input type="file" (change)="onUploadChange($event)" class="form-control" placeholder="Kép" [disabled]="optionalPic">
+          </div>
+          <div class="form-check ">
+            <input class="form-check-input" type="checkbox" id="gamePic" [(ngModel)]="optionalPic">
+            <label class="form-check-label" for="gamePic">
+              Játék képének használata
+            </label>
+          </div>
+        </div>
+        <div class="col-12 col-lg-12">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Youtube link</mat-label>
+            <input matInput placeholder="Link" [(ngModel)]="convertLink">
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-lg-12">
+          <mat-form-field class="example-chip-list" appearance="fill">
+            <mat-label>Típusok</mat-label>
+            <mat-chip-list #chipList >
+              <mat-chip *ngFor="let convertType of convertTypes" (removed)="remove(convertType)">
+                {{convertType}}
+                <button matChipRemove>
+                  X
+                </button>
+              </mat-chip>
+              <input placeholder="Új típus..."
+                     [matChipInputFor]="chipList"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="addOnBlur"
+                     (matChipInputTokenEnd)="add($event)">
+            </mat-chip-list>
+          </mat-form-field>
+        </div>
+        <div class="col-12 col-lg-12">
+          <mat-form-field appearance="fill">
+            <mat-label>Kezdete</mat-label>
+            <input matInput [matDatepicker]="db3" required [(ngModel)]="newLinkDate">
+            <mat-datepicker-toggle matSuffix [for]="db3"></mat-datepicker-toggle>
+            <mat-datepicker #db3></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <div class="col-12">
+        <div class="row">
+          <div class="col-12 d-flex justify-content-center" *ngIf="!isModify">
+            <button class="btn btn-success mx-auto" (click)="saveLink()">Konvertálás</button>
+          </div>
+
+          <div class="col-12 d-flex justify-content-center" *ngIf="isModify">
+            <button class="btn btn-primary mx-auto" (click)="modifyLink()">Módosítás</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="alert alert-success text-center" *ngIf="OKmessage">Sikeres művelet!</div>
+        <div class="alert alert-danger text-center" *ngIf="errorMessage">Hiba van a rendszerben!</div>
+      </div>
+
+    </div>
+  </div>
+</div>

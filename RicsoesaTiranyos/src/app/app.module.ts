@@ -42,6 +42,9 @@ import { AdminNewComponent } from './admin-new/admin-new.component';
 import { AdminPastComponent } from './admin-past/admin-past.component';
 import { PageSettingsComponent } from './page-settings/page-settings.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import { EventsComponent } from './events/events.component';
+import { GamesComponent } from './games/games.component';
+import { SeriesComponent } from './series/series.component';
 
 
 
@@ -62,7 +65,10 @@ import {MatBadgeModule} from '@angular/material/badge';
     BackInTimeComponent,
     AdminNewComponent,
     AdminPastComponent,
-    PageSettingsComponent
+    PageSettingsComponent,
+    EventsComponent,
+    GamesComponent,
+    SeriesComponent
   ],
   imports: [
     HttpClientModule,
