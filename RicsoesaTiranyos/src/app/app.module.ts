@@ -48,7 +48,6 @@ import { SeriesComponent } from './series/series.component';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -94,13 +93,13 @@ import { SeriesComponent } from './series/series.component';
     AmazingTimePickerModule,
     NgxMaterialTimepickerModule,
     MatBadgeModule,
-    
-    
+
+
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-    
+
     BrowserAnimationsModule
   ],
   providers: [

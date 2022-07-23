@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,10 +30,36 @@ export class HomeComponent implements OnInit {
     "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
   ]
 
-  
+  async getTiktok(){
+
+    // const tiktok = require('tiktok-app-api');
+    // let tiktokApp = await tiktok();
+
+    // const user = await tiktokApp.getUserByName('ricsoesatiranyos');
+    // const userinfo = await tiktokApp.getUserInfo(user);
+    // console.log(userinfo);
+  }
+
+
 
   goToYoutube(){
     window.location.href = "https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w";
+  }
+
+  goTo(where: any){
+    switch (where) {
+      case 'youtube':
+        window.location.href = "https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w";
+        break;
+      case 'twitch':
+        window.location.href = "https://www.twitch.tv/ricsoesatiranyos/";
+        break;
+      case 'tiktok':
+        window.location.href = "https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU";
+        break;
+      default:
+        break;
+    }
   }
 
   convertToDateMonth(d: any, type: any = "3"): string{
@@ -91,6 +116,7 @@ export class HomeComponent implements OnInit {
     this.getAuthFromTwitch();
     this.getYoutubeSubs();
     this.getVideos();
+    this.getTiktok();
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=www.ricsoesatiranyos.hu");
   }
 

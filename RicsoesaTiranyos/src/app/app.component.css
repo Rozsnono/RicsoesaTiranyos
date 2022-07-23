@@ -1,12 +1,4 @@
 
-.header{
-    position: fixed;
-    z-index:100;
-    top: 10px;
-    width: 100%;
-    height: 5rem;
-}
-
 .nav{
 
     background-color: #3b3b3b;
@@ -18,12 +10,10 @@
 }
 
 .navHeader{
-    color: white !important;
     padding-right: 1rem;
 }
 
 .nav-link{
-    color:white !important;
     transition: 0.5s;
 }
 
@@ -33,12 +23,12 @@
     transition: 0.5s;
 }
 
-
+/*
 .tw-btn:hover{
     color: white !important;
     border-color: none !important;
     background-color: #803af0 !important;
-}
+} */
 
 .tw-btn{
     border-color: #803af0 !important;
@@ -86,3 +76,35 @@
 }
 
 
+
+.links{
+  margin: 0 3%;
+  justify-content: right;
+}
+
+
+.sticky{
+  position: sticky;
+  top: 5px;
+  z-index: 100;
+}
+
+.blackColor .nav{
+  color: white !important;
+  background-color: #3b3b3bc7 !important;
+  transition: 0.5s;
+}
+.blackColor .navHeader, .blackColor .nav-link{
+  color: white !important;
+  transition: 0.5s;
+}
+
+.whiteColor .nav{
+  color: #3b3b3b !important;
+  background-color: #ffffffc7 !important;
+  transition: 0.5s;
+}
+.whiteColor .navHeader, .whiteColor .nav-link{
+  color: #3b3b3b !important;
+  transition: 0.5s;
+}

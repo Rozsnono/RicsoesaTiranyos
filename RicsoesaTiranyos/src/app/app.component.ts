@@ -12,6 +12,8 @@ export class AppComponent {
   title = 'RicsoesaTiranyos';
 
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
+  isMobile:boolean;
+
 
   currentRoute: string;
 
@@ -23,7 +25,7 @@ export class AppComponent {
   @HostListener("window:scroll", []) onWindowScroll() {
     if (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
         this.windowScrolled = true;
-    } 
+    }
     else if (this.windowScrolled && window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop < 10) {
         this.windowScrolled = false;
     }
@@ -51,6 +53,14 @@ export class AppComponent {
   ngOnInit(){
     this.getLinks();
     this.getPages();
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      // true for mobile device
+      this.isMobile = true;
+    }else{
+      // false for not mobile device
+      this.isMobile = false;
+    }
   }
 
   maintenance: any;
@@ -103,5 +113,5 @@ export class AppComponent {
     return sessionStorage["user"];
   }
 
-  
+
 }

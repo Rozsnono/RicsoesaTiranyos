@@ -30,6 +30,7 @@
     "mdb-angular-ui-kit": "^2.1.0",
     "ngx-material-timepicker": "^5.5.3",
     "rxjs": "~7.4.0",
+    "tiktok-app-api": "^1.4.1",
     "tslib": "^2.3.0",
     "twitch-player": "^2.0.2",
     "zone.js": "~0.11.4"

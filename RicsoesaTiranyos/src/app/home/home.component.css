@@ -1,5 +1,6 @@
 .about{
     color: white;
+    margin-top: -10%;
 }
 
 .subs{
@@ -266,4 +267,8 @@ iframe{
     padding: 0.5rem;
     height: 100%;
     text-shadow: none !important;
+}
+
+.ClickableLink{
+  cursor: pointer;
 }
