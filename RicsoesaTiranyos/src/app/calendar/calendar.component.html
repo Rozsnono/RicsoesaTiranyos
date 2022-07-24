@@ -18,8 +18,8 @@
         <path style="fill:#ffffff; stroke:none;" d="M614 551L615 552L614 551z"/>
       </svg>
     </div>
-    
-  
+
+
       <div class="modal" style="margin-top: 20%;" [style]="{display: dialogClose2}">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -38,10 +38,10 @@
           </div>
         </div>
           <div class="row text-center">
-  
+
               <div class="col-lg-3 col-12">
                   <div class="btn-group">
-  
+
                         <button mat-fab color="primary" class="prev-btn" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate">
                           <!-- prev -->
                           <i class="fa-solid fa-caret-left fs-5"></i>
@@ -54,18 +54,18 @@
                           <!-- next -->
                           <i class="fa-solid fa-caret-right fs-5"></i>
                         </button>
-                        
+
                   </div>
               </div>
               <div class="col-lg-6 col-12 text-light">
                 <h3 class="mt-2">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
               </div>
-  
+
           </div>
-  
+
       <mwl-calendar-month-view (dayClicked)="dayClicked($event.day)" [viewDate]="viewDate" [events]="events" [weekStartsOn]="1" [cellTemplate]="customCellTemplate">
       </mwl-calendar-month-view>
-  
+
       <ng-template #customCellTemplate let-day="day" let-locale="locale" let-tooltipPlacement="tooltipPlacement" let-highlightDay="highlightDay" let-unhighlightDay="unhighlightDay" let-eventClicked="eventClicked" let-tooltipTemplate="tooltipTemplate" let-tooltipAppendToBody="tooltipAppendToBody" let-tooltipDelay="tooltipDelay">
           <div class="cal-cell-top">
               <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">
@@ -91,14 +91,14 @@
                   </ng-template>
               </div>
           </div>
-  
+
       </ng-template>
 
       <div class="text-center rule">
         <h5 class="fst-italic fs-6">A műsorváltoztatás jogát fenntartjuk!</h5>
 
       </div>
-  
+
       <div >
         <div class="eventDetails" *ngFor="let event of eventPerDay" [style]="{color: '#fff', borderColor: event.color.secondary}" >
           <div class="container">
@@ -107,17 +107,17 @@
                 <div class="col-12 col-lg-2 p-3 imgs" [style]="{backgroundColor: event.color.primary}">
                   <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
                 </div>
-  
+
                 <div class="col-12 col-lg-1 text-center">
                   <div class="eventDateBack" [ngClass]="checkEventMoreDay(event)">
                     <h2 class="eventDate">{{convertToDate(event.start)}}</h2>
                     <h3 class="eventMonth">{{convertToDateMonth(event.start)}}.</h3>
                   </div>
                 </div>
-  
-  
+
+
                 <div class="col-12 col-lg-9 p-3 titles">
-  
+
                   <div class="row ">
                     <div class="col-12">
                       <h1 [ngClass]="checkDateDeleted(event)">{{checkLength(event.title,40)}}</h1>
@@ -125,15 +125,17 @@
                     <div class="col-12">
                       <h5 *ngIf="checkDateDeleted(event) === ''"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock-fill mb-1" viewBox="0 0 16 16">
                         <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-                      </svg> {{convertToTime(event.start)}} - {{convertToTime(event.end)}}</h5>
+                      </svg>
+                      <span>{{checkOurUncertainty(convertToTime(event.start),convertToTime(event.end)) ? ' A nap folyamán' : (' ' + convertToTime(event.start) + ' - ' + convertToTime(event.end))}}</span>
+                      </h5>
 
                       <h5 *ngIf="checkDateDeleted(event) === 'deleted'">
                         <i class="fa-solid fa-triangle-exclamation"></i>
                         Elmarad!
                       </h5>
                     </div>
-  
-  
+
+
                     <div class="col-12 d-flex justify-content-center justify-content-lg-start" *ngIf="getValueToSlider(event.start, event.end) < 0 && checkDateDeleted(event) === ''">
                       <button class="btn GoogleCalendar" (click)='ToGoogleCalendar(event.title,"RicsoesaTiranyos Stream",event.start,event.end)'><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-plus mb-1" viewBox="0 0 16 16">
                         <path d="M8 7a.5.5 0 0 1 .5.5V9H10a.5.5 0 0 1 0 1H8.5v1.5a.5.5 0 0 1-1 0V10H6a.5.5 0 0 1 0-1h1.5V7.5A.5.5 0 0 1 8 7z"/>
@@ -145,7 +147,7 @@
                       <mat-slider class="w-100" disabled min="0" [max]="getMaxToSlider(event.start, event.end)" [value]="getValueToSlider(event.start, event.end)" *ngIf="getValueToSlider(event.start, event.end) > 0 && checkDateDeleted(event) === ''" [color]="event.color.secondary"></mat-slider>
                     </div>
                   </div>
-  
+
                 </div>
               </div>
           </div>
@@ -153,9 +155,9 @@
 
         <div class="eventss"></div>
       </div>
-      
+
 
       <div class="spacer">
-        
+
       </div>
   </body>

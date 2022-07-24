@@ -94,7 +94,7 @@ export class CalendarComponent implements OnInit {
               id: data[index]._id,
               color: this.colors[tmpName]
             });
-            
+
           }
           this.eventLoaded += 1;
           this.events = this.tmpEvents;
@@ -111,8 +111,8 @@ export class CalendarComponent implements OnInit {
   }
 
   checkEventLength(event: any, day: any){
-    
-    
+
+
     if(new Date(event.start).getDate() === new Date(event.end).getDate()){
       return "oneDay-event"
     }
@@ -135,6 +135,10 @@ export class CalendarComponent implements OnInit {
     return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
   }
 
+  checkOurUncertainty(start: any, end: any){
+    return start === '00:00' && end === '23:45';
+  }
+
   convertToDateMonth(date: any): string{
     return this.months[date.getMonth()];
   }
@@ -146,15 +150,15 @@ export class CalendarComponent implements OnInit {
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     console.log(events);
-    
+
     this.eventPerDay = [];
     if(events.length != 0){
       // this.eventPerDay = events.filter(x => new Date(x.start).getMonth() == new Date(date).getMonth() && new Date(x.start).getDate() == new Date(date).getDate());
       this.eventPerDay = events;
       // this.tmpDate = date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()-1) < 10 ? '0' + (date.getDate()-1) : (date.getDate()-1)) + ". " +(date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
-      // this.selectedEvent.date = this.tmpDate;     
+      // this.selectedEvent.date = this.tmpDate;
       // this.selectedEvent.selected = true;
-      
+
       this.scrollTo("eventss");
     }
   }
@@ -193,7 +197,7 @@ export class CalendarComponent implements OnInit {
     }
     return ""
   }
-  
+
   getValueToSlider(start: any, end: any): NumberInput{
     const Dstart = new Date(start);
     const Dend = new Date(end);
@@ -293,17 +297,17 @@ export class CalendarComponent implements OnInit {
     var day = date.getDate();
     var monthIndex = date.getMonth();
     var year = date.getFullYear();
-    
+
     var hour = date.getHours();
     var minutes = date.getMinutes();
-    
+
     let formatted_date;
     if(hour === 0 && minutes === 0) {
       formatted_date = ("" + year) + this.zero_pad2(monthIndex + 1) + this.zero_pad2(day);
     } else {
       formatted_date = ("" + year) + sep + this.zero_pad2(monthIndex + 1) + sep + this.zero_pad2(day) + "T" + this.zero_pad2(hour-parseInt(timeZone)) + sepHour + this.zero_pad2(minutes) +sepHour + "00Z";
     }
-    
+
     return formatted_date;
   }
 
@@ -312,6 +316,6 @@ export class CalendarComponent implements OnInit {
       return num;
   }
 
-  
+
 
 }

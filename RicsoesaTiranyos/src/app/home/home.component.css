@@ -76,6 +76,17 @@
     background-position: 50% 30%;
     padding: 3rem;
     height: 100%;
+    border-radius: 2rem 0;
+}
+
+.discordDiv{
+  background-image: linear-gradient(to left, #404bc0a8, #283caba8), url("../../assets/d_wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: 20% 30%;
+  padding: 3rem;
+  height: 100%;
+  border-radius: 0 2rem;
 }
 
 .twitch-text{
@@ -166,7 +177,25 @@ iframe{
     transition: all .4s ease-in-out;
 }
 
-.header .vidBtn:hover{
+.header .dicBtn{
+  margin-top: 3rem;
+
+  background-color: #00000050;
+  color: white;
+  padding: 1.8rem;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-radius: 2rem;
+  border: none;
+  cursor: pointer;
+
+  background-size: 300% 100%;
+  background-image: linear-gradient(to right, #6673ea, #313493, #44539e, #248aa1);
+  box-shadow: 0 4px 15px 0 rgba(32, 141, 188, 0.75);
+  transition: all .4s ease-in-out;
+}
+
+.header .vidBtn:hover, .header .dicBtn:hover{
     /* background-color: #00000050;
     color: #A970FF;
     border: 1px solid #A970FF;
