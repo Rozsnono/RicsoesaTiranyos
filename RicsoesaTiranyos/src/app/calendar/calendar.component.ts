@@ -136,7 +136,15 @@ export class CalendarComponent implements OnInit {
   }
 
   checkOurUncertainty(start: any, end: any){
-    return start === '00:00' && end === '23:45';
+    if(start === '00:00' && end === '23:45'){
+      return "A nap folyamán!";
+    }else if(start === '12:00' && end === '23:45'){
+      return "A délután folyamán!";
+    }else if(start === '00:00' && end === '11:45'){
+      return "A délelött folyamán!";
+    }else{
+      return false;
+    }
   }
 
   convertToDateMonth(date: any): string{
