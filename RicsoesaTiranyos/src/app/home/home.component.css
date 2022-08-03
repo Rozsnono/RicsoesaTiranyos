@@ -3,6 +3,38 @@
     margin-top: -10%;
 }
 
+.alerter{
+  border-radius: 1rem;
+  margin: 2% 0%;
+  padding: 2%;
+  border: 2px solid #fff;
+  font-size: 2em;
+  text-align: center;
+  background-color: #ffffff40;
+}
+
+.alerter .number{
+  font-weight: bold;
+  animation: colorRotate 5s infinite;
+}
+
+@keyframes colorRotate {
+  from {
+    color: #6666ff;
+  }
+  10% {
+    color: #0099ff;
+  }
+  50% {
+    color: #00ff00;
+  }
+  75% {
+    color: #ff3399;
+  }
+  100% {
+    color: #6666ff;
+  }
+}
 .subs{
     height: 10rem;
 }
@@ -65,7 +97,7 @@
     background-image: linear-gradient(to left, #72139ba8, #72139ba8), url("../../assets/twitch.jpg");
     background-repeat: no-repeat;
     background-size: auto;
-
+    border-radius: 0 0 1rem 1rem;
     padding: 3rem;
 }
 
@@ -77,6 +109,32 @@
     padding: 3rem;
     height: 100%;
     border-radius: 2rem 0;
+
+    animation: moving 40s infinite ease-out ;
+}
+
+@keyframes moving {
+  0%{
+    background-position: 100% 30%;
+  }
+  50%{
+    background-position: 50% 30%;
+  }
+  100%{
+    background-position: 100% 30%;
+  }
+}
+
+@keyframes moving2 {
+  0%{
+    background-position: 0% 30%;
+  }
+  50%{
+    background-position: 40% 30%;
+  }
+  100%{
+    background-position: 0% 30%;
+  }
 }
 
 .discordDiv{
@@ -87,6 +145,8 @@
   padding: 3rem;
   height: 100%;
   border-radius: 0 2rem;
+
+  animation: moving2 40s infinite ease-out;
 }
 
 .twitch-text{

@@ -57,6 +57,9 @@ export class HomeComponent implements OnInit {
       case 'tiktok':
         window.location.href = "https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU";
         break;
+      case 'discord':
+        window.location.href = "https://discord.com/invite/QfGJh46n5H";
+        break;
       default:
         break;
     }
