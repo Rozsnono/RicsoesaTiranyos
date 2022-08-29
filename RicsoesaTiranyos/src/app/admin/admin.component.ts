@@ -22,7 +22,9 @@ export class AdminComponent implements OnInit {
   username: any;
   password: any;
 
-  
+  error: boolean = false;
+
+
   hide = true;
 
   login(){
@@ -33,7 +35,7 @@ export class AdminComponent implements OnInit {
     }
 
     loginModel.password = this.Codeing(this.password);
-    
+
     // var obj = JSON.parse(sessionStorage["user"]);
 
     this.http.post<any[]>(this.backendURL+"/login", loginModel).subscribe(
@@ -41,12 +43,17 @@ export class AdminComponent implements OnInit {
         next: (data: any) => {
           sessionStorage.setItem('user', JSON.stringify(loginModel)), console.log(JSON.parse(sessionStorage["user"]));
           window.location.href = "admin/uj";
+          this.error = false;
         },
         error: error => {
           if(error.status === 200){
+            this.error = false;
             sessionStorage.setItem('user', JSON.stringify(loginModel)), console.log(JSON.parse(sessionStorage["user"]));
             window.location.href = "admin/uj";
+          }else{
+            this.error = true;
           }
+          console.log(error);
         }
       }
     )
@@ -61,7 +68,7 @@ export class AdminComponent implements OnInit {
     }
 
     loginModel.password = this.Codeing(this.password);
-    
+
     // var obj = JSON.parse(sessionStorage["user"]);
 
     this.http.post<any[]>(this.backendURL+"/register", loginModel).subscribe(

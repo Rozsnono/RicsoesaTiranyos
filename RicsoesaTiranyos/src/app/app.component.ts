@@ -116,7 +116,7 @@ export class AppComponent {
   }
 
   checkMaintenance(){
-    if(this.router.url === "/admin" || this.router.url === "/admin/oldal" || this.router.url === "/admin/uj"){
+    if(this.router.url === "/login" || this.router.url === "/admin/oldal" || this.router.url === "/admin/uj"){
       return false;
     }
 
@@ -145,6 +145,5 @@ export class AppComponent {
     }
     return "notActive"
   }
-
 
 }

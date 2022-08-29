@@ -31,6 +31,10 @@
                     <button class="btn btn-success" (click)="login()">Bejelentkezés</button>
                     <button class="btn btn-success" (click)="register()" *ngIf="false">Register</button>
                 </div>
+
+                <div *ngIf="error" class="mt-5">
+                  <div class="alert alert-danger">Felhasználó és a jelszó nem megfelelő!</div>
+                </div>
             </div>
         </div>
     </div>

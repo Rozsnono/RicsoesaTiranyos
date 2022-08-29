@@ -3,22 +3,37 @@
 
 <body>
   <div class="navbar">
-    Ricso és a Tirányos
-    <div class="float-end me-3">
-      <app-new-home width="40" src="assets/logo.jpg" name="" routerLink="/login" class="pointer"></app-new-home>
+    <div class="w-100 text-center" *ngIf="checkMaintenance()">
+      <h3>Sajnáljuk jelenleg a weboldal nem elérhető! </h3>
+      <span class="rt">Ricsó és a Tirányos</span>
+    </div>
+
+    <span class=""  *ngIf="!checkMaintenance()">Ricso és a Tirányos</span>
+      <div class="float-end me-3"  *ngIf="!checkMaintenance()">
+        <app-new-home width="40" src="assets/logo.jpg" name="" routerLink="/login" class="pointer"></app-new-home>
+      </div>
+  </div>
+
+  <div class="container" *ngIf="checkMaintenance()">
+    <div class="row">
+      <div class="margin-top">
+        <app-calendar></app-calendar>
+      </div>
     </div>
   </div>
 
-  <div class="container">
+
+
+  <div class="container" *ngIf="!checkMaintenance()">
     <div class="row w-100">
       <div [class]="none !== '' ? 'col-1 border-right' : 'col-3'" >
         <div class="container-fluid menu">
           <div class="row flex-nowrap">
               <div class="col-auto col-md-8 col-lg-10 col-xl-10 px-sm-2 px-0 ">
                   <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                      <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                      <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu" *ngIf="!checkMaintenance()">
 
-                          <li class="nav-item mt-1" [ngClass]="none" [class]="checkRoute(page.route)" *ngFor="let page of pages">
+                          <li class="nav-item mt-1" [ngClass]="none" [class]="checkRoute(page.route)" *ngFor="let page of pages" >
                             <a [routerLink]="page.route" class="nav-link align-middle px-0 text-lg-start text-sm-center " *ngIf="!page.disabled">
                               <i class="fs-3 bi ms-1 me-1" [class]="page.icon"></i> <span class="ms-1 d-none d-sm-inline cal" [ngClass]="none">{{page.title === " " ? 'Főoldal' : page.title}}</span>
                             </a>
