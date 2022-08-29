@@ -25,9 +25,24 @@ export class PageSettingsComponent implements OnInit {
     }
 
     this.getPages();
+    this.getLinks();
   }
-  
-  
+
+  links: any[];
+  page: any;
+
+  getLinks(){
+    this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
+      {
+        next: (data: any) => {this.links = data;
+          this.page = this.links.filter(x => x.name === "page")[0];
+        },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+
   checking(){
     return sessionStorage["user"];
   }
@@ -48,7 +63,7 @@ export class PageSettingsComponent implements OnInit {
   newEventTMPend: any;
 
   newEventTMPgame: any;
-  
+
   converting: any;
   convertLink: any;
   convertTypes: any = [];
@@ -66,12 +81,12 @@ export class PageSettingsComponent implements OnInit {
 
   OKmessage: any;
   errorMessage: any;
-  
+
   tmpGameId: any;
   games: any[] = [];
   pages: any[];
 
-    
+
   getPages() {
     this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
       {
@@ -84,7 +99,7 @@ export class PageSettingsComponent implements OnInit {
   modifyPages(){
     for (let index = 0; index < this.pages.length; index++) {
       const element = this.pages[index];
-      
+
       this.http.put<any[]>(this.backendURL+"/api/page/"+element._id,element).subscribe(
         {
           next: (data: any) => {window.location.reload();},
@@ -92,7 +107,7 @@ export class PageSettingsComponent implements OnInit {
         }
       )
     }
-    
+
   }
 
 
@@ -108,7 +123,7 @@ export class PageSettingsComponent implements OnInit {
 
 
   MatTabSelectedIndex = 0;
- 
+
   register(){
 
     const loginModel = {
@@ -118,7 +133,7 @@ export class PageSettingsComponent implements OnInit {
     }
 
     loginModel.password = this.Codeing(this.password);
-    
+
     // var obj = JSON.parse(sessionStorage["user"]);
 
     this.http.post<any[]>(this.backendURL+"/register", loginModel).subscribe(
@@ -148,7 +163,7 @@ export class PageSettingsComponent implements OnInit {
 
   Maintenance(){
     this.pages[0].disabled = !this.pages[0].disabled;
-    
+
       this.http.put<any[]>(this.backendURL+"/api/page/"+this.pages[0]._id,this.pages[0]).subscribe(
         {
           next: (data: any) => {window.location.reload();},

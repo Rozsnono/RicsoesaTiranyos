@@ -37,10 +37,7 @@ export class AppComponent {
 }
 
 
-  tiktok: any;
-  twitch: any;
-  youtube: any;
-  discord: any;
+  page: any;
 
   logos = [
     "",
@@ -90,16 +87,15 @@ export class AppComponent {
     this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
       {
         next: (data: any) => {this.links = data;
-          this.tiktok = this.links.filter(x => x.name === "tiktok")[0].link;
-          this.youtube = this.links.filter(x => x.name === "youtube")[0].link;
-          this.twitch = this.links.filter(x => x.name === "twitch")[0].link;
-          this.discord = this.links.filter(x => x.name === "discord")[0].link;
+          this.page = this.links.filter(x => x.name === "page")[0];
           this.loading = false;
         },
         error: error => console.log(error)
       }
     )
   }
+
+
 
   getPages(){
     this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(

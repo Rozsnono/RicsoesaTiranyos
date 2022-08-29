@@ -113,7 +113,34 @@ export class HomeComponent implements OnInit {
     this.getYoutubeSubs();
     this.getVideos();
     this.getTiktok();
+    this.getLinks();
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=www.ricsoesatiranyos.hu");
+  }
+
+  getLinks(){
+    this.http.get<any[]>(this.backendURL+"/api/links").subscribe(
+      {
+        next: (data: any) => {this.pagelinks = data;
+          this.page = this.pagelinks.filter(x => x.name === "page")[0];
+
+          this.addPageLinkSub();
+        },
+        error: error => console.log(error)
+      }
+    )
+  }
+
+  pagelinks: any[]
+  page: any;
+
+  addPageLinkSub(){
+    this.page.subs += 1;
+    this.http.put<any[]>(this.backendURL+"/api/link/"+this.page._id,this.page).subscribe(
+      {
+        next: (data: any) => {this.readyCounter += 1;},
+        error: error => {}
+      }
+    )
   }
 
   getVideos(){
