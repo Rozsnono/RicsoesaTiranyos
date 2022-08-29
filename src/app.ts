@@ -11,8 +11,8 @@ export default class App {
     constructor(controllers: IController[]) {
         this.app = express();
         this.connectToTheDatabase();
-        this.app.use(express.json());
-        this.app.use(express.bodyParse({limit: '300mb'} ));
+        this.app.use(express.json({limit: '100mb'}));
+        this.app.use(express.urlencoded({limit: '100mb'}));
         const allowedOrigins = ["https://6256e3e7c649312efddd8a75--ricsoesatiranyos2.netlify.app/"];
         this.app.use(function(req, res, next) {
             res.setHeader('Access-Control-Allow-Origin', '*');
