@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, HostListener, Inject } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import {filter} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-root',
@@ -14,6 +16,9 @@ export class AppComponent {
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
   isMobile:boolean;
 
+
+  none: any;
+  aboutNone: any;
 
   currentRoute: string;
 
@@ -45,14 +50,30 @@ export class AppComponent {
     "fa-solid fa-film"
   ];
 
+  icons = [
+    "bi-house",
+    "bi-people",
+    "bi-table",
+    "bi-pc-display",
+    "bi-grid"
+  ]
+
   pages: any = [];
 
   constructor(private http: HttpClient, private router: Router, @Inject(DOCUMENT) private dom: Document){
   }
 
   ngOnInit(){
+
     this.getLinks();
     this.getPages();
+
+    this.router.events.subscribe((url:any) => {
+      url.url === undefined ? "" :
+      this.none = url.url === "/" ? "" : "none";
+      url.url === undefined ? "" :
+      this.aboutNone = url.url === "/" ? "" : "aboutNone";
+    });
 
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
       // true for mobile device
@@ -83,7 +104,12 @@ export class AppComponent {
   getPages(){
     this.http.get<any[]>(this.backendURL+"/api/pages").subscribe(
       {
-        next: (data: any) => {this.pages = data;},
+        next: (data: any) =>{
+          this.pages = data;
+          for (let index = 0; index < this.pages.length; index++) {
+            this.pages[index].icon = this.icons[index];
+          }
+        },
         error: error => console.log(error)
       }
     )
@@ -111,6 +137,13 @@ export class AppComponent {
 
   checking(){
     return sessionStorage["user"];
+  }
+
+  checkRoute(route: any){
+    if (this.router.url.split('/')[1] === route) {
+      return "activated";
+    }
+    return "notActive"
   }
 
 

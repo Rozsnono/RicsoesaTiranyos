@@ -230,7 +230,7 @@ export class SeriesComponent implements OnInit {
     tmpModel.type = this.convertTypes;
     tmpModel.name =  this.convertingTitle;
     tmpModel.picture = this.convertingPic;
-    tmpModel.date = date;
+    tmpModel.date = this.newLinkDate;
     tmpModel.running = running;
 
     this.http.put<any[]>(this.backendURL+"/api/youtube/" + this.modifyLinkId,tmpModel).subscribe(

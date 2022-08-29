@@ -1,0 +1,33 @@
+<div class="registration">
+  <div class="">
+    <app-new-home [name]="title" [src]="titleSRC" [width]="titleWIDTH" class="notBTN"></app-new-home>
+  </div>
+  <hr>
+  <div class="text-light mb-3">
+    <span [innerHTML]="html"></span>
+    <mat-chip-list>
+      <mat-chip *ngFor="let type of videoType, index as i" [class]="i === 0 ? 'd-none' : ''"> <span *ngIf="i !== 0">{{ type }}</span> </mat-chip>
+    </mat-chip-list>
+  </div>
+  <div class="imgDiv">
+    <img [src]="img" alt="kép">
+  </div>
+  <hr>
+  <div class="row d-flex justify-content-center">
+    <div class="col-4 text-center" *ngIf="btn1">
+      <div class="button fs-5" (click)="goTo(btn1link)">
+        <i [class]="btn1Icon"></i> {{btn1}}
+      </div>
+    </div>
+    <div class="col-4 text-center" *ngIf="btn2">
+      <div class="button fs-5" (click)="goTo(btn2link)" >
+        <i [class]="btn2Icon"></i> {{btn2}}
+      </div>
+    </div>
+    <div class="col-4 text-center" *ngIf="btn3">
+      <div class="button fs-5" (click)="goTo(btn3link)">
+        <i [class]="btn3Icon"></i> {{btn3}}
+      </div>
+    </div>
+  </div>
+</div>

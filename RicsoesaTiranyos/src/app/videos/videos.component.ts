@@ -1,5 +1,6 @@
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 
 import {FormControl} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ import {map, startWith} from 'rxjs/operators';
 })
 export class VideosComponent implements OnInit {
 
-  constructor(private http: HttpClient,private router: Router) { }
+  constructor(private http: HttpClient,private router: Router, @Inject(DOCUMENT) private dom: Document) { }
 
   links: any[] = [];
   NotSeriesLinks: any[] = [];
@@ -21,6 +22,9 @@ export class VideosComponent implements OnInit {
   SeriesBackArray: any[] = [];
   NoSeriesNow: Boolean = false;
   NoSeriesBack: Boolean = false;
+  SeriesSearchArray: any[] = [];
+
+  choosenType: Number = 0;
 
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
 
@@ -66,20 +70,21 @@ export class VideosComponent implements OnInit {
 
   InputChange(game: any){
     if(game){
-
+      this.choosenType = 2;
       this.selectedGameName = game;
-      
+
       this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
         {
           next: (data: any) => {
-            this.SeriesBackArray = data;
-            this.SeriesBackArray = this.SeriesBackArray.filter(x => x.name.toLowerCase().includes(game.toLowerCase()));
-            this.loaded = true; this.isEmpty = (this.SeriesBackArray.length == 0);
+            this.SeriesSearchArray = data;
+            this.SeriesSearchArray = this.SeriesSearchArray.filter(x => x.name.toLowerCase().includes(game.toLowerCase()));
+            this.loaded = true; this.isEmpty = (this.SeriesSearchArray.length == 0);
           },
           error: error => console.log(error)
         }
         )
     }else{
+      this.choosenType = 0;
       this.SeriesBackArray = this.SeriesBackArray.filter(x => !x.running);
     }
   }
@@ -99,14 +104,15 @@ export class VideosComponent implements OnInit {
     )
   }
 
-  
+
 
   getAllLink(){
+    this.loaded = false;
     this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
       {
         next: (data: any) => {
           this.links = data;
-          this.loaded = true; 
+          this.loaded = true;
 
           this.SeriesNowArray = data;
           this.SeriesNowArray = this.SeriesNowArray.filter(x => x.running);
@@ -115,7 +121,7 @@ export class VideosComponent implements OnInit {
 
           this.SeriesBackArray = data;
           this.SeriesBackArray = this.SeriesBackArray.filter(x => !x.running);
-         
+
 
           this.NoSeriesBack = (this.SeriesBackArray.length === 0);
 
@@ -154,12 +160,12 @@ export class VideosComponent implements OnInit {
       }
     )
 
-    
+
 
     // this.http.get<any[]>(this.backendURL+"/api/youtube/"+this.selectedGameName).subscribe(
     //   {
     //     next: (data: any) => {
-    //       this.links = data; 
+    //       this.links = data;
     //     },
     //     error: error => console.log(error)
     //   }
@@ -177,20 +183,48 @@ export class VideosComponent implements OnInit {
 
   getSeriesLinkByNameAndPage(name: any, page: any)
   {
-    
+
     const tmpArray = this.links.filter(x => x.name.includes(name)).reverse().splice((page-1)*4,4);
-    
+
     return tmpArray;
   }
 
   getSeriesPageNumber(name: any){
     let tmpArray = [];
-    
+
     const tmpLength = this.links.filter(x => x.name.includes(name)).length / 4 + (this.links.filter(x => x.name.includes(name)).length % 4 === 0 ? 0 : 1)
-    
+
     for (let index = 1; index <= tmpLength; index++) {
       tmpArray.push(index);
     }
     return tmpArray;
   }
+
+
+  getChoosenArray(): any{
+    if(this.choosenType === 0){
+      return this.SeriesNowArray;
+    }else if(this.choosenType === 2){
+      return this.SeriesSearchArray;
+    }
+    return this.SeriesBackArray;
+  }
+
+
+
+
+
+  changeChoosenNumber(number: number){
+    if (number !== this.choosenType) {
+      this.scroll();
+      this.choosenType = number;
+      this.getAllLink();
+    }
+  }
+
+  scroll(){
+    this.dom.body.scrollTop =0;
+    this.dom.documentElement.scrollTop=0;
+  }
+
 }

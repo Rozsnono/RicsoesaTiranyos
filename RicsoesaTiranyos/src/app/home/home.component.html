@@ -1,203 +1,115 @@
 
-<div class="logo-loading" *ngIf="readyCounter < 4">
-    <svg xmlns="http://www.w3.org/2000/svg" width="1000" height="1000" class="logo">
-      <path style="fill:#ffffff; stroke:none;" d="M446 91L447 96L447 97L446 99L415 98L419 101L422 105L422 111L383 115L384 118L380 118L380 117L382 117L382 116C378.61 116.256 376.696 116.537 376 120L366 131C361.985 130.965 359.33 132.083 358 136L350 137L350 139L357 141L362 146L362 147L331 156L335 160L335 161L333 162L333 163L336 173L320 172L326.701 181.526L323 189L306 193L315 215L306 215C306.979 218.915 307.995 222.565 312 224C312.956 236.641 333.811 245.656 345 245C348.186 249.859 370.902 262.277 376 260C379.234 265.593 390.856 267.857 397 267C402.989 274.44 431.637 279.349 440 275L439 278L497 286L496 283L504 283L504 284L500 284L500 285C505.666 284.996 516.311 285.846 520 281L521 281L522 281C525.38 284.867 534.339 282.195 539 281.576C553.216 279.685 566.762 280 581 280C586.422 280 592.916 281.279 596 276L602 272C605.584 271.663 606.938 270.443 608 267L609 267L610 269L620 260C625.492 259.767 630.855 253.372 628 248L635 238L635 237L633 235L636 236L635 233C636.878 232.008 638.03 230.29 636 229L636 228C640.451 226.45 641.098 222.23 640 218L645 213L644 208C651.007 204.24 649.922 195.894 650.004 189C650.163 175.598 655.668 148.707 642 140L636 130L625 123C622.94 116.666 614.453 111.653 608 112C607.288 102.556 598.234 99.5267 592 94L594 95L591 92L592 103L585 102C582.285 98.9495 575.075 98.7576 571.039 97.9352C558.734 95.4271 538.861 88.5625 528 96L530 91C517.709 90.8997 505.225 86.4242 493 87.108C476.983 88.004 462.754 94.9886 446 91z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M589 90L590 91L589 90z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M610 109L611 110L610 109z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M609 110L610 111L609 110z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M656 203L648 232L645 244L647 248C644.525 248.513 644.425 248.604 645 251L643 254C639.006 255.956 635.553 259.504 635 264L626 274L635 281C635.593 284.641 637.29 287.219 641 288C642.573 293.59 650.238 302.383 656 304L660.83 322L667 392L668 392L670 376C674.516 372.578 677.03 360.101 675 355C682.663 350.175 682.965 330.387 684.13 322C688.176 292.886 685.219 261.789 679.804 233C677.14 218.838 677.872 203.301 659 205L656 203z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M331 252C332.557 280.173 332.418 307.415 339.856 335C341.399 340.719 344.412 358.205 351 359L349 361L352 386L353 386L352.001 333L352 307L355 308L357 298L362 293L362 292L360 290C363.763 288.823 364.995 286.908 365 283C369.97 282.172 371.285 275.457 369 275L369 274L372 273C360.541 264.842 344.541 255.901 331 252z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M667.333 393.667L667.667 394.333L667.333 393.667z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M312.333 482.667L312.667 483.333L312.333 482.667z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M683 482L684 483L683 482z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M684 484L685 485L684 484z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M440 480C435.288 480.156 431.276 483.454 430 488L411 500L409 504L410 502L409 502L400 512C393.974 512.278 385.905 517.73 383 523C378.7 522.837 369.277 526.587 368 531L367 531L353 531.871L329 526.677L315 521L317 519L317 518L315 515L312 516L310.174 502L312 485L311 485C309.068 491.989 304.27 506.557 311 512C310.765 515.94 311.631 518.789 315 521L314 523L331 539L334 541L348 547L352 545C353.002 549.653 357.078 546.768 360 545C361.131 550.278 378 550.22 378 545L384 546L384 553L418 553.537L436 548L434 545C439.027 545.992 443.324 545.359 445 540L446 540L447 542L458 533C461.448 533.004 462.887 532.312 464 529L465 529L466 531L472 524L474 526L480 520L481 520L482 522L518 520L516 523L520 523L524 525L531 529L534 531C534.866 536.195 542.482 538.589 543 536L544 536L547 541L551 541C551.746 545.475 556.537 546.314 557 544L558 544L560 546L565 548C572.764 557.946 605.142 558.049 614 550L614 549L612 546C620.928 547.513 633.033 552.406 641 546L643 548C647.584 546.195 657.106 546.149 657 540L660 542L665 537C670.097 538.699 683.536 522.707 680 522L680 521L682 519L685 518L686 515L683 512L684 515L684 516C678.935 517.43 673.625 521.948 672 527L671 527L670 525L668 528C663.955 527.74 659.519 528.646 657 532L632 532C631.439 528.434 612.947 520.102 609 520L604 517C602.702 514.568 599.895 510.073 597 512L596 512C594.415 506.469 587.66 500.871 582 500L571 491C569.369 487.729 567.703 486.095 564 486L561 483L557 480L556 480L556 477L555 477L555 479L554 479C550.754 468.885 529.872 467.965 521 468.276C516.908 468.42 512.332 468.4 510 472L507 470C490.987 474.5 474.09 466.459 457 470.12C451.648 471.267 441.804 474.46 440 480z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M684 486L687 492L684 486z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M686 493L684 511L685 513L686 513C688.565 506.961 690.261 498.595 686 493z"/>
-      <path style="fill:#1f1b17; stroke:none;" d="M382 550L381 552L382 550z"/>
-      <path style="fill:#ffffff; stroke:none;" d="M614 551L615 552L614 551z"/>
-    </svg>
-  </div>
+<app-loading [loading]="readyCounter >= 4"></app-loading>
 
-<div class="about w-100">
+<div class="mt"></div>
 
-  <div class="main text-center">
-      <h1>Ricsó és a Tirányos</h1>
-  </div>
-
-  <div class="subs">
-      <div class="row mx-auto text-center">
-          <div class="col-4 sub">
-              <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-youtube ClickableLink" viewBox="0 0 16 16" (click)="goTo('youtube')">
-                      <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
-                  </svg>
-                  <h3>{{youtube}}</h3>
-              </div>
-
-          </div>
-          <div class="col-4 sub">
-              <div>
-
-                  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-twitch ClickableLink" viewBox="0 0 16 16" (click)="goTo('twitch')">
-                      <path d="M3.857 0 1 2.857v10.286h3.429V16l2.857-2.857H9.57L14.714 8V0H3.857zm9.714 7.429-2.285 2.285H9l-2 2v-2H4.429V1.143h9.142v6.286z"/>
-                      <path d="M11.857 3.143h-1.143V6.57h1.143V3.143zm-3.143 0H7.571V6.57h1.143V3.143z"/>
-                  </svg>
-                  <h3>{{twitch}}</h3>
-              </div>
-          </div>
-          <div class="col-4 sub">
-              <div>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-tiktok mb-1 ClickableLink" viewBox="0 0 16 16" (click)="goTo('tiktok')">
-                    <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3V0Z"/>
-                  </svg>
-                  <h3>OFFLINE</h3>
-              </div>
-          </div>
-      </div>
-  </div>
-
-  <div class="row w-100 m-0">
-    <div class="col-12 col-lg-12">
-      <div class="alerter">
-        Mindenkinek nagyon köszönjük az <span class="number">50</span> követőt!
-      </div>
-    </div>
-    <div class="col-12 col-lg-12">
-        <!-- <div class="twitchDiv text-center">
-            <div class="header">
-                <h1>Nézz minket Twitchen!</h1>
-
-                <h5 class="headerH5">Élőben minden hétköznap délelött és este!</h5>
-
-                <button class="calBtn" routerLink="menetrend">
-                  <i class="fa-regular fa-calendar-check"></i> Menetrend
-                </button>
-
-                <div class="row w-75 mx-auto ">
-                    <div class="col-12 col-lg-6 d-none d-lg-flex">
-                        <div class="twitchStream mx-auto">
-                            <iframe [src]="safeSrc" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                        <div class="closestStream text-start mx-auto">
-                            <i class="fa-solid fa-video fs-1 mb-4"></i>
-
-
-                            <h3>A következő stream</h3>
-                            <hr>
-
-
-
-                            <span class="date" *ngIf="!checkNextStream()">{{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
-
-                            <div class="event row">
-
-                                <div class="col-lg-2 col-12 bordered text-center">
-                                    <span *ngIf="!checkNextStream()">
-                                        <h3>{{convertToDate(nextStream.start)}}</h3>
-                                        <h5>{{convertToDateMonth(nextStream.start)}}.</h5>
-                                    </span>
-                                </div>
-                                <div class="col-lg-10 col-12 mt-3 mt-lg-0">
-                                    <h4 *ngIf="checkNextStream()">Nincs tervezett stream!</h4>
-                                    <span *ngIf="!checkNextStream()">
-                                        <h5>{{getNextStreamName()}}</h5>
-                                        {{convertToTime(nextStream.start)}} - {{convertToTime(nextStream.end)}}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-      <div class="twitch-div text-center">
-          <div class="row d-lg-flex justify-content-center">
-              <div class="twitch-text col-12 col-lg-5">
-                <h2>Nézz minket Twitchen</h2>
-                <hr>
-                <div class="padding">
-                    <div class="twitch-closest-stream text-start mx-auto">
-                        <i class="fa-solid fa-video mb-4" [ngClass]="isMobile ? 'fs-3' : 'fs-1'"> <span class="twitch-closest-stream-header"> A következő stream </span></i>
-                        <span class="date" *ngIf="!checkNextStream() && !isMobile"> {{convertToDateYear(nextStream.start)}} {{convertToDateMonth(nextStream.start,"full")}}</span>
-
-                        <div class="event row" *ngIf="!isMobile">
-
-                            <div class="col-lg-2 col-12 bordered text-center">
-                                <span *ngIf="!checkNextStream()">
-                                    <h3>{{convertToDate(nextStream.start)}}</h3>
-                                    <h5>{{convertToDateMonth(nextStream.start)}}.</h5>
-                                </span>
-                            </div>
-                            <div class="col-lg-10 col-12 mt-3 mt-lg-0">
-                                <h4 *ngIf="checkNextStream()">Nincs tervezett stream!</h4>
-                                <span *ngIf="!checkNextStream()">
-                                    <h5>{{getNextStreamName()}}</h5>
-                                    {{convertToTime(nextStream.start)}} - {{convertToTime(nextStream.end)}}
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="event row" *ngIf="isMobile">
-                            <div class="col-12 text-center">
-                                <h5 *ngIf="checkNextStream()">Nincs tervezett stream!</h5>
-                                <span *ngIf="!checkNextStream()">
-                                    <h5>{{getNextStreamName()}}</h5>
-                                    <hr>
-                                    <h5>{{convertToDateMonth(nextStream.start)}}. {{convertToDate(nextStream.start)}} </h5>
-                                    {{convertToTime(nextStream.start)}} - {{convertToTime(nextStream.end)}}
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-              </div>
-              <div class="col-lg-1 col-0"></div>
-              <div class="twitch-tv col-12 col-lg-5" [ngClass]="isMobile ? 'mt-4' : ''">
-                <iframe [src]="safeSrc" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
-              </div>
-          </div>
-      </div>
-    </div>
-    <div class="col-12 col-lg-6 mt-3 mb-3">
-      <div class="youtubeDiv text-center">
-          <div class="header">
-              <h3>Ha lemaradtál volna a közvetítésekről a Youtube csatornánkon bármikor visszanézheted!</h3>
-
-              <h5 class="headerH5">Vagy válogathatsz a weboldalon lévő sorozatokból is</h5>
-
-              <button class="vidBtn" (click)="goToYoutube()">
-                  <i class="fa-solid fa-play"></i>  Youtube
-              </button>
-
-
-          </div>
-      </div>
-    </div>
-    <div class="col-12 col-lg-6 mt-3 mb-3">
-      <div class="discordDiv text-center">
-          <div class="header">
-              <h3>Szeretnél minél több infót megtudni a csatornáról és rólunk? Szeretnél részese lenni a közösségünknek?</h3>
-
-              <h5 class="headerH5">Csatlakozz a Discord szerverünkhöz.</h5>
-
-              <button class="dicBtn" (click)="goTo('discord')">
-                  <i class="fa-solid fa-play"></i>  Discord
-              </button>
-
-
-          </div>
+<div class="registration">
+  <div class=" text-center">
+    <h1>Ricsó és a Tirányos</h1>
+    <hr>
+    <div class="container">
+      <div class="row">
+        <div class="col-4">
+          <app-icon [number]="youtube" [class]="'bi-youtube'" link="https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w"></app-icon>
+        </div>
+        <div class="col-4">
+          <app-icon [number]="twitch" [class]="'bi-twitch'" link="https://www.twitch.tv/ricsoesatiranyos/"></app-icon>
+        </div>
+        <div class="col-4">
+          <app-icon number="OFFLINE" [class]="'bi-tiktok'" link="https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU"></app-icon>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="footer">
-    <img src="../assets/logo.png" alt="">
+
+<div class="registration">
+  <div class="">
+    <app-new-home name="Nézz minket Twitchen!" src="assets/logo.jpg" width="50"></app-new-home>
   </div>
-  <div class="footerCopy">
+  <hr>
+  <div class="text-light mb-3">
+    <div *ngIf="getNextStreamName(nextStream)">
+      A következő stream: <br><br>
+      <span class="fw-bold fs-3">{{getNextStreamName(nextStream)}}</span>
+      <br><br>
+      {{convertToDateTime(nextStream.start,"month")}} {{convertToDateTime(nextStream.start,"date") }}<br>
+      <i class="fa-regular fa-clock"></i>
+      {{convertToDateTime(nextStream.start,"time")}} - {{convertToDateTime(nextStream.end,"time") }}
+    </div>
+    <div *ngIf="!getNextStreamName(nextStream)">
+      Nincs tervetett stream
+      <br>
+      <br>
+      Viszont bármikor elkezdődhet egy. Figyeljétek a Discord szerverünket!
+    </div>
+  </div>
+  <div>
+    <iframe [src]="safeSrc" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-4 text-center">
+      <div class="button fs-5">
+        <i class="fa-regular fa-circle-play"></i> Nézd
+      </div>
+    </div>
+    <div class="col-4 text-center">
+      <div class="button fs-5">
+        <i class="fa-regular fa-calendar-days"></i> Menetrend
+      </div>
+    </div>
+    <div class="col-4 text-center">
+      <div class="button fs-5">
+        <i class="fa-solid fa-film"></i> Sorozatok
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-registration
+  title="Lemaradtál a közvetítésekről?"
+  titleSRC="assets/logo.jpg"
+  html="Rendszeresen feltesszük a VOD-okat a Youtube csatornánkra, hogy vissza tudjátok nézni a streameket, <br> vagy ha lemaradtatok róla akkor meg tudjátok ott nézni a vágatlan anyagot.
+  <br>
+  <br>
+  Ha a legjobb pillanatokra vagytok kiváncsiak, vagy tényleg csak a lényeget kiragadott videókat szeretnétek megnézni, akkor az a Highlights csatornán tudjátok megtenni.
+  <br>
+  <br>
+  Továbbá nézzétek a Tiktok csatornánkat is ha a legjobb jelenetekre vagy kiváncsiak"
+  img="assets/y_wallpaper.jpg"
+  btn1 ="VOD csatorna"
+  btn1Icon="bi bi-youtube"
+  btn1link="https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w"
+
+  btn2 ="Fő csatorna"
+  btn2Icon="bi bi-youtube"
+  btn2link="https://www.youtube.com/channel/UC4x9Z4hBYFKuoqBFI6qRbAQ"
+
+  btn3 ="Tiktok"
+  btn3Icon="bi bi-tiktok"
+  btn3link="https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU"
+  >
+</app-registration>
+
+<app-registration
+  title="Csatlakozz hozzánk!"
+  titleSRC="assets/logo.jpg"
+  html="Szeretnél minél több infót megtudni a csatornáról és rólunk? Nem akarsz lemaradni a friss hírekről és a streamekről?
+  <br>
+  <br>
+  Csatlakozz a Discord szerverünkhöz és légy részese a közösségnek!"
+  img="assets/d_wallpaper.jpg"
+  btn1 ="Discord"
+  btn1Icon="bi bi-discord"
+  btn1link="https://discord.gg/QfGJh46n5H"
+  >
+</app-registration>
+
+
+
+
+<div class="footerCopy">
     Copyright © 2022 RicsoesaTiranyos. Minden jog fenntartva. All rights reserved.
-  </div>
+</div>

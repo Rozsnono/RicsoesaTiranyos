@@ -1,0 +1,65 @@
+.logo-loading{
+  z-index: 1010;
+
+}
+
+
+.logo-loading{
+  width: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 1011;
+  top: 0px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  color:white;
+  padding: 20%;
+  background: white;
+  background-size: 300% 100%;
+
+}
+
+.logo{
+  transform: scale(25%);
+  animation: rotation 5s infinite;
+  position: absolute;
+  top: 0px;
+}
+
+.loadingDone{
+  animation: gra 1s linear forwards;
+  /* z-index: 0 !important; */
+}
+
+
+@keyframes rotation{
+  0%{
+      transform: rotate(0deg) scale(25%);
+  }
+  100%{
+      transform: rotate(720deg) scale(25%);
+  }
+}
+
+
+
+@keyframes gra {
+  0% {
+    background-image: linear-gradient(to right,#ffffff, #ffffffc0, #ffffff50, #ffffff20, #00000000);
+    background-position: 0% 100%;
+  }
+  98% {
+    background-image: linear-gradient(to right, #ffffff, #ffffffc0, #ffffff50, #ffffff20, #00000000);
+    background-position: 100% 100%;
+  }
+  99%{
+    opacity: 0;
+    display: none;
+    top: 0;
+  }
+  100%{
+    top: 100%;
+  }
+}

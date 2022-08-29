@@ -14,6 +14,8 @@ export class HomeComponent implements OnInit {
   safeSrc: SafeResourceUrl;
   backendURL = "https://ricsoesatiranyosbackend.herokuapp.com";
 
+
+
   youtubeURL: SafeResourceUrl;
   twitchURL: SafeResourceUrl;
   instagramURL: SafeResourceUrl;
@@ -49,10 +51,10 @@ export class HomeComponent implements OnInit {
   goTo(where: any){
     switch (where) {
       case 'youtube':
-        window.location.href = "https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w";
+        window.location.href = "";
         break;
       case 'twitch':
-        window.location.href = "https://www.twitch.tv/ricsoesatiranyos/";
+        window.location.href = "";
         break;
       case 'tiktok':
         window.location.href = "https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU";
@@ -65,36 +67,27 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  convertToDateMonth(d: any, type: any = "3"): string{
-    try {
-      const date = new Date(d);
-      if(type==="full"){
+
+  convertToDateTime(d: any, type: any = 'date') : any{
+    const date = new Date(d);
+    switch (type) {
+      case 'time':
+        return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+      case 'date':
+        return date.getDate() + ".";
+      case 'month':
         return this.months[date.getMonth()];
-      }
-      return this.months[date.getMonth()].slice(0,3);
-    } catch (error) {
-      return "";
+      case 'year':
+        return date.getFullYear () + ".";
     }
-
-  }
-  convertToDateYear(d: any): string{
-    const date = new Date(d);
-    return date.getFullYear () + ".";
-  }
-  convertToDate(d: any): string{
-    const date = new Date(d);
-    return date.getDate() + ".";
-  }
-  convertToTime(d: any): string {
-    const date = new Date(d);
-    return (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes());
+    return false;
   }
 
-  getNextStreamName(){
+  getNextStreamName(next: any){
     try {
-      return this.nextStream.game.name;
+      return next.game.name;
     } catch (error) {
-      return "";
+      return false;
     }
   }
 
@@ -236,14 +229,6 @@ export class HomeComponent implements OnInit {
         error: error => console.log(error)
       }
     )
-  }
-
-  checkNextStream(){
-    try {
-      return this.nextStream.length === 0;
-    } catch (error) {
-      return false;
-    }
   }
 
   subConverter(type: any, follows: any[]): String{

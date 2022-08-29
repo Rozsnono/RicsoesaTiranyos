@@ -1,0 +1,21 @@
+.icon {
+  font-size: 2.1rem;
+  color: white;
+}
+
+.icon div i:hover, .icon div span:hover{
+  cursor: pointer;
+}
+
+
+.bi-youtube{
+  color:rgba(240, 34, 34, 0.75) !important;
+}
+
+.bi-twitch{
+  color: rgba(116, 79, 168, 0.75) !important;
+}
+
+.bi-tiktok{
+  color:rgba(255, 255, 255, 0.75) !important;
+}

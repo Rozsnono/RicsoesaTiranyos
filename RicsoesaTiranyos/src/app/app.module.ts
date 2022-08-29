@@ -45,6 +45,10 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { EventsComponent } from './events/events.component';
 import { GamesComponent } from './games/games.component';
 import { SeriesComponent } from './series/series.component';
+import { NewHomeComponent } from './new-home/new-home.component';
+import { LoadingComponent } from './loading/loading.component';
+import { IconComponent } from './icon/icon.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 
@@ -67,7 +71,11 @@ import { SeriesComponent } from './series/series.component';
     PageSettingsComponent,
     EventsComponent,
     GamesComponent,
-    SeriesComponent
+    SeriesComponent,
+    NewHomeComponent,
+    LoadingComponent,
+    IconComponent,
+    RegistrationComponent
   ],
   imports: [
     HttpClientModule,

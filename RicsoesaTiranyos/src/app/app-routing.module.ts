@@ -11,6 +11,7 @@ import { MaintenanceComponent } from './maintenance/maintenance.component';
 import { BackInTimeComponent } from './back-in-time/back-in-time.component';
 import { AdminNewComponent } from './admin-new/admin-new.component';
 import { PageSettingsComponent } from './page-settings/page-settings.component';
+import { NewHomeComponent } from './new-home/new-home.component';
 
 const routes: Routes = [
   {path: "menetrend", component: CalendarComponent},
@@ -19,7 +20,7 @@ const routes: Routes = [
   {path: "rolunk", component: AboutComponent},
   {path: "", component: HomeComponent},
   {path: "error", component: MaintenanceComponent},
-  {path: "admin", component: AdminComponent},
+  {path: "login", component: AdminComponent},
   {path: "admin/uj", component: AdminNewComponent},
   {path: "admin/oldal", component: PageSettingsComponent},
   {path: "backintime", component: BackInTimeComponent},

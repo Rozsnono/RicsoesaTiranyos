@@ -13,3 +13,46 @@
         margin-top: 6rem;
     }
 }
+
+.nav-item{
+  width: 100%;
+
+}
+
+
+.nav a span{
+  color :white;
+
+}
+
+.nav li{
+  width: 100%;
+}
+
+.nav a{
+  font-size: 1.2rem !important;
+  transition: 0.2s;
+  margin-left: 1rem;
+}
+
+.nav-item .cal{
+  margin-right: 8rem;
+}
+
+
+.nav li:hover{
+  background-color: #ffffff30;
+  border-radius: 0.5rem;
+  cursor: pointer;
+
+}
+
+
+.fixed{
+  position: fixed;
+  width: 19%;
+}
+
+.ms-6{
+  margin-left: 3rem;
+}

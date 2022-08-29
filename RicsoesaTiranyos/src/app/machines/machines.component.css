@@ -27,3 +27,7 @@
 .row{
     width: 90%;
 }
+
+.zindex{
+  z-index: 100;
+}

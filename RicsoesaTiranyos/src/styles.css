@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
+@import "~bootstrap-icons/font/bootstrap-icons.css";
 
 body{
-    background-image: radial-gradient(#242222, #242222) !important;
+    background-image: radial-gradient(#18191A, #18191A) !important;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }
 .cal-month-view{
@@ -139,7 +140,7 @@ app-add-to-calendar button{
 
 .loader div:nth-of-type(1),
 .loader div:nth-of-type(5),
-.loader div:nth-of-type(9){  
+.loader div:nth-of-type(9){
     animation-delay: 0.4s;
 }
 
@@ -221,33 +222,27 @@ app-add-to-calendar button{
     color: white !important;
 }
 
-
-.logo{
-    transform: scale(25%);
-    animation: rotation 5s infinite;
-    position: absolute;
-    top: 0px;
+.border-right{
+  border-right: 1px solid #ffffff30;
+  min-height: 100%;
 }
 
-.logo-loading{
-    width: 100%;
-    position: fixed;
-    z-index: 1000;
-    top: 0px;
-    height: 100%;
-    display: flex;
-    background-color: #00000090;
-    justify-content: center;
-    color:white;
-    padding: 20%;
-
+.border-left{
+  border-left: 1px solid #ffffff30;
+  min-height: 100%;
 }
 
-@keyframes rotation{
-    0%{
-        transform: rotate(0deg) scale(25%);
-    }
-    100%{
-        transform: rotate(720deg) scale(25%);
-    }
+.activated{
+  background-color: #ffffff30 !important;
+  /* padding-left: 1rem !important; */
+  border-radius: 0.5rem;
+  cursor: auto !important;
+}
+
+.notActive:hover{
+  background-color: #ffffff20 !important;
+  /* padding-left: 1rem !important; */
+  border-radius: 1rem;
+  cursor: pointer !important;
+  transition: 0.3s;
 }
