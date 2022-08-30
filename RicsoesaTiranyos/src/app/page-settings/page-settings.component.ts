@@ -42,6 +42,16 @@ export class PageSettingsComponent implements OnInit {
     )
   }
 
+  resetCounter(){
+    this.page.subs = 0;
+    this.http.put<any[]>(this.backendURL+"/api/link/"+this.page._id,this.page).subscribe(
+      {
+        next: (data: any) => {},
+        error: error => {}
+      }
+    )
+  }
+
 
   checking(){
     return sessionStorage["user"];
@@ -171,6 +181,8 @@ export class PageSettingsComponent implements OnInit {
         }
       )
   }
+
+
 
 }
 

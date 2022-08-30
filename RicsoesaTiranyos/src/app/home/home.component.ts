@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit {
     this.page.subs += 1;
     this.http.put<any[]>(this.backendURL+"/api/link/"+this.page._id,this.page).subscribe(
       {
-        next: (data: any) => {this.readyCounter += 1;},
+        next: (data: any) => {this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";},
         error: error => {}
       }
     )
@@ -181,7 +181,7 @@ export class HomeComponent implements OnInit {
             this.authToken = data.access_token;
             this.readyCounter += 1;
             this.getSubsFromTwitch();
-            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
+            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
 
           },
         error: error => console.log(error)
@@ -200,7 +200,7 @@ export class HomeComponent implements OnInit {
           {
             this.readyCounter += 1;
             this.twitch = this.subConverter("twitch",data.total);
-            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
+            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
           },
         error: error => console.log(error)
       }
@@ -218,7 +218,7 @@ export class HomeComponent implements OnInit {
           {
             this.youtube = data["items"][0].statistics.subscriberCount;
             this.readyCounter += 1;
-            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
+            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
 
           },
         error: error => console.log(error)
@@ -250,7 +250,7 @@ export class HomeComponent implements OnInit {
               this.nextStream = [];
             }
             this.readyCounter += 1;
-            document.body.style.overflow = this.readyCounter == 4 ? "visible" : "hidden";
+            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
 
           },
         error: error => console.log(error)

@@ -112,6 +112,11 @@ export class AppComponent {
   }
 
   checkMaintenance(){
+
+    if(this.isMobile){
+      return true;
+    }
+
     if(this.router.url === "/login" || this.router.url === "/admin/oldal" || this.router.url === "/admin/uj"){
       return false;
     }
