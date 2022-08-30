@@ -64,12 +64,18 @@ export default class nsideController implements Controller {
         try {
             const body = req.body;
             const data = await this.userM.find({'username' : body.username});
-
-            if(data[0].password === body.password){
-                res.status(200).send("Logined");
-            }else{
-                res.status(401);
+            
+            try {
+                if(data[0].password === body.password){
+                    res.status(200).send("Logined");
+                }else{
+                    res.status(401).send('Error');
+                }
+            } catch (error) {
+                res.status(401).send('Error');
             }
+            
+            
         } catch (error) {
             res.status(400).send(error.message);
         }
