@@ -142,7 +142,7 @@ export class AppComponent {
 
   checkRoute(route: any){
     if (this.router.url.split('/')[1] === route) {
-      return "activated";
+      return "activatedHome";
     }
     return "notActive"
   }

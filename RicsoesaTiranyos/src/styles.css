@@ -237,6 +237,14 @@ app-add-to-calendar button{
   /* padding-left: 1rem !important; */
   border-radius: 0.5rem;
   cursor: auto !important;
+  border-left: 3px solid #0000ff50;
+}
+
+.activatedHome{
+  background-color: #ffffff30 !important;
+  /* padding-left: 1rem !important; */
+  border-radius: 0.5rem;
+  cursor: auto !important;
 }
 
 .notActive:hover{
