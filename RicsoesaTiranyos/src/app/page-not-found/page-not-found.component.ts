@@ -6,11 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.css']
 })
 export class PageNotFoundComponent implements OnInit {
+  isMobile: boolean;
 
   constructor() { }
 
   ngOnInit(): void {
     sessionStorage.clear();
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      // true for mobile device
+      this.isMobile = true;
+    }else{
+      // false for not mobile device
+      this.isMobile = false;
+    }
   }
 
 }

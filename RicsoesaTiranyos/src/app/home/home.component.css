@@ -396,3 +396,7 @@ iframe{
   background-color: #ffffff30;
   cursor: pointer;
 }
+
+.twitchTV{
+  height: 50vh;
+}

@@ -1,7 +1,18 @@
 
-<app-loading [loading]="readyCounter >= 5"></app-loading>
+<app-loading [loading]="readyCounter >= 6"></app-loading>
 
 <div class="mt"></div>
+
+<div class="row" *ngIf="StorySeries && !isMobile">
+  <div class="col-6 col-lg-3 mt-2" *ngFor="let youtube of StorySeries">
+    <app-story [name]="youtube.name" [picture]="youtube.picture" [link]="youtube.link"></app-story>
+  </div>
+  <div class="col-6 col-lg-3 mt-2" *ngFor="let number of storyNumber">
+    <app-story></app-story>
+  </div>
+</div>
+
+<div class="mt-5"></div>
 
 <div class="registration">
   <div class=" text-center">
@@ -10,13 +21,13 @@
     <div class="container">
       <div class="row">
         <div class="col-4">
-          <app-icon [number]="youtube" [class]="'bi-youtube'" link="https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w"></app-icon>
+          <app-icon [number]="youtube" [class]="'bi-youtube'" link="https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w" [isMobile]="isMobile"></app-icon>
         </div>
         <div class="col-4">
-          <app-icon [number]="twitch" [class]="'bi-twitch'" link="https://www.twitch.tv/ricsoesatiranyos/"></app-icon>
+          <app-icon [number]="twitch" [class]="'bi-twitch'" link="https://www.twitch.tv/ricsoesatiranyos/" [isMobile]="isMobile"></app-icon>
         </div>
         <div class="col-4">
-          <app-icon number="" [class]="'bi-tiktok'" link="https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU"></app-icon>
+          <app-icon number="" [class]="'bi-tiktok'" link="https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU" [isMobile]="isMobile"></app-icon>
         </div>
       </div>
     </div>
@@ -26,7 +37,7 @@
 
 <div class="registration">
   <div class="">
-    <app-new-home name="Nézz minket Twitchen!" src="assets/logo.jpg" width="50"></app-new-home>
+    <app-new-home name="Nézz minket Twitchen!" src="assets/logo.jpg" width="50" margin="0rem 0rem 0rem 1rem"> </app-new-home>
   </div>
   <hr>
   <div class="text-light mb-3">
@@ -45,24 +56,24 @@
       Viszont bármikor elkezdődhet egy. Figyeljétek a Discord szerverünket!
     </div>
   </div>
-  <div>
+  <div class="twitchTV">
     <iframe [src]="safeSrc" frameborder="0" allowfullscreen="true" scrolling="no"></iframe>
   </div>
   <hr>
   <div class="row">
-    <div class="col-4 text-center">
-      <div class="button fs-5">
+    <div class="col-4 text-center" (click)="goTo('twitch')">
+      <div class="button fs-lg-5 fs-sm-1 ">
         <i class="fa-regular fa-circle-play"></i> Nézd
       </div>
     </div>
-    <div class="col-4 text-center">
-      <div class="button fs-5">
-        <i class="fa-regular fa-calendar-days"></i> Menetrend
+    <div class="col-4 text-center" routerLink="/menetrend">
+      <div class="button fs-lg-5 fs-sm-1">
+        <i class="fa-regular fa-calendar-days"></i> {{!isMobile ? "Menetrend" : "Menet.."}}
       </div>
     </div>
-    <div class="col-4 text-center">
-      <div class="button fs-5">
-        <i class="fa-solid fa-film"></i> Sorozatok
+    <div class="col-4 text-center" routerLink="/sorozatok">
+      <div class="button fs-lg-5 fs-sm-1 ">
+        <i class="fa-solid fa-film"></i> {{!isMobile ? "Sorozatok" : "Soroz.."}}
       </div>
     </div>
   </div>
@@ -78,7 +89,7 @@
   <br>
   <br>
   Továbbá nézzétek a Tiktok csatornánkat is ha a legjobb jelenetekre vagy kiváncsiak"
-  img="assets/y_wallpaper.jpg"
+  img="assets/y-wallpaper.png"
   btn1 ="VOD csatorna"
   btn1Icon="bi bi-youtube"
   btn1link="https://www.youtube.com/channel/UCVxPnFAKMyWtvxodKjg5L2w"
@@ -100,7 +111,7 @@
   <br>
   <br>
   Csatlakozz a Discord szerverünkhöz és légy részese a közösségnek!"
-  img="assets/d_wallpaper.jpg"
+  img="assets/dc-wallpaper.png"
   btn1 ="Discord"
   btn1Icon="bi bi-discord"
   btn1link="https://discord.gg/QfGJh46n5H"

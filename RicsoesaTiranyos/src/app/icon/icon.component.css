@@ -7,6 +7,9 @@
   cursor: pointer;
 }
 
+.font-mobile {
+  font-size: 5vw;
+}
 
 .bi-youtube{
   color:rgba(240, 34, 34, 0.75) !important;

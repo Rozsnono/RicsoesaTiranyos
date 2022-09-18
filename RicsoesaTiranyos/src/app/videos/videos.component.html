@@ -1,15 +1,59 @@
 
 <app-loading [loading]="loaded"></app-loading>
 
+
+
+
 <div class="row">
-  <div class="col-3">
+  <div class="col-12" *ngIf="isMobile">
+    <div class="row menu-mobile">
+
+      <div class="col-3">
+        <div class="nav-item-mobile" [class]="choosenType === 0 ? 'activated' : ''">
+          <a class="nav-link align-middle px-0 text-center " (click)="changeChoosenNumber(0)">
+            <i class="fs-1 bi bi-play-btn ms-1 me-1 text-light"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-3">
+
+        <div class="nav-item-mobile" [class]="choosenType === 1 ? 'activated' : ''">
+          <a class="nav-link px-0 align-middle text-center" (click)="changeChoosenNumber(1)">
+            <i class="fs-1 bi bi-stop-btn ms-1 me-1 text-light"></i>
+          </a>
+        </div>
+      </div>
+      <div class="col-6">
+        <form class="example-form w-100" *ngIf="!isAllEmpty">
+          <mat-form-field class="example-full-width w-100" appearance="fill">
+            <mat-label class="text-light">Játék keresése</mat-label>
+            <mat-icon matPrefix>search &nbsp; </mat-icon>
+            <input type="text"
+                   matInput
+                   [formControl]="myControl"
+                   (ngModelChange)="InputChange($event)"
+                   class="text-light">
+            <!-- <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete> -->
+            <button *ngIf="selectedGameName" matSuffix mat-icon-button aria-label="Clear" (click)="selectedGameName=''">
+              <mat-icon>close</mat-icon>
+            </button>
+          </mat-form-field>
+        </form>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-3" *ngIf="!isMobile">
     <div class="fixed">
       <form class="example-form w-100" *ngIf="!isAllEmpty">
         <mat-form-field class="example-full-width w-100" appearance="fill">
           <mat-label class="text-light">Játék keresése</mat-label>
           <mat-icon matPrefix>search &nbsp; </mat-icon>
           <input type="text"
-                [(ngModel)]="selectedGameName"
                  matInput
                  [formControl]="myControl"
                  (ngModelChange)="InputChange($event)"
@@ -65,6 +109,26 @@
     </div>
 
     <!-- html="A Forza Horizon 5 egy 2021-es versenyautó-videojáték, amelyet a Playground Games fejlesztett és az Xbox Game Studios adott ki. Ez az ötödik Forza Horizon cím és a tizenkettedik főrész a Forza sorozatban. <br> <br> 2021 <br>" -->
+
+  </div>
+
+  <div class="col-12 mt-4">
+
+    <div class="w-100 text-center text-light"><h1>Folyó</h1></div>
+    
+    <div class="ms-6">
+      <app-registration *ngFor="let link of getChoosenArray()"
+        [title]="link.name"
+        titleSRC="assets/logo.jpg"
+        [html]="link.type[0] + '<br><br>' + toCorrectTime(link.date) + '<br><br>'"
+        [videoType]="link.type"
+        [img]="PicToBase64(link.picture)"
+        btn1 ="Na lássuk!"
+        btn1Icon="fa-brands fa-youtube"
+        [btn1link]="link.link"
+        >
+      </app-registration>
+    </div>
 
   </div>
 </div>

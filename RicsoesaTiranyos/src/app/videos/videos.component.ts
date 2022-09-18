@@ -126,7 +126,7 @@ export class VideosComponent implements OnInit {
           this.NoSeriesBack = (this.SeriesBackArray.length === 0);
 
         },
-        error: error => console.log(error)
+        error: error => {console.log(error); this.router.navigateByUrl('/not-found');}
       }
     )
   }

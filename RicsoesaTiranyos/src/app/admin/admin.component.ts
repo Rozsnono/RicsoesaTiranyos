@@ -94,6 +94,24 @@ export class AdminComponent implements OnInit {
     return tmpPass;
   }
 
+  Coding2(pass: any){
+    let tmpPass = "";
+    const passArray = pass.split('');
+
+    for (let index = 0; index < passArray.length; index++) {
+      const element = passArray[index].charCodeAt(0);
+      if(element > 1000){
+        tmpPass += "4" + element;
+      }else if(element > 100){
+        tmpPass += "3" + element;
+      }else if(element > 10){
+        tmpPass += "2" + element;
+      }else {
+        tmpPass += "1" + element;
+      }
+    }
+  }
+
 
   checking(){
     return sessionStorage["user"];

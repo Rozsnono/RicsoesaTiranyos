@@ -12,6 +12,8 @@ export class NewHomeComponent implements OnInit {
   @Input() src: any = {};
   @Input() width: any = {};
   @Input() routerlink: any = {};
+  @Input() nameSized: any = {};
+  @Input() margin: any = {};
 
   constructor() { }
 

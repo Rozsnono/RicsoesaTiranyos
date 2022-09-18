@@ -49,6 +49,7 @@ import { NewHomeComponent } from './new-home/new-home.component';
 import { LoadingComponent } from './loading/loading.component';
 import { IconComponent } from './icon/icon.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { StoryComponent } from './story/story.component';
 
 
 
@@ -75,7 +76,8 @@ import { RegistrationComponent } from './registration/registration.component';
     NewHomeComponent,
     LoadingComponent,
     IconComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    StoryComponent
   ],
   imports: [
     HttpClientModule,

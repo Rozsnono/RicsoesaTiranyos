@@ -40,13 +40,25 @@
 }
 
 
-.nav li:hover{
+.nav .nav-item:hover{
   background-color: #ffffff30;
   border-radius: 0.5rem;
   cursor: pointer;
 
 }
 
+.nav-item-mobile .activated{
+  background-color: #ffffff30;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.menu-mobile{
+  background-color: #242526;
+  margin-top: -3vh !important;
+  padding: 1vh 0 0 0;
+  border-bottom: 1px solid #ffffff30;
+}
 
 .fixed{
   position: fixed;

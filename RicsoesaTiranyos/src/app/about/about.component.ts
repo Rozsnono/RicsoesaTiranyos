@@ -23,6 +23,7 @@ export class AboutComponent implements OnInit {
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
       // true for mobile device
       this.isMobile = true;
+      this.router.navigateByUrl('/not-found');
     }else{
       // false for not mobile device
       this.isMobile = false;

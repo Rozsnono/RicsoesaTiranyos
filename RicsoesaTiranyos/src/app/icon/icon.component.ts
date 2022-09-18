@@ -12,6 +12,9 @@ export class IconComponent implements OnInit {
   @Input() number: any = {};
   @Input() link: any = {};
 
+  @Input() isMobile: any = false;
+
+
   constructor() { }
 
   ngOnInit(): void {

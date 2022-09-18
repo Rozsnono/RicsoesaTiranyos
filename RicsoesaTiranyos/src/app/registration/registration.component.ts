@@ -10,7 +10,7 @@ export class RegistrationComponent implements OnInit {
   @Input() title: any = "";
   @Input() titleSRC: any = "";
   @Input() titleWIDTH: any = 50;
-  @Input() html: any = "<></>";
+  @Input() html: any = "";
   @Input() videoType: any;
   @Input() img: any = "";
 

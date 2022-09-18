@@ -1,3 +1,42 @@
+.body{
+  padding: 0rem 8rem;
+  margin-top: -5vh;
+}
+
+.intro video{
+  width: 100% !important;
+  margin-top: -10vh
+}
+
+.intro {
+  overflow: hidden;
+  height: 50vh;
+}
+
+.logo{
+  position: absolute;
+  top: 50vh;
+  margin-left: 3%;
+}
+
+.marginPos{
+  margin-top: 13rem;
+}
+
+hr{
+  background-color: #ffffffb9;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 .container {

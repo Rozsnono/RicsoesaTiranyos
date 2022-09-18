@@ -1,6 +1,6 @@
 <div class="registration">
   <div class="">
-    <app-new-home [name]="title" [src]="titleSRC" [width]="titleWIDTH" class="notBTN"></app-new-home>
+    <app-new-home [name]="title" [src]="titleSRC" [width]="titleWIDTH" class="notBTN" margin="0rem 0rem 0rem 1rem"></app-new-home>
   </div>
   <hr>
   <div class="text-light mb-3">
@@ -10,22 +10,23 @@
     </mat-chip-list>
   </div>
   <div class="imgDiv">
+    <!-- <span [innerHTML]="html"></span> -->
     <img [src]="img" alt="kép">
   </div>
   <hr>
   <div class="row d-flex justify-content-center">
     <div class="col-4 text-center" *ngIf="btn1">
-      <div class="button fs-5" (click)="goTo(btn1link)">
+      <div class="button fs-lg-5 fs-sm-1" (click)="goTo(btn1link)">
         <i [class]="btn1Icon"></i> {{btn1}}
       </div>
     </div>
     <div class="col-4 text-center" *ngIf="btn2">
-      <div class="button fs-5" (click)="goTo(btn2link)" >
+      <div class="button fs-lg-5 fs-sm-1" (click)="goTo(btn2link)" >
         <i [class]="btn2Icon"></i> {{btn2}}
       </div>
     </div>
     <div class="col-4 text-center" *ngIf="btn3">
-      <div class="button fs-5" (click)="goTo(btn3link)">
+      <div class="button fs-lg-5 fs-sm-1" (click)="goTo(btn3link)">
         <i [class]="btn3Icon"></i> {{btn3}}
       </div>
     </div>

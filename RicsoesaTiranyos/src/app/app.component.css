@@ -3,8 +3,7 @@
   background-color: #242526;
   color: white;
   font-size: 1.5em;
-  padding-left: 2rem;
-  padding: 1rem 0rem 1rem 2rem;
+  padding: 0.5rem 0rem 0.5rem 2rem;
   font-weight: bolder;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
   border-bottom: 1px solid #ffffff40;
@@ -39,6 +38,17 @@
 }
 
 
+.title{
+  font-size: 4vh;
+}
+
+.title-mobile{
+  font-size: 5vw;
+}
+
+.margin-top-6{
+  margin-top: 6vh;
+}
 
 
 .none{
@@ -48,6 +58,11 @@
 .none span{
   display: none !important;
 }
+
+.title-none{
+  display: none;
+}
+
 
 .container{
   max-width: 100% !important;
@@ -86,4 +101,12 @@
 
 .margin-top{
   margin-top: 10rem !important;
+}
+
+.icon-logo{
+  margin-top: -0.5rem;
+}
+
+.nav{
+  height: 0% !important;
 }

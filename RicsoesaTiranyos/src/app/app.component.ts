@@ -26,6 +26,7 @@ export class AppComponent {
   loading: boolean = true;
 
   windowScrolled: boolean;
+  titleNone: string;
 
   @HostListener("window:scroll", []) onWindowScroll() {
     if (window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop > 100) {
@@ -68,6 +69,10 @@ export class AppComponent {
     this.router.events.subscribe((url:any) => {
       url.url === undefined ? "" :
       this.none = url.url === "/" ? "" : "none";
+      if(this.isMobile){
+        url.url === undefined ? "" :
+        this.titleNone = url.url === "/" ? "" : "title-none";
+      }
       url.url === undefined ? "" :
       this.aboutNone = url.url === "/" ? "" : "aboutNone";
     });
@@ -113,9 +118,6 @@ export class AppComponent {
 
   checkMaintenance(){
 
-    if(this.isMobile){
-      return true;
-    }
 
     if(this.router.url === "/login" || this.router.url === "/admin/oldal" || this.router.url === "/admin/uj"){
       return false;

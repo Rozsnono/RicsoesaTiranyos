@@ -34,10 +34,43 @@
 .imgDiv{
   width: 100%;
   overflow: hidden;
-  max-height: 37rem;
+  max-height: 50vh;
 }
 
 img{
   width: 100%;
   margin-top: 0%;
+}
+
+
+.registration{
+  background-color: #242526;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.registration hr{
+  background-color: #ffffff80;
+  z-index: 0;
+}
+
+.registration h1{
+  text-shadow: 1px 1px 0px black;
+  color:white;
+}
+
+.registration .border{}
+
+.button{
+  border-radius: 0.5rem;
+  transition: 0.3s;
+  padding: 0.5rem;
+  color: white;
+}
+
+.button:hover{
+  transition: 0.1s;
+  background-color: #ffffff30;
+  cursor: pointer;
 }

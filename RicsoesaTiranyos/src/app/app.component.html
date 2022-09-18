@@ -2,15 +2,15 @@
 
 
 <body>
-  <div class="navbar">
+  <div class="navbar" [ngClass]="titleNone" >
     <div class="w-100 text-center" *ngIf="checkMaintenance()">
       <h3>Sajnáljuk jelenleg a weboldal nem elérhető! </h3>
       <span class="rt">Ricsó és a Tirányos</span>
     </div>
 
-    <span class=""  *ngIf="!checkMaintenance()">Ricso és a Tirányos</span>
-      <div class="float-end me-3"  *ngIf="!checkMaintenance()">
-        <app-new-home width="40" src="assets/logo.jpg" name="" routerLink="/login" class="pointer"></app-new-home>
+    <span [class]="isMobile ? 'title-mobile':'title'"  *ngIf="!checkMaintenance()">Ricso és a Tirányos</span>
+      <div class="float-end me-3 icon-logo"  *ngIf="!checkMaintenance()">
+        <app-new-home width="35" src="assets/logo.jpg" name="" routerLink="/login" class="pointer"></app-new-home>
       </div>
   </div>
 
@@ -24,9 +24,9 @@
 
 
 
-  <div class="container" *ngIf="!checkMaintenance()">
-    <div class="row w-100">
-      <div [class]="none !== '' ? 'col-1 border-right' : 'col-3'" >
+  <div class="container w-100 p-0" *ngIf="!checkMaintenance()">
+    <div class="row w-100 mx-0">
+      <div [class]="none !== '' ? 'col-1 border-right' : 'col-3'" *ngIf="!isMobile">
         <div class="container-fluid menu">
           <div class="row flex-nowrap">
               <div class="col-auto col-md-8 col-lg-10 col-xl-10 px-sm-2 px-0 ">
@@ -84,23 +84,47 @@
         </div>
       </div>
 
+      <div class="col-12 p-0 nav h-0" [class]="titleNone ? '' : 'margin-top-6'" *ngIf="isMobile">
+        <nav class="navbar navbar-expand-lg d-flex justify-content-center text-center p-0 pt-2 pb-2">
+          <div class="container-fluid">
+            <span class="nav-item mt-1" [ngClass]="none" [class]="checkRoute(page.route)" *ngFor="let page of pages" >
+              <a [routerLink]="page.route" class="nav-link align-middle px-0 text-lg-start text-sm-center " *ngIf="!page.disabled">
+                <i class="fs-3 bi ms-1 me-1" [class]="page.icon"></i> <span class="ms-1 d-none d-sm-inline cal" [ngClass]="none"></span>
+              </a>
+            </span>
 
-      <div [class]="aboutNone !== '' ? 'col-10' : 'col-6'" class="zindex">
-        <div class="margin">
-          <router-outlet ></router-outlet>
+
+            <span class="nav-item " [ngClass]="none" *ngIf="checking()">
+              <a routerLink="admin/uj" class="nav-link align-middle px-0 text-lg-start text-sm-center ">
+                <i class="fs-4 bi bi-twitch ms-1 me-1 text-light"></i> <span class="ms-1 d-none d-sm-inline" [ngClass]="none">Stream</span>
+              </a>
+            </span>
+            <span class="nav-item" [ngClass]="none" *ngIf="checking()">
+                <a routerLink="/admin/oldal" class="nav-link px-0 align-middle text-lg-start text-sm-center">
+                  <i class="fs-4 bi-file-break ms-1 me-1 text-light"></i> <span class="ms-1 d-none d-sm-inline cal" [ngClass]="none">Oldal</span>
+                </a>
+            </span>
+          </div>
+        </nav>
+      </div>
+
+
+      <div [class]="isMobile ? 'col-12' : aboutNone !== '' ? 'col-10' : 'col-6'" class="zindex h-100 ">
+        <div class="margin w-100">
+          <router-outlet class="w-100 "></router-outlet>
         </div>
       </div>
 
 
       <div class="col-1"></div>
-      <div class="col-2" [ngClass]="aboutNone">
+      <div class="col-2" [ngClass]="aboutNone" *ngIf="!isMobile">
         <div class="about">
           <div class="about-title">
             Kik vagyunk?
           </div>
-          <app-new-home name="Ricsó úr" src="assets/patrik.jpg" width="30" routerLink="/rolunk" class="pointer"></app-new-home>
-          <app-new-home name="Tirányos úr" src="assets/bence.jpg" width="30"  routerLink="/rolunk" class="pointer"></app-new-home>
-          <app-new-home name="Nono úrfi" src="assets/nono.jpg" width="30"  routerLink="/rolunk" class="pointer"></app-new-home>
+          <app-new-home name="Ricsó úr" src="assets/patrik.jpg" width="30" routerLink="/rolunk" class="pointer" margin="0rem 0rem 0rem 1rem"></app-new-home>
+          <app-new-home name="Tirányos úr" src="assets/bence.jpg" width="30"  routerLink="/rolunk" class="pointer" margin="0rem 0rem 0rem 1rem"></app-new-home>
+          <app-new-home name="Nono úrfi" src="assets/nono.jpg" width="30"  routerLink="/rolunk" class="pointer" margin="0rem 0rem 0rem 1rem"></app-new-home>
         </div>
 
       </div>

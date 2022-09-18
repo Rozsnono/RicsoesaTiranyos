@@ -32,6 +32,8 @@ export class HomeComponent implements OnInit {
     "Január","Február","Március","Április","Május","Június","Július","Augusztus","Szeptember","Október","November","December"
   ]
 
+  StorySeries: any[];
+
   async getTiktok(){
 
     // const tiktok = require('tiktok-app-api');
@@ -41,6 +43,9 @@ export class HomeComponent implements OnInit {
     // const userinfo = await tiktokApp.getUserInfo(user);
     // console.log(userinfo);
   }
+
+
+
 
 
 
@@ -54,7 +59,7 @@ export class HomeComponent implements OnInit {
         window.location.href = "";
         break;
       case 'twitch':
-        window.location.href = "";
+        window.location.href = "https://www.twitch.tv/ricsoesatiranyos";
         break;
       case 'tiktok':
         window.location.href = "https://www.tiktok.com/@ricsoesatiranyos?lang=hu-HU";
@@ -111,9 +116,13 @@ export class HomeComponent implements OnInit {
     this.getStream();
     this.getAuthFromTwitch();
     this.getYoutubeSubs();
-    this.getVideos();
     this.getTiktok();
     this.getLinks();
+    if (this.isMobile) {
+      this.readyCounter += 1;
+    }else{
+      this.getAllYoutube();
+    }
     this.safeSrc =  this.sanitizer.bypassSecurityTrustResourceUrl("https://player.twitch.tv/?channel=ricsoesatiranyos&parent=www.ricsoesatiranyos.hu");
   }
 
@@ -137,20 +146,12 @@ export class HomeComponent implements OnInit {
     this.page.subs += 1;
     this.http.put<any[]>(this.backendURL+"/api/link/"+this.page._id,this.page).subscribe(
       {
-        next: (data: any) => {this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";},
+        next: (data: any) => {this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";},
         error: error => {}
       }
     )
   }
 
-  getVideos(){
-    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
-      {
-        next: (data: any) => {this.video = data[0];},
-        error: error => console.log(error)
-      }
-    )
-  }
 
   getUrl(){
     if(window.location.href.includes("localhost")){
@@ -179,9 +180,8 @@ export class HomeComponent implements OnInit {
         next: (data: any) =>
           {
             this.authToken = data.access_token;
-            this.readyCounter += 1;
             this.getSubsFromTwitch();
-            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
+            this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";
 
           },
         error: error => console.log(error)
@@ -198,9 +198,8 @@ export class HomeComponent implements OnInit {
       {
         next: (data: any) =>
           {
-            this.readyCounter += 1;
             this.twitch = this.subConverter("twitch",data.total);
-            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
+            this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";
           },
         error: error => console.log(error)
       }
@@ -217,8 +216,7 @@ export class HomeComponent implements OnInit {
         next: (data: any) =>
           {
             this.youtube = data["items"][0].statistics.subscriberCount;
-            this.readyCounter += 1;
-            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
+            this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";
 
           },
         error: error => console.log(error)
@@ -249,11 +247,10 @@ export class HomeComponent implements OnInit {
             if (data.length === 0) {
               this.nextStream = [];
             }
-            this.readyCounter += 1;
-            document.body.style.overflow = this.readyCounter == 5 ? "visible" : "hidden";
+            this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";
 
           },
-        error: error => console.log(error)
+        error: error => {console.log(error); this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";}
       }
     )
   }
@@ -321,6 +318,37 @@ export class HomeComponent implements OnInit {
   toCorrectTime(time: any){
     const date = new Date(time);
     return date.getFullYear() + ". " + ((date.getMonth()+1) < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1)) + ". " + ((date.getDate()) < 10 ? '0' + (date.getDate()) : (date.getDate())) + ".";
+  }
+
+  storyNumber: any[] = [];
+
+  getAllYoutube(){
+    this.http.get<any[]>(this.backendURL+"/api/youtube").subscribe(
+      {
+        next: (data: any) => {
+          this.links = data;
+
+          this.StorySeries = data;
+          this.StorySeries = this.StorySeries.filter(x => x.running);
+
+          if(this.StorySeries.length < 4){
+            this.storyNumber = [];
+            for (let index = this.StorySeries.length; index < 4; index++) {
+              this.storyNumber.push(1);
+            }
+          }
+
+          this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";
+
+        },
+        error: error => {console.log(error); this.readyCounter += 1; document.body.style.overflow = this.readyCounter == 6 ? "visible" : "hidden";}
+      }
+    )
+  }
+
+  test(test:any){
+    console.log(test);
+
   }
 }
 

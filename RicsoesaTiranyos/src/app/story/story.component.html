@@ -1,0 +1,9 @@
+<div class="story" (click)="goTo()">
+  <div class="darker"></div>
+  <div class="pic" [ngStyle]="{backgroundImage: 'url(' + toBase64() + ')'}">
+    <!-- <app-new-home name="" src="../../assets/logo.jpg" width="50"></app-new-home> -->
+  </div>
+  <h5 class="name">
+    {{nameLengthCheck()}}
+  </h5>
+</div>
