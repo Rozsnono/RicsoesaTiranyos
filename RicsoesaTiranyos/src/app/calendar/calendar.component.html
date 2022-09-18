@@ -88,15 +88,9 @@
                   <img [src]="gamePicture(event.title)" alt="Picture" class="eD-img">
                 </div>
 
-                <div class="col-12 col-lg-1 text-center">
-                  <div class="eventDateBack" [ngClass]="checkEventMoreDay(event)">
-                    <h2 class="eventDate">{{convertToDate(event.start)}}</h2>
-                    <h3 class="eventMonth">{{convertToDateMonth(event.start)}}.</h3>
-                  </div>
-                </div>
 
 
-                <div class="col-12 col-lg-9 p-3 titles">
+                <div class="col-12 col-lg-8 p-3 titles">
 
                   <div class="row ">
                     <div class="col-12">
@@ -129,6 +123,14 @@
                   </div>
 
                 </div>
+<!-- 
+
+                <div class="col-12 col-lg-2 text-center">
+                  <div class="eventDateBack" [ngClass]="checkEventMoreDay(event)">
+                    <h2 class="eventDate">{{convertToDate(event.start)}}</h2>
+                    <h3 class="eventMonth">{{convertToDateMonth(event.start)}}.</h3>
+                  </div>
+                </div> -->
               </div>
           </div>
         </div>

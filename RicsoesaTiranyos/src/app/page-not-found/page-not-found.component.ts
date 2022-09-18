@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-page-not-found',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class PageNotFoundComponent implements OnInit {
   isMobile: boolean;
 
-  constructor() { }
+  constructor( private _location: Location) { }
 
   ngOnInit(): void {
     sessionStorage.clear();
@@ -20,6 +21,11 @@ export class PageNotFoundComponent implements OnInit {
       // false for not mobile device
       this.isMobile = false;
     }
+  }
+
+  goToBack(){
+
+    this._location.back();
   }
 
 }

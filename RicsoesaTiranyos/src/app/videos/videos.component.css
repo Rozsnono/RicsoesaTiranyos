@@ -58,6 +58,12 @@
   margin-top: -3vh !important;
   padding: 1vh 0 0 0;
   border-bottom: 1px solid #ffffff30;
+
+  position: fixed;
+}
+
+.margin-top-9{
+  margin-top: 9vh;
 }
 
 .fixed{

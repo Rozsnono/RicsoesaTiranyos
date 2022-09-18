@@ -93,7 +93,7 @@
     </div>
 
   </div>
-  <div class="col-9 border-left">
+  <div class="col-9 border-left" *ngIf="!isMobile">
     <div class="ms-6">
       <app-registration *ngFor="let link of getChoosenArray()"
         [title]="link.name"
@@ -108,15 +108,14 @@
       </app-registration>
     </div>
 
-    <!-- html="A Forza Horizon 5 egy 2021-es versenyautó-videojáték, amelyet a Playground Games fejlesztett és az Xbox Game Studios adott ki. Ez az ötödik Forza Horizon cím és a tizenkettedik főrész a Forza sorozatban. <br> <br> 2021 <br>" -->
-
+    
   </div>
 
-  <div class="col-12 mt-4">
+  <div class="col-12 margin-top-9" *ngIf="isMobile">
 
-    <div class="w-100 text-center text-light"><h1>Folyó</h1></div>
-    
-    <div class="ms-6">
+    <div class="w-100 text-center text-light"><h1>{{choosenType === 0 ? "Folyó" : "Befejezett"}}</h1></div>
+
+    <div class="">
       <app-registration *ngFor="let link of getChoosenArray()"
         [title]="link.name"
         titleSRC="assets/logo.jpg"

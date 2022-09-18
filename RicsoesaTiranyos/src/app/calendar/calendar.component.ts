@@ -96,10 +96,10 @@ export class CalendarComponent implements OnInit {
             });
 
           }
-          this.eventLoaded += 1;
           this.events = this.tmpEvents;
           if(this.events.length == 0) this.modalRef = this.modalService.open(ModalComponent);
 
+          this.eventLoaded += 1;
         },
         error: error => console.log(error)
       }
