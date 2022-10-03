@@ -15,7 +15,7 @@
   display: flex;
   justify-content: center;
   color:white;
-  padding: 20%;
+  padding: 20vw;
   background: white;
   background-size: 300% 100%;
 
@@ -25,7 +25,7 @@
   transform: scale(25%);
   animation: rotation 5s infinite;
   position: absolute;
-  top: 0px;
+  top: -15vh;
 }
 
 .loadingDone{
